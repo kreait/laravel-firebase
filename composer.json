@@ -1,0 +1,34 @@
+{
+    "name": "kreait/laravel-firebase",
+    "description": "A Laravel package for the Firebase PHP Admin SDK",
+    "keywords": ["laravel", "firebase", "fcm", "gcm"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jérôme Gamez",
+            "email": "jerome@gamez.name"
+        }
+    ],
+    "require": {
+        "kreait/firebase-php": "^4.30"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kreait\\Laravel\\Firebase\\": "src"
+        }
+    },
+    "require-dev": {
+        "laravel/framework": "^5.8"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Kreait\\Laravel\\Firebase\\ServiceProvider"
+            ]
+        }
+    }
+}
