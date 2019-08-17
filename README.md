@@ -14,7 +14,7 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 ## Installation
 
 ```bash
-composer require kreait/laravel-firebase ^1.0@dev
+composer require kreait/laravel-firebase ^1.0
 ```
 
 If you don't use package auto-discovery, add the following service provider in `config/app.php`
