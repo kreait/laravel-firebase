@@ -3,7 +3,8 @@
 A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/firebase-php).
 
 [![Current version](https://img.shields.io/packagist/v/kreait/laravel-firebase.svg?logo=composer)](https://packagist.org/packages/kreait/laravel-firebase)
-[![Firebase Admin SDK version](https://img.shields.io/badge/Firebase%20Admin%20SDK-%5E4.30.0-blue)](https://packagist.org/packages/kreait/firebase-php)
+[![Firebase Admin SDK version](https://img.shields.io/badge/Firebase%20Admin%20SDK-%5E4.30.1-blue)](https://packagist.org/packages/kreait/firebase-php)
+![Supported Laravel versions](https://img.shields.io/badge/Laravel-%3E%3D5.8-blue)
 [![Discord](https://img.shields.io/discord/523866370778333184.svg?color=7289da&logo=discord)](https://discord.gg/nbgVfty)
 
 * [Installation](#installation)
@@ -12,6 +13,8 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 * [Documentation](https://firebase-php.readthedocs.io/)
 
 ## Installation
+
+This package requires Laravel 5.8 and higher.
 
 ```bash
 composer require kreait/laravel-firebase ^1.0

@@ -11,15 +11,14 @@
         }
     ],
     "require": {
-        "kreait/firebase-php": "^4.30"
+        "kreait/firebase-php": "^4.30.1",
+        "illuminate/contracts": "^5.8|^6.0",
+        "illuminate/support": "^5.8|^6.0"
     },
     "autoload": {
         "psr-4": {
             "Kreait\\Laravel\\Firebase\\": "src"
         }
-    },
-    "require-dev": {
-        "laravel/framework": "^5.8"
     },
     "extra": {
         "branch-alias": {
