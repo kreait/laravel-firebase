@@ -69,6 +69,13 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
         });
         $this->app->alias(Firebase\Database::class, 'firebase.database');
 
+        $this->app->singleton(Firebase\DynamicLinks::class, static function (Application $app) {
+            $defaultDynamicLinksDomain = $app->make('config')['firebase']['dynamic_links']['default_domain'] ?? null;
+
+            return $app->make(Firebase\Factory::class)->createDynamicLinksService($defaultDynamicLinksDomain);
+        });
+        $this->app->alias(Firebase\DynamicLinks::class, 'firebase.dynamic_links');
+
         $this->app->singleton(Firebase\Messaging::class, static function (Application $app) {
             return $app->make(Firebase\Factory::class)->createMessaging();
         });

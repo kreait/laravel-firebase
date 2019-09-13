@@ -69,6 +69,7 @@ php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" 
 | --- | --- | --- | --- |
 | [Authentication](https://firebase-php.readthedocs.io/en/latest/authentication.html) | `\Kreait\Firebase\Auth` | `FirebaseAuth` | `app('firebase.auth')` |
 | [Cloud&nbsp;Messaging&nbsp;(FCM)](https://firebase-php.readthedocs.io/en/latest/cloud-messaging.html) | `\Kreait\Firebase\Messaging` | `FirebaseMessaging` | `app('firebase.messaging')` |
+| [Dynamic&nbsp;Links](https://firebase-php.readthedocs.io/en/latest/dynamic-links.html) | `\Kreait\Firebase\DynamicLinks` | `FirebaseDynamicLinks` | `app('firebase.dynamic_links')` |
 | [Realtime Database](https://firebase-php.readthedocs.io/en/latest/realtime-database.html) | `\Kreait\Firebase\Database` | `FirebaseDatabase` | `app('firebase.database')` |
 | [Remote Config](https://firebase-php.readthedocs.io/en/latest/remote-config.html) | `\Kreait\Firebase\RemoteConfig` | `FirebaseRemoteConfig` | `app('firebase.remote_config')` |
 | [Storage](https://firebase-php.readthedocs.io/en/latest/storage.html) | `\Kreait\Firebase\Storage` | `FirebaseStorage` | `app('firebase.storage')` |

@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "kreait/firebase-php": "^4.30.1",
+        "kreait/firebase-php": "^4.32.0",
         "illuminate/contracts": "^5.8|^6.0",
         "illuminate/support": "^5.8|^6.0"
     },
@@ -31,6 +31,7 @@
             "aliases": {
                 "FirebaseAuth": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseAuth",
                 "FirebaseDatabase": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseDatabase",
+                "FirebaseDynamicLinks": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseDynamicLinks",
                 "FirebaseMessaging": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseMessaging",
                 "FirebaseRemoteConfig": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseRemoteConfig",
                 "FirebaseStorage": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseStorage"

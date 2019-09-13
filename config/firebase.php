@@ -60,9 +60,24 @@ return [
          * Please make sure that you use a full URL like, for example,
          * https://my-project-id.firebaseio.com
          */
-
         'url' => env('FIREBASE_DATABASE_URL'),
 
+    ],
+
+    'dynamic_links' => [
+
+        /**
+         * Dynamic links can be built with any URL prefix registered on
+         *
+         * https://console.firebase.google.com/u/1/project/_/durablelinks/links/
+         *
+         * You can define one of those domains as the default for new Dynamic
+         * Links created within your project.
+         *
+         * The value must be a valid domain, for example,
+         * https://example.page.link
+         */
+        'default_domain' => env('FIREBASE_DYNAMIC_LINKS_DEFAULT_DOMAIN')
     ],
 
     /**
