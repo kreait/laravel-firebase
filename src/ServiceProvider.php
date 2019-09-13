@@ -33,8 +33,7 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $config = $app->make('config')['firebase'];
 
             if ($credentialsFile = $config['credentials']['file'] ?? null) {
-                $serviceAccount = Firebase\ServiceAccount::fromJsonFile((string) $credentialsFile);
-                $factory = $factory->withServiceAccount($serviceAccount);
+                $factory = $factory->withServiceAccount((string) $credentialsFile);
             }
 
             $enableAutoDiscovery = $config['credentials']['auto_discovery'] ?? true;
