@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.1.0 - 2019-09-19
 
 * Updated `kreait/firebase-php` to `^4.32.0`
 * Added Dynamic Links to the Service Provider and as `FirebaseDynamicLinks` facade
