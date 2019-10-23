@@ -67,12 +67,13 @@ php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" 
 
 | Component | [Automatic Injection](https://laravel.com/docs/5.8/container#automatic-injection) | [Facades](https://laravel.com/docs/facades) | [`app()`](https://laravel.com/docs/helpers#method-app) |
 | --- | --- | --- | --- |
-| [Authentication](https://firebase-php.readthedocs.io/en/latest/authentication.html) | `\Kreait\Firebase\Auth` | `FirebaseAuth` | `app('firebase.auth')` |
-| [Cloud&nbsp;Messaging&nbsp;(FCM)](https://firebase-php.readthedocs.io/en/latest/cloud-messaging.html) | `\Kreait\Firebase\Messaging` | `FirebaseMessaging` | `app('firebase.messaging')` |
-| [Dynamic&nbsp;Links](https://firebase-php.readthedocs.io/en/latest/dynamic-links.html) | `\Kreait\Firebase\DynamicLinks` | `FirebaseDynamicLinks` | `app('firebase.dynamic_links')` |
-| [Realtime Database](https://firebase-php.readthedocs.io/en/latest/realtime-database.html) | `\Kreait\Firebase\Database` | `FirebaseDatabase` | `app('firebase.database')` |
-| [Remote Config](https://firebase-php.readthedocs.io/en/latest/remote-config.html) | `\Kreait\Firebase\RemoteConfig` | `FirebaseRemoteConfig` | `app('firebase.remote_config')` |
-| [Storage](https://firebase-php.readthedocs.io/en/latest/storage.html) | `\Kreait\Firebase\Storage` | `FirebaseStorage` | `app('firebase.storage')` |
+| [Authentication](https://firebase-php.readthedocs.io/en/stable/authentication.html) | `\Kreait\Firebase\Auth` | `FirebaseAuth` | `app('firebase.auth')` |
+| [Cloud Firestore](https://firebase-php.readthedocs.io/en/stable/cloud-firestore.html) | `\Kreait\Firebase\Firestore` | `FirebaseFirestore` | `app('firebase.firestore')` |
+| [Cloud&nbsp;Messaging&nbsp;(FCM)](https://firebase-php.readthedocs.io/en/stable/cloud-messaging.html) | `\Kreait\Firebase\Messaging` | `FirebaseMessaging` | `app('firebase.messaging')` |
+| [Dynamic&nbsp;Links](https://firebase-php.readthedocs.io/en/stable/dynamic-links.html) | `\Kreait\Firebase\DynamicLinks` | `FirebaseDynamicLinks` | `app('firebase.dynamic_links')` |
+| [Realtime Database](https://firebase-php.readthedocs.io/en/stable/realtime-database.html) | `\Kreait\Firebase\Database` | `FirebaseDatabase` | `app('firebase.database')` |
+| [Remote Config](https://firebase-php.readthedocs.io/en/stable/remote-config.html) | `\Kreait\Firebase\RemoteConfig` | `FirebaseRemoteConfig` | `app('firebase.remote_config')` |
+| [Storage](https://firebase-php.readthedocs.io/en/stable/storage.html) | `\Kreait\Firebase\Storage` | `FirebaseStorage` | `app('firebase.storage')` |
 
 Once you have retrieved a component, please refer to the [documentation of the Firebase PHP Admin SDK](https://firebase-php.readthedocs.io) 
 for further information on how to use it.
