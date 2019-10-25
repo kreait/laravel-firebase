@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.2.0 - 2019-10-26
 
 * Updated `kreait/firebase-php` to `^4.35.0`
 * Added Firestore to the Service Provider and as `FirebaseFirestore` facade
