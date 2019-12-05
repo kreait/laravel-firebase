@@ -78,6 +78,9 @@ php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" 
 Once you have retrieved a component, please refer to the [documentation of the Firebase PHP Admin SDK](https://firebase-php.readthedocs.io) 
 for further information on how to use it.
 
+**You don't need and should not use the `new Factory()` pattern described in the SDK documentation, this is already
+done for you with the Laravel Service Provider. Use Dependency Injection, the Facades or the `app()` helper instead**
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
