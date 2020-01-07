@@ -3,8 +3,9 @@
 A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/firebase-php).
 
 [![Current version](https://img.shields.io/packagist/v/kreait/laravel-firebase.svg?logo=composer)](https://packagist.org/packages/kreait/laravel-firebase)
-[![Firebase Admin SDK version](https://img.shields.io/badge/Firebase%20Admin%20SDK-%5E4.32.0-blue)](https://packagist.org/packages/kreait/firebase-php)
+[![Firebase Admin SDK version](https://img.shields.io/badge/Firebase%20Admin%20SDK-%5E4.35.0-blue)](https://packagist.org/packages/kreait/firebase-php)
 ![Supported Laravel versions](https://img.shields.io/badge/Laravel-%3E%3D5.8-blue)
+![Supported Lumen versions](https://img.shields.io/badge/Lumen-%3E%3D5.8-blue)
 [![Discord](https://img.shields.io/discord/523866370778333184.svg?color=7289da&logo=discord)](https://discord.gg/nbgVfty)
 
 * [Installation](#installation)
@@ -14,18 +15,20 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 
 ## Installation
 
-This package requires Laravel 5.8 and higher.
+This package requires Laravel 5.8 and higher or Lumen 5.8 and higher.
 
 ```bash
 composer require kreait/laravel-firebase
 ```
 
-If you don't use package auto-discovery, add the following service provider in `config/app.php`
+If you use Lumen or don't use Laravel's package auto-discovery, add the following service provider in 
+`config/app.php` (Laravel) or `bootstrap/app.php` (Lumen):
+
+### Laravel
 
 ```php
-// config/app.php
 <?php
-
+// config/app.php
 return [
     // ...
     'providers' => [
@@ -34,6 +37,15 @@ return [
     ]
     // ...   
 ];
+```
+
+### Lumen
+
+```php
+<?php
+// bootstrap/app.php
+
+$app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
 ```
 
 ## Configuration
@@ -57,10 +69,15 @@ FIREBASE_CREDENTIALS=relative/path/to/firebase_credentials.json
 ```
 
 For further configuration, please see [config/firebase.php](config/firebase.php). You can modify the configuration
-by copying it to your local `config` directory with the publish command:
+by copying it to your local `config` directory:
 
 ```bash
+# Laravel
 php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" --tag=config
+
+# Lumen
+mkdir -p config
+cp vendor/kreait/firebase-laravel/config/firebase.php config/firebase.php
 ```
 
 ## Usage
