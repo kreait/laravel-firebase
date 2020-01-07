@@ -4,6 +4,8 @@
 
 * Added a notice about not using the factory pattern described in the SDK documentation when using this package. 
   (Although not a code change, adding it in the changelog to enhance visibility)
+* Added support for [Lumen](https://lumen.laravel.com/)
+* Updated `kreait/firebase-php` to `^4.38.1`
 
 ## 1.2.0 - 2019-10-26
 

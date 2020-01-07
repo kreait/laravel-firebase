@@ -11,9 +11,12 @@
         }
     ],
     "require": {
-        "kreait/firebase-php": "^4.35.0",
+        "kreait/firebase-php": "^4.38.1",
         "illuminate/contracts": "^5.8|^6.0",
         "illuminate/support": "^5.8|^6.0"
+    },
+    "require-dev": {
+        "laravel/lumen-framework": "^5.8|^6.0"
     },
     "autoload": {
         "psr-4": {
