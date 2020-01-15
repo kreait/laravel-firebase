@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.3.0 - 2020-01-15
 
 * Added a notice about not using the factory pattern described in the SDK documentation when using this package. 
   (Although not a code change, adding it in the changelog to enhance visibility)
