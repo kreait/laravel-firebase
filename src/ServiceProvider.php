@@ -87,6 +87,8 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
             if ($credentialsFile = $config['credentials']['file'] ?? null) {
                 $factory = $factory->withServiceAccount((string) $credentialsFile);
+            } else if ($credentialsArray = $config['credentials']['array'] ?? null) {
+                $factory = $factory->withServiceAccount((array) $credentialsArray);
             }
 
             $enableAutoDiscovery = $config['credentials']['auto_discovery'] ?? true;
