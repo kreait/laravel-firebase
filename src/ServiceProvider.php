@@ -80,13 +80,15 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function registerFactory()
     {
-        $this->app->singleton(Firebase\Factory::class, static function (Container $app) {
+        $this->app->singleton(Firebase\Factory::class, function (Container $app) {
             $factory = new Firebase\Factory();
 
             $config = $app->make('config')['firebase'];
 
-            if ($credentialsFile = $config['credentials']['file'] ?? null) {
-                $factory = $factory->withServiceAccount((string) $credentialsFile);
+            if ($credentials = $config['credentials']['file'] ?? null) {
+                $resolvedCredentials = $this->resolveCredentials((string) $credentials);
+
+                $factory = $factory->withServiceAccount($resolvedCredentials);
             }
 
             $enableAutoDiscovery = $config['credentials']['auto_discovery'] ?? true;
@@ -110,5 +112,16 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
             return $factory;
         });
+    }
+
+    private function resolveCredentials(string $credentials): string
+    {
+        $isJsonString = strpos($credentials, '{') === 0;
+        $isAbsoluteLinuxPath = strpos($credentials, '/') === 0;
+        $isAbsoluteWindowsPath = strpos($credentials, ':\\') !== false;
+
+        $isRelativePath = !$isJsonString && !$isAbsoluteLinuxPath && !$isAbsoluteWindowsPath;
+
+        return $isRelativePath ? $this->app->basePath($credentials) : $credentials;
     }
 }
