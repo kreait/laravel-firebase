@@ -34,6 +34,17 @@ return [
         'file' => env('FIREBASE_CREDENTIALS'),
 
         /**
+         * Please uncomment the following lines if you can't use the credentials
+         * file and must configure Firebase from environment variables
+         */
+        // 'array' => [
+        //     'project_id' => env('FIREBASE_PROJECT_ID'),
+        //     'client_id' => env('FIREBASE_CLIENT_ID'),
+        //     'client_email' => env('FIREBASE_CLIENT_EMAIL'),
+        //     'private_key' => env('FIREBASE_PRIVATE_KEY')
+        // ],
+
+        /**
          * If you want to prevent the auto discovery of credentials, set the
          * following parameter to false. If you disable it, you must
          * provide a credentials file.
