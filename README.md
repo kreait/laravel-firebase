@@ -48,6 +48,12 @@ return [
 $app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
 ```
 
+Don't forget to copy a `vendor/kreait/laravel-firebase/config/firebase.php` file into `config/firebase.php` and add the following line into your `bootstrap/app.php` file:
+
+```php
+$app->configure('firebase');
+```
+
 ## Configuration
 
 In order to access a Firebase project and its related services using a server SDK, requests must be authenticated.
