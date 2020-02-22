@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.4.0 - 2020-02-22
 
 * Updated `kreait/firebase-php` to `^4.40.0`
 * A relative path to a credentials file is now resolved with `base_path()` to address issues on Windows systems [#7](https://github.com/kreait/laravel-firebase/issues/7) 
