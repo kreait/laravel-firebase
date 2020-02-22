@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "kreait/firebase-php": "^4.38.1",
+        "kreait/firebase-php": "^4.40.0",
         "illuminate/contracts": "^5.8|^6.0",
         "illuminate/support": "^5.8|^6.0"
     },

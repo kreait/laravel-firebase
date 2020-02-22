@@ -3,9 +3,6 @@
 A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/firebase-php).
 
 [![Current version](https://img.shields.io/packagist/v/kreait/laravel-firebase.svg?logo=composer)](https://packagist.org/packages/kreait/laravel-firebase)
-[![Firebase Admin SDK version](https://img.shields.io/badge/Firebase%20Admin%20SDK-%5E4.35.0-blue)](https://packagist.org/packages/kreait/firebase-php)
-![Supported Laravel versions](https://img.shields.io/badge/Laravel-%3E%3D5.8-blue)
-![Supported Lumen versions](https://img.shields.io/badge/Lumen-%3E%3D5.8-blue)
 [![Discord](https://img.shields.io/discord/523866370778333184.svg?color=7289da&logo=discord)](https://discord.gg/nbgVfty)
 
 * [Installation](#installation)
