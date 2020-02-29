@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.5.0 - 2020-02-29
 
 * Updated `kreait/firebase-php` to `^4.40.1`
 * Added support for Laravel/Lumen `^7.0`
