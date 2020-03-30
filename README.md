@@ -74,7 +74,7 @@ php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" 
 
 # Lumen
 mkdir -p config
-cp vendor/kreait/firebase-laravel/config/firebase.php config/firebase.php
+cp vendor/kreait/laravel-firebase/config/firebase.php config/firebase.php
 ```
 
 ## Usage
