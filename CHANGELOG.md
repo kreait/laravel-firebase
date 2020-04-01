@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Unreleased
+
+* Update `kreait/firebase` to `^5.0`
+
 ## 1.5.0 - 2020-02-29
 
 * Updated `kreait/firebase-php` to `^4.40.1`
