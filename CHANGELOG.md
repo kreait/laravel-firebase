@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 2.0.0 - 2020-04-01
 
 * Update `kreait/firebase` to `^5.0`
 
