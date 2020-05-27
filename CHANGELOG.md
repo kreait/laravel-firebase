@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Unreleased
+
+* Add config option to debug HTTP requests made directly from the SDK. It is disabled by
+  default and can be enabled with the `FIREBASE_ENABLE_DEBUG=true` environment variable
+  or by adding `'debug' => true` to `config/firebase.php`.
+
 ## 2.0.0 - 2020-04-01
 
 * Update `kreait/firebase` to `^5.0`

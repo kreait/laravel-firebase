@@ -104,6 +104,10 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 $factory = $factory->withDefaultStorageBucket($defaultStorageBucket);
             }
 
+            if ($config['debug'] ?? false) {
+                $factory = $factory->withEnabledDebug();
+            }
+
             if ($cacheStore = $config['cache_store'] ?? null) {
                 $factory = $factory->withVerifierCache(
                     $app->make('cache')->store($cacheStore)

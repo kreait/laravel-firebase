@@ -111,4 +111,12 @@ return [
 
     'cache_store' => env('FIREBASE_CACHE_STORE', 'file'),
 
+    /**
+     * ------------------------------------------------------------------------
+     * Debug
+     * ------------------------------------------------------------------------
+     *
+     * Enable debugging of HTTP requests made directly from the SDK.
+     */
+    'debug' => env('FIREBASE_ENABLE_DEBUG', false),
 ];
