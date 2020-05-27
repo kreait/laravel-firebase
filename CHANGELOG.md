@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 2.1.0 - 2020-05-27
 
 * Add config option to debug HTTP requests made directly from the SDK. It is disabled by
   default and can be enabled with the `FIREBASE_ENABLE_DEBUG=true` environment variable
