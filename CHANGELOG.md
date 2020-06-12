@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Unreleased
+
+* The default branch of the GitHub repository has been renamed from `master` to `main` - 
+  if you're using `dev-master` as a version constraint in your `composer.json`, please 
+  update it to `dev-main`.
+
 ## 2.1.0 - 2020-05-27
 
 * Add config option to debug HTTP requests made directly from the SDK. It is disabled by
