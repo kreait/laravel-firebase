@@ -12,6 +12,7 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     public function boot()
     {
+        // @codeCoverageIgnoreStart
         if (!$this->app->runningInConsole()) {
             return;
         }
@@ -19,6 +20,7 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
         if ($this->app instanceof Lumen) {
             return;
         }
+        // @codeCoverageIgnoreEnd
 
         $this->publishes([
             __DIR__ . '/../config/firebase.php' => $this->app->configPath('firebase.php'),
@@ -27,19 +29,20 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function register()
     {
+        // @codeCoverageIgnoreStart
         if ($this->app instanceof Lumen) {
             $this->app->configure('firebase');
         }
+        // @codeCoverageIgnoreEnd
 
         $this->mergeConfigFrom(__DIR__.'/../config/firebase.php', 'firebase');
 
+        $this->registerFactory();
         $this->registerComponents();
     }
 
-    private function registerComponents()
+    private function registerComponents(): void
     {
-        $this->registerFactory();
-
         $this->app->singleton(Firebase\Auth::class, static function (Container $app) {
             return $app->make(Firebase\Factory::class)->createAuth();
         });
@@ -78,7 +81,7 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->alias(Firebase\Storage::class, 'firebase.storage');
     }
 
-    private function registerFactory()
+    private function registerFactory(): void
     {
         $this->app->singleton(Firebase\Factory::class, function (Container $app) {
             $factory = new Firebase\Factory();
