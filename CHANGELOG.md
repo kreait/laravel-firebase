@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 2.2.0 - 2020-06-20
 
 ### Added
 * It is now possible to log HTTP requests and responses to the Firebase APIs to existing log channels. 
