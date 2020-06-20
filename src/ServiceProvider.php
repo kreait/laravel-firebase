@@ -117,6 +117,18 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 );
             }
 
+            if ($logChannel = $config['logging']['http_log_channel'] ?? null) {
+                $factory = $factory->withHttpLogger(
+                    $app->make('log')->channel($logChannel)
+                );
+            }
+
+            if ($logChannel = $config['logging']['http_debug_log_channel'] ?? null) {
+                $factory = $factory->withHttpDebugLogger(
+                    $app->make('log')->channel($logChannel)
+                );
+            }
+
             return $factory;
         });
     }

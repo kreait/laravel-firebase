@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Added
+* It is now possible to log HTTP requests and responses to the Firebase APIs to existing log channels. 
+  See the "logging" section in [`config/firebase.php`](config/firebase.php) for the configuration 
+  options and the [SDK Logging Documentation](https://firebase-php.readthedocs.io/en/5.5.0/setup.html#logging) 
+  for more information.
+### Changed
 * The default branch of the GitHub repository has been renamed from `master` to `main` - 
   if you're using `dev-master` as a version constraint in your `composer.json`, please 
   update it to `dev-main`.

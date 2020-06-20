@@ -73,7 +73,7 @@ FIREBASE_CREDENTIALS=relative/path/to/firebase_credentials.json
 ```
 
 For further configuration, please see [config/firebase.php](config/firebase.php). You can modify the configuration
-by copying it to your local `config` directory:
+by copying it to your local `config` directory or by defining the environment variables used in the config file:
 
 ```bash
 # Laravel

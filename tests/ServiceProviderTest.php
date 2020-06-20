@@ -118,6 +118,32 @@ final class ServiceProviderTest extends TestCase
     }
 
     /** @test */
+    public function logging_can_be_configured(): void
+    {
+        $this->app->config->set('firebase.logging.http_log_channel', 'stack');
+
+        $factory = $this->app->make(Firebase\Factory::class);
+
+        $property = ReflectionObject::createFromInstance($factory)->getProperty('httpLogMiddleware');
+        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+
+        $this->assertNotNull($property->getValue($factory));
+    }
+
+    /** @test */
+    public function debug_logging_can_be_configured(): void
+    {
+        $this->app->config->set('firebase.logging.http_debug_log_channel', 'stack');
+
+        $factory = $this->app->make(Firebase\Factory::class);
+
+        $property = ReflectionObject::createFromInstance($factory)->getProperty('httpDebugLogMiddleware');
+        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+
+        $this->assertNotNull($property->getValue($factory));
+    }
+
+    /** @test */
     public function it_uses_the_laravel_cache(): void
     {
         $factory = $this->app->make(Firebase\Factory::class);

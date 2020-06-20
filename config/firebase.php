@@ -113,7 +113,28 @@ return [
 
     /**
      * ------------------------------------------------------------------------
-     * Debug
+     * Logging
+     * ------------------------------------------------------------------------
+     *
+     * Enable logging of HTTP interaction for insights and/or debugging.
+     *
+     * Log channels are defined in config/logging.php
+     *
+     * Successful HTTP messages are logged with the log level 'info'.
+     * Failed HTTP messages are logged with the the log level 'notice'.
+     *
+     * Note: Using the same channel for simple and debug logs will result in
+     * two entries per request and response.
+     */
+
+    'logging' => [
+        'http_log_channel' => env('FIREBASE_HTTP_LOG_CHANNEL', null),
+        'http_debug_log_channel' => env('FIREBASE_HTTP_DEBUG_LOG_CHANNEL', null),
+    ],
+
+    /**
+     * ------------------------------------------------------------------------
+     * Debug (deprecated)
      * ------------------------------------------------------------------------
      *
      * Enable debugging of HTTP requests made directly from the SDK.
