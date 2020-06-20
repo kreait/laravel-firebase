@@ -1,0 +1,60 @@
+name: Tests
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    test:
+        runs-on: 'ubuntu-latest'
+        strategy:
+            fail-fast: false
+            matrix:
+                php: ['7.4']
+                laravel: ['5.8', '6.0', '7.0']
+                include:
+                    -   laravel: '7.0'
+                        testbench: '5.2'
+                    -   laravel: '6.0'
+                        testbench: '4.8'
+                    -   laravel: '5.8'
+                        testbench: '3.8.6'
+
+        name: Laravel ${{ matrix.laravel }}
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    extensions: ctype, dom, json, mbstring, openssl, xml, zip, zlib
+                    coverage: xdebug
+
+            -   name: Get Composer Cache Directory
+                id: composer-cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            -   name: Cache dependencies
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+
+            -   name: Install dependencies
+                run: |
+                    composer require "laravel/framework:^${{ matrix.laravel }}" "orchestra/testbench:^${{ matrix.testbench }}" --no-interaction --no-update
+                    composer update --prefer-dist --no-interaction --no-suggest
+
+            -   name: Setup Problem Matchers for PHPUnit
+                run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+            -   name: Execute tests
+                run: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml --log-junit=test-report.xml
+
+            -   name: Upload code coverage
+                uses: codecov/codecov-action@v1
+                with:
+                    token: ${{ secrets.CODECOV_TOKEN }}

@@ -3,7 +3,10 @@
 A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/firebase-php).
 
 [![Current version](https://img.shields.io/packagist/v/kreait/laravel-firebase.svg?logo=composer)](https://packagist.org/packages/kreait/laravel-firebase)
-[![GitHub license](https://img.shields.io/github/license/kreait/laravel-firebase.svg)](https://github.com/kreait/laravel-firebase/blob/main/LICENSE)
+[![Monthly Downloads](https://img.shields.io/packagist/dm/kreait/laravel-firebase.svg)](https://packagist.org/packages/kreait/laravel-firebase/stats)
+[![Total Downloads](https://img.shields.io/packagist/dt/kreait/laravel-firebase.svg)](https://packagist.org/packages/kreait/laravel-firebase/stats)
+[![Tests](https://github.com/kreait/laravel-firebase/workflows/Tests/badge.svg?branch=main)](https://github.com/kreait/laravel-firebase/actions)
+[![codecov](https://codecov.io/gh/kreait/laravel-firebase/branch/main/graph/badge.svg)](https://codecov.io/gh/kreait/laravel-firebase)
 [![Discord](https://img.shields.io/discord/523866370778333184.svg?color=7289da&logo=discord)](https://discord.gg/nbgVfty)
 [![Sponsor](https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&color=ff69b4)](https://github.com/sponsors/jeromegamez)
 
@@ -11,6 +14,8 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 * [Configuration](#configuration)
 * [Usage](#usage)
 * [Documentation](https://firebase-php.readthedocs.io/)
+- [Support](#support)
+- [License](#license)
 
 ## Installation
 
@@ -97,6 +102,15 @@ for further information on how to use it.
 **You don't need and should not use the `new Factory()` pattern described in the SDK documentation, this is already
 done for you with the Laravel Service Provider. Use Dependency Injection, the Facades or the `app()` helper instead**
 
+## Support
+
+- [Issue Tracker (Laravel Package)](https://github.com/kreait/laravel-firebase/issues/)
+- [Issue Tracker (Admin SDK)](https://github.com/kreait/firebase-php/issues/)
+- [Discord Chat](https://discord.gg/nbgVfty)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/firebase+php)
+
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+Firebase Admin PHP SDK is licensed under the [MIT License](LICENSE).
+
+Your use of Firebase is governed by the [Terms of Service for Firebase Services](https://firebase.google.com/terms/).
