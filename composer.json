@@ -17,7 +17,6 @@
         "illuminate/support": "^5.8|^6.0|^7.0|^8.0"
     },
     "require-dev": {
-        "laravel/lumen-framework": "^5.8|^6.0|^7.0|^8.0",
         "orchestra/testbench": "^3.8.6|^4.8|^5.2|^6.0",
         "roave/better-reflection": "^3.6|^4.6"
     },
