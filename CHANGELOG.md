@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.3.0 - 2020-09-08
+
+### Added
+* Added support for Laravel 8.x
+
 ## 2.2.0 - 2020-06-20
 
 ### Added
