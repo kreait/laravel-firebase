@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.3.1 - 2020-09-08
+
+(no changes, I just somehow mis-tagged 2.3.0 🙈)
+
 ## 2.3.0 - 2020-09-08
 
 ### Added
