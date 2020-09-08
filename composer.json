@@ -12,13 +12,13 @@
     ],
     "require": {
         "php": "^7.2",
-        "kreait/firebase-php": "^5.0",
-        "illuminate/contracts": "^5.8|^6.0|^7.0",
-        "illuminate/support": "^5.8|^6.0|^7.0"
+        "kreait/firebase-php": "^5.8.1",
+        "illuminate/contracts": "^5.8|^6.0|^7.0|^8.0",
+        "illuminate/support": "^5.8|^6.0|^7.0|^8.0"
     },
     "require-dev": {
-        "laravel/lumen-framework": "^5.8|^6.0|^7.0",
-        "orchestra/testbench": "^3.8.6|^4.8|^5.2",
+        "laravel/lumen-framework": "^5.8|^6.0|^7.0|^8.0",
+        "orchestra/testbench": "^3.8.6|^4.8|^5.2|^6.0",
         "roave/better-reflection": "^3.6|^4.6"
     },
     "autoload": {

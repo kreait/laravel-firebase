@@ -1,6 +1,7 @@
 /build
 /vendor
 
+/.phpunit.result.cache
 /composer.lock
 /google-service-account.json
 /phpunit.xml
