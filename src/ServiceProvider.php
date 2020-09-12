@@ -135,7 +135,7 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 $options = Firebase\Http\HttpClientOptions::default();
 
                 if ($proxy) $options = $options->withProxy($proxy);
-                if ($timeout) $options->withTimeOut($timeout);
+                if ($timeout) $options = $options->withTimeOut($timeout);
 
                 $factory = $factory->withHttpClientOptions($options);
             }
