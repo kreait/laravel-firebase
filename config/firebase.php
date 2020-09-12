@@ -140,4 +140,27 @@ return [
      * Enable debugging of HTTP requests made directly from the SDK.
      */
     'debug' => env('FIREBASE_ENABLE_DEBUG', false),
+
+    /**
+     * ------------------------------------------------------------------------
+     * HTTP Client Options
+     * ------------------------------------------------------------------------
+     *
+     * Behavior of the HTTP Client performing the API requests
+     */
+    'http_client' => [
+
+       /**
+        * Use a proxy that all API requests should be passed through.
+        * (default: none)
+        */
+        'proxy' => env('FIREBASE_HTTP_CLIENT_PROXY', null),
+
+       /**
+        * Set the maximum amount of seconds (float) that can pass before
+        * a request is considered timed out
+        * (default: indefinitely)
+        */
+        'timeout' => env('FIREBASE_HTTP_CLIENT_TIMEOUT', null),
+    ]
 ];
