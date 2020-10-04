@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Unreleased
+
+### Added
+* PHP `^8.0` is now an allowed (but untested) PHP version
+
 ## 2.3.1 - 2020-09-08
 
 (no changes, I just somehow mis-tagged 2.3.0 🙈)
