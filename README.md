@@ -94,7 +94,7 @@ cp vendor/kreait/laravel-firebase/config/firebase.php config/firebase.php
 | [Dynamic&nbsp;Links](https://firebase-php.readthedocs.io/en/stable/dynamic-links.html) | `\Kreait\Firebase\DynamicLinks` | `FirebaseDynamicLinks` | `app('firebase.dynamic_links')` |
 | [Realtime Database](https://firebase-php.readthedocs.io/en/stable/realtime-database.html) | `\Kreait\Firebase\Database` | `FirebaseDatabase` | `app('firebase.database')` |
 | [Remote Config](https://firebase-php.readthedocs.io/en/stable/remote-config.html) | `\Kreait\Firebase\RemoteConfig` | `FirebaseRemoteConfig` | `app('firebase.remote_config')` |
-| [Storage](https://firebase-php.readthedocs.io/en/stable/storage.html) | `\Kreait\Firebase\Storage` | `FirebaseStorage` | `app('firebase.storage')` |
+| [Cloud Storage](https://firebase-php.readthedocs.io/en/stable/cloud-storage.html) | `\Kreait\Firebase\Storage` | `FirebaseStorage` | `app('firebase.storage')` |
 
 Once you have retrieved a component, please refer to the [documentation of the Firebase PHP Admin SDK](https://firebase-php.readthedocs.io) 
 for further information on how to use it.
