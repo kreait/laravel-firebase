@@ -129,16 +129,17 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 );
             }
 
-            $proxy = $config['http_client']['proxy'] ?? null;
-            $timeout = (float) $config['http_client']['timeout'] ?? null;
-            if ($proxy || $timeout) {
-                $options = Firebase\Http\HttpClientOptions::default();
-
-                if ($proxy) $options = $options->withProxy($proxy);
-                if ($timeout) $options = $options->withTimeOut($timeout);
-
-                $factory = $factory->withHttpClientOptions($options);
+            $options = Firebase\Http\HttpClientOptions::default();
+            
+            if ($proxy = $config['http_client']['proxy'] ?? null) {
+                $options = $options->withProxy($proxy);
             }
+            
+            if ($timeout = $config['http_client']['timeout'] ?? null) {
+                $options = $options->withTimeOut((float) $timeout);
+            }
+            
+            $factory = $factory->withHttpClientOptions($options);
 
             return $factory;
         });
