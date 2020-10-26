@@ -66,7 +66,7 @@ class FirebaseProjectManager
             $factory = $factory->withServiceAccount($resolvedCredentials);
         }
 
-        $enableAutoDiscovery = $config['credentials']['auto_discovery'] ?? true;
+        $enableAutoDiscovery = $config['credentials']['auto_discovery'] ?? ($this->getDefaultProject() == $name ? true : false);
         if (!$enableAutoDiscovery) {
             $factory = $factory->withDisabledAutoDiscovery();
         }
@@ -117,6 +117,6 @@ class FirebaseProjectManager
     public function __call($method, $parameters)
     {
         // Pass call to default project
-        return $this->project()->$method(...$parameters);
+        return $this->project()->{$method}(...$parameters);
     }
 }

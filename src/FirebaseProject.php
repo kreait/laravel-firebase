@@ -74,7 +74,7 @@ class FirebaseProject
             $this->firestore = $this->factory->createFirestore();
         }
 
-        return $this->firestore;
+        return $this->firestore; // @codeCoverageIgnore
     }
 
     public function messaging(): Firebase\Messaging
