@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 3.0.0 - 2020-xx-xx
+
+### Added
+* Support for multiple firebase projects.
+  See "upgrading to version 3" section in [README.md](README.md)
+* `\Kreait\Laravel\Firebase\Facades\Firebase` facade
+
+### Changed
+* [config/firebase.php](config/firebase.php) has a new format to support multiple projects
+
+### Deprecated
+* Use of `FirebaseAuth`, `FirebaseDatabase`, `FirebaseDynamicLinks`, `FirebaseFirestore`, `FirebaseMessaging`, `FirebaseRemoteConfig` and `FirebaseStorage` facades
+
 ## 2.4.0 - 2020-10-04
 
 ### Added
