@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Kreait\Firebase\Messaging
- * @deprecated 6.0
+ * @deprecated 3.0
  */
 final class FirebaseMessaging extends Facade
 {

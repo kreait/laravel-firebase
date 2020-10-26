@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Kreait\Firebase\RemoteConfig
- * @deprecated 6.0
+ * @deprecated 3.0
  */
 final class FirebaseRemoteConfig extends Facade
 {

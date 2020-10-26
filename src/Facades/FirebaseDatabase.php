@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Kreait\Firebase\Database
- * @deprecated 6.0
+ * @deprecated 3.0
  */
 final class FirebaseDatabase extends Facade
 {
