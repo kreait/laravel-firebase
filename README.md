@@ -15,7 +15,7 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
     - [Laravel](#laravel)
     - [Lumen](#lumen)
   - [Configuration](#configuration)
-  - [Upgrading](#upgrading)
+  - [Upgrading to version 3](#upgrading-to-version-3)
     - [Facades](#facades)
   - [Usage](#usage)
     - [Multiple project](#multiple-project)
@@ -89,9 +89,9 @@ mkdir -p config
 cp vendor/kreait/laravel-firebase/config/firebase.php config/firebase.php
 ```
 
-## Upgrading
+## Upgrading to version 3
 
-When upgrading to `laravel-firebase:^6.0` from an earlier version, you have to update your config file.
+When upgrading to `laravel-firebase:^3.0` from an earlier version, you have to update your config file.
 
 All existing keys need to be wrapped in the projects array and a default project needs to be configured:
 
