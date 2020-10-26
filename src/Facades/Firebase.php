@@ -7,7 +7,7 @@ namespace Kreait\Laravel\Firebase\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Kreait\Laravel\Firebase\ProjectsManager
+ * @see \Kreait\Laravel\Firebase\FirebaseProjectManager
  */
 final class Firebase extends Facade
 {

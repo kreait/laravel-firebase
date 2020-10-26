@@ -6,7 +6,7 @@ namespace Kreait\Laravel\Firebase;
 
 use Kreait\Firebase;
 
-class Project
+class FirebaseProject
 {
     /** @var \Kreait\Firebase\Factory $factory */
     protected $factory;

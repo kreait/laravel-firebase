@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Kreait\Firebase\Storage
+ * @deprecated 6.0
  */
 final class FirebaseStorage extends Facade
 {

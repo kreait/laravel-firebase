@@ -8,18 +8,20 @@ use Illuminate\Contracts\Foundation\Application;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 
-class ProjectsManager
+class FirebaseProjectManager
 {
-    protected Application $app;
+    /** @var \Illuminate\Contracts\Foundation\Application */
+    protected $app;
 
-    private array $projects = [];
+    /** @var FirebaseProject[] */
+    private $projects = [];
 
     public function __construct(Application $app)
     {
         $this->app = $app;
     }
 
-    public function project(string $name = null): Project
+    public function project(string $name = null): FirebaseProject
     {
         $name = $name ?? $this->getDefaultProject();
 
@@ -30,30 +32,9 @@ class ProjectsManager
         return $this->projects[$name];
     }
 
-    protected function legacyConfiguration(string $name): ?array
-    {
-        if ($name !== $this->getDefaultProject()) {
-            return null;
-        }
-
-        if (! $this->app->config->get('firebase.credentials')) {
-            return null;
-        }
-
-        return $this->app->config->get([
-            'firebase.credentials',
-            'firebase.database',
-            'firebase.dynamic_links',
-            'firebase.storage',
-            'firebase.cache_store',
-            'firebase.logging',
-            'firebase.debug',
-        ]);
-    }
-
     protected function configuration(string $name): array
     {
-        $config = $this->app->config->get('firebase.projects.'.$name) ?? $this->legacyConfiguration($name);
+        $config = $this->app->config->get('firebase.projects.'.$name) ?? null;
 
         if (! $config) {
             throw new InvalidArgumentException("Firebase project [{$name}] not configured.");
@@ -73,7 +54,7 @@ class ProjectsManager
         return $isRelativePath ? $this->app->basePath($credentials) : $credentials;
     }
 
-    protected function configure(string $name): Project
+    protected function configure(string $name): FirebaseProject
     {
         $factory = new Factory();
 
@@ -120,7 +101,7 @@ class ProjectsManager
             );
         }
 
-        return new Project($factory, $config);
+        return new FirebaseProject($factory, $config);
     }
 
     public function getDefaultProject(): string

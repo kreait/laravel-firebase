@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Kreait\Firebase\Auth
+ * @deprecated 6.0
  */
 final class FirebaseAuth extends Facade
 {
