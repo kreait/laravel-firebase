@@ -18,7 +18,7 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
   - [Upgrading to version 3](#upgrading-to-version-3)
     - [Facades](#facades)
   - [Usage](#usage)
-    - [Multiple project](#multiple-project)
+    - [Multiple projects](#multiple-projects)
   - [Support](#support)
   - [License](#license)
 
