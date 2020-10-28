@@ -24,7 +24,7 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 
 ## Installation
 
-This package requires Laravel 5.8 and higher or Lumen 5.8 and higher.
+This package requires Laravel 6.x and higher or Lumen 6.x and higher.
 
 ```bash
 composer require kreait/laravel-firebase
