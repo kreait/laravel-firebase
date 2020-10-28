@@ -18,7 +18,8 @@
     },
     "require-dev": {
         "orchestra/testbench": "^3.8.6|^4.8|^5.2|^6.0",
-        "roave/better-reflection": "^3.6|^4.6"
+        "roave/better-reflection": "^3.6|^4.6",
+        "friendsofphp/php-cs-fixer": "^2.16"
     },
     "autoload": {
         "psr-4": {

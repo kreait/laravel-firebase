@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Kreait\Laravel\Firebase;
 
 use Illuminate\Contracts\Foundation\Application;
-use Kreait\Firebase\Factory;
 use Kreait\Firebase\Exception\InvalidArgumentException;
+use Kreait\Firebase\Factory;
 
 class FirebaseProjectManager
 {
@@ -21,11 +21,11 @@ class FirebaseProjectManager
         $this->app = $app;
     }
 
-    public function project(string $name = null): FirebaseProject
+    public function project(?string $name = null): FirebaseProject
     {
         $name = $name ?? $this->getDefaultProject();
 
-        if (! isset($this->projects[$name])) {
+        if (!isset($this->projects[$name])) {
             $this->projects[$name] = $this->configure($name);
         }
 
@@ -36,7 +36,7 @@ class FirebaseProjectManager
     {
         $config = $this->app->config->get('firebase.projects.'.$name) ?? null;
 
-        if (! $config) {
+        if (!$config) {
             throw new InvalidArgumentException("Firebase project [{$name}] not configured.");
         }
 
@@ -45,9 +45,9 @@ class FirebaseProjectManager
 
     protected function resolveCredentials(string $credentials): string
     {
-        $isJsonString = strpos($credentials, '{') === 0;
-        $isAbsoluteLinuxPath = strpos($credentials, '/') === 0;
-        $isAbsoluteWindowsPath = strpos($credentials, ':\\') !== false;
+        $isJsonString = \strpos($credentials, '{') === 0;
+        $isAbsoluteLinuxPath = \strpos($credentials, '/') === 0;
+        $isAbsoluteWindowsPath = \strpos($credentials, ':\\') !== false;
 
         $isRelativePath = !$isJsonString && !$isAbsoluteLinuxPath && !$isAbsoluteWindowsPath;
 

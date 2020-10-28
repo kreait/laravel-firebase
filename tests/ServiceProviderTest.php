@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace Kreait\Laravel\Firebase\Tests;
 
 use Kreait\Firebase;
-use Roave\BetterReflection\Reflection\ReflectionObject;
 
 /**
  * @internal
  */
 final class ServiceProviderTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function it_provides_components(): void
     {
-        $this->app->config->set('firebase.projects.app.credentials.file', realpath(__DIR__.'/_fixtures/service_account.json'));
+        $this->app->config->set('firebase.projects.app.credentials.file', \realpath(__DIR__.'/_fixtures/service_account.json'));
 
         $this->assertInstanceOf(Firebase\Auth::class, $this->app->make(Firebase\Auth::class));
         $this->assertInstanceOf(Firebase\Database::class, $this->app->make(Firebase\Database::class));
@@ -25,7 +26,9 @@ final class ServiceProviderTest extends TestCase
         $this->assertInstanceOf(Firebase\Storage::class, $this->app->make(Firebase\Storage::class));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function it_does_not_provide_optional_components(): void
     {
         $this->expectException(\Throwable::class);

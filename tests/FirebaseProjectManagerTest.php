@@ -15,7 +15,7 @@ use Roave\BetterReflection\Reflection\ReflectionObject;
  */
 final class FirebaseProjectManagerTest extends TestCase
 {
-    protected function factoryForProject(string $project = null): Factory
+    protected function factoryForProject(?string $project = null): Factory
     {
         $manager = $this->app->make(FirebaseProjectManager::class);
         $project = $manager->project($project);
@@ -25,7 +25,9 @@ final class FirebaseProjectManagerTest extends TestCase
         return $factory->getValue($project);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function a_project_configuration_has_to_exist(): void
     {
         $manager = $this->app->make(FirebaseProjectManager::class);
@@ -39,7 +41,9 @@ final class FirebaseProjectManagerTest extends TestCase
             ->invoke($manager, $projectName);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function a_default_project_can_be_set(): void
     {
         $manager = $this->app->make(FirebaseProjectManager::class);
@@ -52,7 +56,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertEquals($projectName, $this->app->config->get('firebase.default'), 'default project should be set in config');
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function calls_are_passed_to_default_project(): void
     {
         $manager = $this->app->make(FirebaseProjectManager::class);
@@ -62,16 +68,18 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($manager->project($projectName)->auth(), $manager->auth());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function credentials_can_be_configured(): void
     {
         // Reference credentials
-        $credentialsPath = realpath(__DIR__.'/_fixtures/service_account.json');
-        $credentials = json_decode(file_get_contents($credentialsPath), true);
+        $credentialsPath = \realpath(__DIR__.'/_fixtures/service_account.json');
+        $credentials = \json_decode(\file_get_contents($credentialsPath), true);
 
         // Set configuration and retrieve project
         $projectName = 'app';
-        $this->app->config->set('firebase.projects.'.$projectName.'.credentials.file', realpath(__DIR__.'/_fixtures/service_account.json'));
+        $this->app->config->set('firebase.projects.'.$projectName.'.credentials.file', \realpath(__DIR__.'/_fixtures/service_account.json'));
         $factory = $this->factoryForProject($projectName);
 
         // Retrieve service account
@@ -84,23 +92,25 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($credentials, $serviceAccount->asArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function projects_can_have_different_credentials(): void
     {
         // Reference credentials
-        $credentialsPath = realpath(__DIR__.'/_fixtures/service_account.json');
-        $credentials = json_decode(file_get_contents($credentialsPath), true);
+        $credentialsPath = \realpath(__DIR__.'/_fixtures/service_account.json');
+        $credentials = \json_decode(\file_get_contents($credentialsPath), true);
 
-        $secondCredentialsPath = realpath(__DIR__.'/_fixtures/another_service_account.json');
-        $secondCredentials = json_decode(file_get_contents($secondCredentialsPath), true);
+        $secondCredentialsPath = \realpath(__DIR__.'/_fixtures/another_service_account.json');
+        $secondCredentials = \json_decode(\file_get_contents($secondCredentialsPath), true);
 
         // Project names to use
         $projectName = 'app';
         $secondProjectName = 'another-app';
 
         // Set service accounts explicitly
-        $this->app->config->set('firebase.projects.'.$projectName.'.credentials.file', realpath(__DIR__.'/_fixtures/service_account.json'));
-        $this->app->config->set('firebase.projects.'.$secondProjectName.'.credentials.file', realpath(__DIR__.'/_fixtures/another_service_account.json'));
+        $this->app->config->set('firebase.projects.'.$projectName.'.credentials.file', \realpath(__DIR__.'/_fixtures/service_account.json'));
+        $this->app->config->set('firebase.projects.'.$secondProjectName.'.credentials.file', \realpath(__DIR__.'/_fixtures/another_service_account.json'));
 
         // Retrieve factories and service accounts
         $factory = $this->factoryForProject($projectName);
@@ -121,7 +131,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($secondCredentials, $secondServiceAccount->asArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function credential_auto_discovery_is_enabled_by_default_for_default_project(): void
     {
         $projectName = $this->app->config->get('firebase.default');
@@ -134,7 +146,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertFalse($property->getValue($factory));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function credential_auto_discovery_can_be_disabled_for_default_project(): void
     {
         $projectName = $this->app->config->get('firebase.default');
@@ -149,7 +163,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertTrue($property->getValue($factory));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function credential_auto_discovery_is_not_enabled_by_default_for_other_projects(): void
     {
         $projectName = 'another-app';
@@ -164,7 +180,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertTrue($property->getValue($factory));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function credential_auto_discovery_can_be_enabled_for_other_project(): void
     {
         $projectName = 'another-app';
@@ -179,7 +197,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertFalse($property->getValue($factory));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function the_realtime_database_url_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
@@ -193,7 +213,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($url, (string) $property->getValue($database));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function the_dynamic_links_default_domain_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
@@ -210,7 +232,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($domain, (string) $configuredDomain->toUri());
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function the_storage_default_bucket_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
@@ -224,7 +248,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($name, $property->getValue($storage));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function logging_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
@@ -238,7 +264,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertNotNull($property->getValue($factory));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function debug_logging_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
@@ -252,7 +280,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertNotNull($property->getValue($factory));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function it_uses_the_laravel_cache(): void
     {
         $projectName = $this->app->config->get('firebase.default');
@@ -264,7 +294,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Contracts\Cache\Repository::class, $property->getValue($factory));
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function enabling_debug_with_a_boolean_triggers_a_deprecation(): void
     {
         $this->expectException(\Throwable::class);

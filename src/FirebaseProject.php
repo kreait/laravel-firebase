@@ -8,31 +8,31 @@ use Kreait\Firebase;
 
 class FirebaseProject
 {
-    /** @var \Kreait\Firebase\Factory $factory */
+    /** @var \Kreait\Firebase\Factory */
     protected $factory;
 
-    /** @var array $config */
+    /** @var array */
     protected $config;
 
-    /** @var \Kreait\Firebase\Auth|null $auth */
+    /** @var \Kreait\Firebase\Auth|null */
     protected $auth;
 
-    /** @var \Kreait\Firebase\Database|null $database */
+    /** @var \Kreait\Firebase\Database|null */
     protected $database;
 
-    /** @var \Kreait\Firebase\DynamicLinks|null $dynamicLinks */
+    /** @var \Kreait\Firebase\DynamicLinks|null */
     protected $dynamicLinks;
 
-    /** @var \Kreait\Firebase\Firestore|null $firestore */
+    /** @var \Kreait\Firebase\Firestore|null */
     protected $firestore;
 
-    /** @var \Kreait\Firebase\Messaging|null $messaging */
+    /** @var \Kreait\Firebase\Messaging|null */
     protected $messaging;
 
-    /** @var \Kreait\Firebase\RemoteConfig|null $remoteConfig */
+    /** @var \Kreait\Firebase\RemoteConfig|null */
     protected $remoteConfig;
 
-    /** @var \Kreait\Firebase\Storage|null $storage */
+    /** @var \Kreait\Firebase\Storage|null */
     protected $storage;
 
     public function __construct(Firebase\Factory $factory, array $config)
@@ -43,7 +43,7 @@ class FirebaseProject
 
     public function auth(): Firebase\Auth
     {
-        if (! $this->auth) {
+        if (!$this->auth) {
             $this->auth = $this->factory->createAuth();
         }
 
@@ -52,7 +52,7 @@ class FirebaseProject
 
     public function database(): Firebase\Database
     {
-        if (! $this->database) {
+        if (!$this->database) {
             $this->database = $this->factory->createDatabase();
         }
 
@@ -61,7 +61,7 @@ class FirebaseProject
 
     public function dynamicLinks(): Firebase\DynamicLinks
     {
-        if (! $this->dynamicLinks) {
+        if (!$this->dynamicLinks) {
             $this->dynamicLinks = $this->factory->createDynamicLinksService($this->config['dynamic_links']['default_domain'] ?? null);
         }
 
@@ -70,7 +70,7 @@ class FirebaseProject
 
     public function firestore(): Firebase\Firestore
     {
-        if (! $this->firestore) {
+        if (!$this->firestore) {
             $this->firestore = $this->factory->createFirestore();
         }
 
@@ -79,7 +79,7 @@ class FirebaseProject
 
     public function messaging(): Firebase\Messaging
     {
-        if (! $this->messaging) {
+        if (!$this->messaging) {
             $this->messaging = $this->factory->createMessaging();
         }
 
@@ -88,7 +88,7 @@ class FirebaseProject
 
     public function remoteConfig(): Firebase\RemoteConfig
     {
-        if (! $this->remoteConfig) {
+        if (!$this->remoteConfig) {
             $this->remoteConfig = $this->factory->createRemoteConfig();
         }
 
@@ -97,7 +97,7 @@ class FirebaseProject
 
     public function storage(): Firebase\Storage
     {
-        if (! $this->storage) {
+        if (!$this->storage) {
             $this->storage = $this->factory->createStorage();
         }
 
