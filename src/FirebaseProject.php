@@ -18,22 +18,22 @@ class FirebaseProject
     protected $auth;
 
     /** @var \Kreait\Firebase\Database|null $database */
-    protected $database = null;
+    protected $database;
 
     /** @var \Kreait\Firebase\DynamicLinks|null $dynamicLinks */
-    protected $dynamicLinks = null;
+    protected $dynamicLinks;
 
     /** @var \Kreait\Firebase\Firestore|null $firestore */
-    protected $firestore = null;
+    protected $firestore;
 
     /** @var \Kreait\Firebase\Messaging|null $messaging */
-    protected $messaging = null;
+    protected $messaging;
 
     /** @var \Kreait\Firebase\RemoteConfig|null $remoteConfig */
-    protected $remoteConfig = null;
+    protected $remoteConfig;
 
     /** @var \Kreait\Firebase\Storage|null $storage */
-    protected $storage = null;
+    protected $storage;
 
     public function __construct(Firebase\Factory $factory, array $config)
     {
