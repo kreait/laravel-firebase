@@ -4,7 +4,7 @@
 
 ### Added
 * Support for multiple firebase projects.
-  See "upgrading to version 3" section in [README.md](README.md)
+  See "upgrading to version 3" section in [UPGRADE.md](UPGRADE.md)
 * `\Kreait\Laravel\Firebase\Facades\Firebase` facade
 
 ### Changed
@@ -12,6 +12,9 @@
 
 ### Deprecated
 * Use of `FirebaseAuth`, `FirebaseDatabase`, `FirebaseDynamicLinks`, `FirebaseFirestore`, `FirebaseMessaging`, `FirebaseRemoteConfig` and `FirebaseStorage` facades
+
+### Removed
+* Laravel and Lumen 5.8 support
 
 ## 2.4.0 - 2020-10-04
 
