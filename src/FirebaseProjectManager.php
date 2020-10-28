@@ -14,7 +14,7 @@ class FirebaseProjectManager
     protected $app;
 
     /** @var FirebaseProject[] */
-    private $projects = [];
+    protected $projects = [];
 
     public function __construct(Application $app)
     {
