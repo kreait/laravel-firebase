@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Kreait\Laravel\Firebase;
 
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Container\Container;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
 
@@ -16,7 +16,7 @@ class FirebaseProjectManager
     /** @var FirebaseProject[] */
     protected $projects = [];
 
-    public function __construct(Application $app)
+    public function __construct(Container $app)
     {
         $this->app = $app;
     }

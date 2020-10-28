@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Kreait\Laravel\Firebase;
 
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Foundation\Application;
 use Kreait\Firebase;
 use Laravel\Lumen\Application as Lumen;
 
@@ -82,7 +81,7 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function registerManager(): void
     {
-        $this->app->singleton(FirebaseProjectManager::class, static function (Application $app) {
+        $this->app->singleton(FirebaseProjectManager::class, static function (Container $app) {
             return new FirebaseProjectManager($app);
         });
         $this->app->alias(FirebaseProjectManager::class, 'firebase.manager');
