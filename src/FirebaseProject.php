@@ -15,7 +15,7 @@ class FirebaseProject
     protected $config;
 
     /** @var \Kreait\Firebase\Auth|null $auth */
-    protected $auth = null;
+    protected $auth;
 
     /** @var \Kreait\Firebase\Database|null $database */
     protected $database = null;

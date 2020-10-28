@@ -3,7 +3,7 @@
 return [
     /**
      * ------------------------------------------------------------------------
-     * Default firebase project
+     * Default Firebase project
      * ------------------------------------------------------------------------
      */
     'default' => env('FIREBASE_PROJECT', 'app'),
@@ -45,7 +45,7 @@ return [
              *
              */
             'credentials' => [
-                'file' => env('FIREBASE_CREDENTIALS'),
+                'file' => env('FIREBASE_CREDENTIALS', env('GOOGLE_APPLICATION_CREDENTIALS')),
 
                 /**
                  * If you want to prevent the auto discovery of credentials, set the

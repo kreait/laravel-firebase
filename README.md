@@ -124,7 +124,7 @@ becomes
 ```
 
 ### Facades
-Existing facades (eg. `Kreait\Firebase\Facades\FirebaseAuth`) are deprecated in favor of the new `Kreait\Firebase\Facades\Firebase` facade in order to support multiple projects. For now the old facades are included and resolve to the default project for better backwards compatibility, but upgrading is advised as they will be removed in the future.
+Existing facades (eg. `Kreait\Firebase\Facades\FirebaseAuth`) are deprecated in favor of the new `Kreait\Firebase\Facades\Firebase` facade in order to support multiple projects. For now, the old facades are included and resolve to the default project for better backward compatibility, but upgrading is advised as they will be removed in the future.
 
 ## Usage
 
@@ -144,14 +144,14 @@ for further information on how to use it.
 **You don't need and should not use the `new Factory()` pattern described in the SDK documentation, this is already
 done for you with the Laravel Service Provider. Use Dependency Injection, the Facades or the `app()` helper instead**
 
-### Multiple project
+### Multiple projects
 
 Multiple projects can be configured in [config/firebase.php](config/firebase.php) by adding another section to the projects array.
 
 When accessing components, the facade uses the default project. One can also explicitly use a project:
 
 ```php
-Firbease::auth() // returns an intance of \Kreait\Firebase\Auth with the configuration found for the default project
+Firebase::auth() // returns an intance of \Kreait\Firebase\Auth with the configuration found for the default project
 // or
 // 'app' is configured as the default project by default, this would be equivalent to Firebase::firestore() when that is the case
 Firebase::project('app')->firestore() // returns an intance of \Kreait\Firebase\Firestore with the configuration found for the 'app' project
