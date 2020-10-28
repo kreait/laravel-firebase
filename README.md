@@ -10,17 +10,16 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 [![Discord](https://img.shields.io/discord/523866370778333184.svg?color=7289da&logo=discord)](https://discord.gg/nbgVfty)
 [![Sponsor](https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&color=ff69b4)](https://github.com/sponsors/jeromegamez)
 
-- [Firebase for Laravel](#firebase-for-laravel)
-  - [Installation](#installation)
-    - [Laravel](#laravel)
-    - [Lumen](#lumen)
-  - [Configuration](#configuration)
-  - [Upgrading to version 3](#upgrading-to-version-3)
-    - [Facades](#facades)
-  - [Usage](#usage)
-    - [Multiple projects](#multiple-projects)
-  - [Support](#support)
-  - [License](#license)
+- [Installation](#installation)
+  - [Laravel](#laravel)
+  - [Lumen](#lumen)
+- [Configuration](#configuration)
+- [Upgrading to version 3](#upgrading-to-version-3)
+  - [Facades](#facades)
+- [Usage](#usage)
+  - [Multiple projects](#multiple-projects)
+- [Support](#support)
+- [License](#license)
 
 ## Installation
 
@@ -57,6 +56,9 @@ return [
 $app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
 ```
 
+## Upgrade
+See [UPGRADE.md](upgrade.md) for upgrade instructions.
+
 ## Configuration
 
 In order to access a Firebase project and its related services using a server SDK, requests must be authenticated.
@@ -88,43 +90,6 @@ php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" 
 mkdir -p config
 cp vendor/kreait/laravel-firebase/config/firebase.php config/firebase.php
 ```
-
-## Upgrading to version 3
-
-When upgrading to `laravel-firebase:^3.0` from an earlier version, you have to update your config file.
-
-All existing keys need to be wrapped in the projects array and a default project needs to be configured:
-
-```php
-[
-    'credentials' => [
-        'file' => env('FIREBASE_CREDENTIALS'),
-        'auto_discovery' => true,
-    ],
-    // ... other keys
-]
-```
-
-becomes
-
-```php
-[
-    'default' => env('FIREBASE_PROJECT', 'app'),
-
-    'projects' => [
-        'app' => [
-          'credentials' => [
-              'file' => env('FIREBASE_CREDENTIALS'),
-              'auto_discovery' => true,
-          ],
-          // ... other keys
-        ],
-    ],
-]
-```
-
-### Facades
-Existing facades (eg. `Kreait\Firebase\Facades\FirebaseAuth`) are deprecated in favor of the new `Kreait\Firebase\Facades\Firebase` facade in order to support multiple projects. For now, the old facades are included and resolve to the default project for better backward compatibility, but upgrading is advised as they will be removed in the future.
 
 ## Usage
 
