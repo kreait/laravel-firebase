@@ -3,9 +3,12 @@
 ## Unreleased
 
 ### Added
-* Support for multiple firebase projects.
+* Support for multiple firebase projects
+  (thanks to [@dododedodonl](https://github.com/dododedodonl)).
   See "upgrading to version 3" section in [UPGRADE.md](UPGRADE.md)
 * `\Kreait\Laravel\Firebase\Facades\Firebase` facade
+* HTTP Client Options are now configurable 
+  (thanks to [@kakajansh](https://github.com/kakajansh))
 
 ### Changed
 * [config/firebase.php](config/firebase.php) has a new format to support multiple projects
@@ -14,7 +17,7 @@
 * Use of `FirebaseAuth`, `FirebaseDatabase`, `FirebaseDynamicLinks`, `FirebaseFirestore`, `FirebaseMessaging`, `FirebaseRemoteConfig` and `FirebaseStorage` facades
 
 ### Removed
-* Laravel and Lumen 5.8 support
+* Dropped support Laravel 5.8 and Lumen 5.8
 
 ## 2.4.0 - 2020-10-04
 
