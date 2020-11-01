@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+## 3.0.0 - 2020-11-01 
 ### Added
 * Support for multiple firebase projects
   (thanks to [@dododedodonl](https://github.com/dododedodonl)).
