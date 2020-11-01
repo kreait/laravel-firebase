@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Kreait\Firebase\Storage
+ * @deprecated 3.0 Use {@see \Kreait\Laravel\Firebase\Facades\Firebase::storage()} instead.
  */
 final class FirebaseStorage extends Facade
 {

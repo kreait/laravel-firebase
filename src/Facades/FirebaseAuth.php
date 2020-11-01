@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Kreait\Firebase\Auth
+ * @deprecated 3.0 Use {@see \Kreait\Laravel\Firebase\Facades\Firebase::auth()} instead.
  */
 final class FirebaseAuth extends Facade
 {

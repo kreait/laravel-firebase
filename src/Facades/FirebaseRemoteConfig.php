@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Kreait\Firebase\RemoteConfig
+ * @deprecated 3.0 Use {@see \Kreait\Laravel\Firebase\Facades\Firebase::remoteConfig()} instead.
  */
 final class FirebaseRemoteConfig extends Facade
 {

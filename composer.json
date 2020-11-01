@@ -13,12 +13,13 @@
     "require": {
         "php": "^7.2|^8.0",
         "kreait/firebase-php": "^5.8.1",
-        "illuminate/contracts": "^5.8|^6.0|^7.0|^8.0",
-        "illuminate/support": "^5.8|^6.0|^7.0|^8.0"
+        "illuminate/contracts": "^6.0|^7.0|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^3.8.6|^4.8|^5.2|^6.0",
-        "roave/better-reflection": "^3.6|^4.6"
+        "orchestra/testbench": "^4.0|^5.0|^6.0",
+        "roave/better-reflection": "^3.6|^4.6",
+        "friendsofphp/php-cs-fixer": "^2.16"
     },
     "autoload": {
         "psr-4": {
@@ -39,6 +40,7 @@
                 "Kreait\\Laravel\\Firebase\\ServiceProvider"
             ],
             "aliases": {
+                "Firebase": "Kreait\\Laravel\\Firebase\\Facades\\Firebase",
                 "FirebaseAuth": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseAuth",
                 "FirebaseDatabase": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseDatabase",
                 "FirebaseDynamicLinks": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseDynamicLinks",
