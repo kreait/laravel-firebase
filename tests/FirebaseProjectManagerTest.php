@@ -283,6 +283,27 @@ final class FirebaseProjectManagerTest extends TestCase
     /**
      * @test
      */
+    public function http_client_options_can_be_configured(): void
+    {
+        $projectName = $this->app->config->get('firebase.default');
+        $this->app->config->set('firebase.projects.'.$projectName.'.http_client_options.proxy', 'proxy.domain.tld');
+        $this->app->config->set('firebase.projects.'.$projectName.'.http_client_options.timeout', 1.23);
+
+        $factory = $this->factoryForProject($projectName);
+
+        $property = ReflectionObject::createFromInstance($factory)->getProperty('httpClientOptions');
+        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+
+        /** @var Firebase\Http\HttpClientOptions $httpClientOptions */
+        $httpClientOptions = $property->getValue($factory);
+
+        $this->assertSame('proxy.domain.tld', $httpClientOptions->proxy());
+        $this->assertSame(1.23, $httpClientOptions->timeout());
+    }
+
+    /**
+     * @test
+     */
     public function it_uses_the_laravel_cache(): void
     {
         $projectName = $this->app->config->get('firebase.default');

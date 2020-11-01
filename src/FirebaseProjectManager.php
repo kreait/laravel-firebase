@@ -7,6 +7,7 @@ namespace Kreait\Laravel\Firebase;
 use Illuminate\Contracts\Container\Container;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
+use Kreait\Firebase\Http\HttpClientOptions;
 
 class FirebaseProjectManager
 {
@@ -100,6 +101,18 @@ class FirebaseProjectManager
                 $this->app->make('log')->channel($logChannel)
             );
         }
+
+        $options = HttpClientOptions::default();
+
+        if ($proxy = $config['http_client_options']['proxy'] ?? null) {
+            $options = $options->withProxy($proxy);
+        }
+
+        if ($timeout = $config['http_client_options']['timeout'] ?? null) {
+            $options = $options->withTimeOut((float) $timeout);
+        }
+
+        $factory = $factory->withHttpClientOptions($options);
 
         return new FirebaseProject($factory, $config);
     }

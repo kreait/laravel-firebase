@@ -148,6 +148,29 @@ return [
 
             /**
              * ------------------------------------------------------------------------
+             * HTTP Client Options
+             * ------------------------------------------------------------------------
+             *
+             * Behavior of the HTTP Client performing the API requests
+             */
+            'http_client_options' => [
+
+                /**
+                 * Use a proxy that all API requests should be passed through.
+                 * (default: none)
+                 */
+                'proxy' => env('FIREBASE_HTTP_CLIENT_PROXY', null),
+
+                /**
+                 * Set the maximum amount of seconds (float) that can pass before
+                 * a request is considered timed out
+                 * (default: indefinitely)
+                 */
+                'timeout' => env('FIREBASE_HTTP_CLIENT_TIMEOUT', null),
+            ],
+
+            /**
+             * ------------------------------------------------------------------------
              * Debug (deprecated)
              * ------------------------------------------------------------------------
              *
