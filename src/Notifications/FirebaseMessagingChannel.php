@@ -38,9 +38,10 @@ class FirebaseMessagingChannel
             return [];
         }
 
+        // Send the message
         try {
+            // Send multicast
             if ($targetType === MessageTarget::TOKEN && count($targetValue) > 1) {
-                // Send multicast
 
                 $chunkedTokens = array_chunk($targetValue, 10);
 
@@ -52,6 +53,7 @@ class FirebaseMessagingChannel
                 return $responses;
             }
 
+            // Set target and send
             if (! method_exists($message, 'withChangedTarget')) {
                 throw new RuntimeException('Message class "'.get_class($message).'" should implement a withChangedTarget method accepting a target type and value.');
             }
@@ -63,7 +65,7 @@ class FirebaseMessagingChannel
             ];
         } catch (MessagingException $e) {
             if (method_exists($notification, 'firebaseMessagingFailed')) {
-                $notification->firebaseMessagingFailed($e);
+                $notification->firebaseMessagingFailed($notifiable, $e);
             }
 
             throw MessagingChannelException::fromMessagingException('Unable to send notification.', $e);
