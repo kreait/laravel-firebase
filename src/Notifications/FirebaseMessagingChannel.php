@@ -3,14 +3,16 @@
 namespace Kreait\Laravel\Firebase\Notifications;
 
 use Illuminate\Support\Arr;
+use Kreait\Firebase\Messaging;
 use Kreait\Firebase\Messaging\Message;
 use Illuminate\Notifications\Notification;
-use Kreait\Firebase\Messaging;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\MessageTarget;
 use Kreait\Laravel\Firebase\Facades\Firebase;
+use Kreait\Firebase\Exception\MessagingException;
 use Kreait\Laravel\Firebase\Exception\RuntimeException;
 use Kreait\Laravel\Firebase\Exception\InvalidArgumentException;
+use Kreait\Laravel\Firebase\Exception\MessagingChannelException;
 
 class FirebaseMessagingChannel
 {
@@ -36,23 +38,36 @@ class FirebaseMessagingChannel
             return [];
         }
 
-        // Check if the message should be send using multicast
-        if ($targetType === MessageTarget::TOKEN && count($targetValue) > 1) {
-            // Send multicast
+        try {
+            if ($targetType === MessageTarget::TOKEN && count($targetValue) > 1) {
+                // Send multicast
 
-            // TODO: implement
+                $chunkedTokens = array_chunk($targetValue, 10);
 
-            return [];
+                $responses = [];
+                foreach ($chunkedTokens as $chunkedToken) {
+                    $responses[] = $this->getFirebaseMessaging($notifiable, $notification)->sendMulticast($message, $chunkedToken);
+                }
+
+                return $responses;
+            }
+
+            if (! method_exists($message, 'withChangedTarget')) {
+                throw new RuntimeException('Message class "'.get_class($message).'" should implement a withChangedTarget method accepting a target type and value.');
+            }
+
+            return [
+                $this->getFirebaseMessaging($notifiable, $notification)->send(
+                    $message->withChangedTarget($targetType, $targetValue)
+                )
+            ];
+        } catch (MessagingException $e) {
+            if (method_exists($notification, 'firebaseMessagingFailed')) {
+                $notification->firebaseMessagingFailed($e);
+            }
+
+            throw MessagingChannelException::fromMessagingException('Unable to send notification.', $e);
         }
-
-        // Otherwise set the target
-        if (! method_exists($message, 'withChangedTarget')) {
-            throw new RuntimeException('Message class "'.get_class($message).'" should implement a withChangedTarget method accepting a target type and value.');
-        }
-        $message = $message->withChangedTarget($targetType, $targetValue);
-
-        // Send the notification
-        Firebase::project()->messaging()->send();
     }
 
     /**
