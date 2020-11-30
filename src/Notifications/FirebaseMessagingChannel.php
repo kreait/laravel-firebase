@@ -42,7 +42,6 @@ class FirebaseMessagingChannel
         try {
             // Send multicast
             if ($targetType === MessageTarget::TOKEN && count($targetValue) > 1) {
-
                 $chunkedTokens = array_chunk($targetValue, 10);
 
                 $responses = [];
