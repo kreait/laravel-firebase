@@ -10,16 +10,17 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 [![Discord](https://img.shields.io/discord/523866370778333184.svg?color=7289da&logo=discord)](https://discord.gg/nbgVfty)
 [![Sponsor](https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&color=ff69b4)](https://github.com/sponsors/jeromegamez)
 
-- [Installation](#installation)
-  - [Laravel](#laravel)
-  - [Lumen](#lumen)
-- [Configuration](#configuration)
-- [Upgrading to version 3](#upgrading-to-version-3)
-  - [Facades](#facades)
-- [Usage](#usage)
-  - [Multiple projects](#multiple-projects)
-- [Support](#support)
-- [License](#license)
+- [Firebase for Laravel](#firebase-for-laravel)
+  - [Installation](#installation)
+    - [Laravel](#laravel)
+    - [Lumen](#lumen)
+  - [Upgrade](#upgrade)
+  - [Configuration](#configuration)
+  - [Usage](#usage)
+    - [Multiple projects](#multiple-projects)
+    - [Notification channel](#notification-channel)
+  - [Support](#support)
+  - [License](#license)
 
 ## Installation
 
@@ -126,6 +127,73 @@ Firebase::project('app')->firestore() // returns an intance of \Kreait\Firebase\
 // or
 Firebase::project('secondary-app')->database() // returns an instance of \Kreait\Firebase\Database with the configuration found for the 'secondary-app' project
 ```
+
+### Notification channel
+
+On a `Illuminate\Notifications\Notification`, the following methods are available
+
+example notification
+```php
+<?php
+use Illuminate\Notifications\Notification;
+use Kreait\Laravel\Firebase\Notifications\FirebaseMessagingChannel;
+use Kreait\Firebase\Exception\MessagingException;
+
+class ExampleNotification extends Notification
+{
+    public function via($notifiable)
+    {
+        return [FirebaseMessagingChannel::class];
+    }
+
+    // Required
+    public function toFirebaseMessaging($notifiable)
+    {
+        // this array is passed into \Kreait\Firebase\Messaging\CloudMessage::fromArray()
+        // another option is to use a class that implements \Kreait\Firebase\Messaging\Message
+        // note that a custom class must implement a method called `withChangedTarget` in order to send some (/most) notifications
+        return [
+            'notification' => [
+                'title' => 'A notification title',
+                'body' => 'A notification body',
+            ],
+        ];
+    }
+
+    // Optional
+    public function firebaseMessagingFailed($notifiable, MessagingException $exception): void
+    {
+        // an exception was thrown while sending
+    }
+}
+```
+
+On `Illuminate\Notifications\Notifiable`, the following methods are available
+```php
+use Illuminate\Notifications\Notification;
+
+// triggered if routeNotificationForFirebaseMessagingTarget is 'token', null, or not implemented
+public function routeNotificationForFirebaseMessagingToken(Notification $notification): string|array|null;
+
+// optional, defaults to 'token' target if not implemented
+// What target type to use (can be 'token', 'condition', 'topic' or null)
+public function routeNotificationForFirebaseMessagingTarget(Notification $notification): ?string;
+// 'token' or null: routeNotificationForFirebaseMessagingToken is called for a target value
+// 'condition': routeNotificationForFirebaseMessagingCondition is called for a target value
+// 'topic': routeNotificationForFirebaseMessagingTopic is called for a target value
+
+// optional, only triggered if routeNotificationForFirebaseMessagingTarget returns 'condition'
+public function routeNotificationForFirebaseMessagingCondition(Notification $notification): ?string;
+
+// optional, only triggered if routeNotificationForFirebaseMessagingTarget returns 'topic'
+public function routeNotificationForFirebaseMessagingTopic(Notification $notification): ?string;
+
+// optional
+// specifies which firebase project to use, defaults to the default project
+public function routeNotificationForFirebaseMessagingProject(Notification $notification): ?string;
+```
+
+
 
 ## Support
 
