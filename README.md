@@ -13,11 +13,11 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 - [Installation](#installation)
   - [Laravel](#laravel)
   - [Lumen](#lumen)
+- [Upgrade](#upgrade)
 - [Configuration](#configuration)
-- [Upgrading to version 3](#upgrading-to-version-3)
-  - [Facades](#facades)
 - [Usage](#usage)
   - [Multiple projects](#multiple-projects)
+  - [Notification channel](#notification-channel)
 - [Support](#support)
 - [License](#license)
 
@@ -60,7 +60,7 @@ $app->withFacades();
 ```
 
 ## Upgrade
-See [UPGRADE.md](upgrade.md) for upgrade instructions.
+See [UPGRADE.md](UPGRADE.md) for upgrade instructions.
 
 ## Configuration
 
@@ -126,6 +126,67 @@ Firebase::project('app')->firestore() // returns an intance of \Kreait\Firebase\
 // or
 Firebase::project('secondary-app')->database() // returns an instance of \Kreait\Firebase\Database with the configuration found for the 'secondary-app' project
 ```
+
+### Notification channel
+
+On a `Illuminate\Notifications\Notification`, the following methods are available
+
+example notification
+```php
+<?php
+use Illuminate\Notifications\Notification;
+use Kreait\Laravel\Firebase\Notifications\FirebaseMessagingChannel;
+use Kreait\Firebase\Exception\MessagingException;
+
+class ExampleNotification extends Notification
+{
+    public function via($notifiable)
+    {
+        return [FirebaseMessagingChannel::class];
+    }
+
+    // Required
+    public function toFirebaseMessaging($notifiable)
+    {
+        // this array is passed into \Kreait\Firebase\Messaging\CloudMessage::fromArray()
+        // another option is to use a class that implements \Kreait\Firebase\Messaging\Message
+        // note that a custom class must implement a method called `withChangedTarget` in order to send some (/most) notifications
+        return [
+            'notification' => [
+                'title' => 'A notification title',
+                'body' => 'A notification body',
+            ],
+        ];
+    }
+
+    // Optional
+    public function firebaseMessagingFailed($notifiable, MessagingException $exception): void
+    {
+        // an exception was thrown while sending
+    }
+}
+```
+
+On `Illuminate\Notifications\Notifiable`, the following methods are available
+```php
+use Illuminate\Notifications\Notification;
+
+// triggered for the target value
+public function routeNotificationForFirebaseMessaging(Notification $notification): string|array|null;
+
+// optional, 'token' type is assumed if not implemented
+// What target type to use (can be 'token', 'condition', 'topic' or null)
+public function routeNotificationForFirebaseMessagingType(Notification $notification): ?string;
+// 'token' or null: routeNotificationForFirebaseMessaging is called and its repsonse is assumed as a token
+// 'condition': routeNotificationForFirebaseMessaging is called and its repsonse is assumed as a condition
+// 'topic': routeNotificationForFirebaseMessaging is called and its repsonse is assumed as a topic
+
+// optional, assumes default project if not implemented
+// specifies which firebase project to use
+public function routeNotificationForFirebaseMessagingProject(Notification $notification): ?string;
+```
+
+
 
 ## Support
 

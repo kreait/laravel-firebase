@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+### Added
+* Notification channel
 
 ## 3.0.0 - 2020-11-01 
 ### Added
