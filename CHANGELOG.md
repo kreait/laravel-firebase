@@ -4,13 +4,13 @@
 ### Added
 * Notification channel
 
-## 3.0.0 - 2020-11-01
+## 3.0.0 - 2020-11-01 
 ### Added
 * Support for multiple firebase projects
   (thanks to [@dododedodonl](https://github.com/dododedodonl)).
   See "upgrading to version 3" section in [UPGRADE.md](UPGRADE.md)
 * `\Kreait\Laravel\Firebase\Facades\Firebase` facade
-* HTTP Client Options are now configurable
+* HTTP Client Options are now configurable 
   (thanks to [@kakajansh](https://github.com/kakajansh))
 
 ### Changed
@@ -39,13 +39,13 @@
 ## 2.2.0 - 2020-06-20
 
 ### Added
-* It is now possible to log HTTP requests and responses to the Firebase APIs to existing log channels.
-  See the "logging" section in [`config/firebase.php`](config/firebase.php) for the configuration
-  options and the [SDK Logging Documentation](https://firebase-php.readthedocs.io/en/5.5.0/setup.html#logging)
+* It is now possible to log HTTP requests and responses to the Firebase APIs to existing log channels. 
+  See the "logging" section in [`config/firebase.php`](config/firebase.php) for the configuration 
+  options and the [SDK Logging Documentation](https://firebase-php.readthedocs.io/en/5.5.0/setup.html#logging) 
   for more information.
 ### Changed
-* The default branch of the GitHub repository has been renamed from `master` to `main` -
-  if you're using `dev-master` as a version constraint in your `composer.json`, please
+* The default branch of the GitHub repository has been renamed from `master` to `main` - 
+  if you're using `dev-master` as a version constraint in your `composer.json`, please 
   update it to `dev-main`.
 
 ## 2.1.0 - 2020-05-27
@@ -66,11 +66,11 @@
 ## 1.4.0 - 2020-02-22
 
 * Updated `kreait/firebase-php` to `^4.40.0`
-* A relative path to a credentials file is now resolved with `base_path()` to address issues on Windows systems [#7](https://github.com/kreait/laravel-firebase/issues/7)
+* A relative path to a credentials file is now resolved with `base_path()` to address issues on Windows systems [#7](https://github.com/kreait/laravel-firebase/issues/7) 
 
 ## 1.3.0 - 2020-01-15
 
-* Added a notice about not using the factory pattern described in the SDK documentation when using this package.
+* Added a notice about not using the factory pattern described in the SDK documentation when using this package. 
   (Although not a code change, adding it in the changelog to enhance visibility)
 * Added support for [Lumen](https://lumen.laravel.com/)
 * Updated `kreait/firebase-php` to `^4.38.1`
