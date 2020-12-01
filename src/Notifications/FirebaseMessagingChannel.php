@@ -10,8 +10,8 @@ use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\MessageTarget;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 use Kreait\Firebase\Exception\MessagingException;
+use Kreait\Firebase\Messaging\Http\Request\SendMessageToTokens;
 use Kreait\Laravel\Firebase\Exception\RuntimeException;
-use Kreait\Laravel\Firebase\Exception\InvalidArgumentException;
 use Kreait\Laravel\Firebase\Exception\MessagingChannelException;
 
 class FirebaseMessagingChannel
@@ -42,7 +42,7 @@ class FirebaseMessagingChannel
         try {
             // Send multicast
             if ($targetType === MessageTarget::TOKEN && count($targetValue) > 1) {
-                $chunkedTokens = array_chunk($targetValue, 10);
+                $chunkedTokens = array_chunk($targetValue, SendMessageToTokens::MAX_AMOUNT_OF_TOKENS);
 
                 $responses = [];
                 foreach ($chunkedTokens as $chunkedToken) {
