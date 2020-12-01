@@ -111,24 +111,15 @@ class FirebaseMessagingChannel
     protected function getTarget($notifiable, Notification $notification): array
     {
         $targetType = $notifiable->routeNotificationFor('firebaseMessagingTarget', $notification);
+        $targetValue = $notifiable->routeNotificationFor('firebaseMessaging', $notification);
 
-        switch ($targetType) {
-            case MessageTarget::CONDITION:
-                $targetValue = $notifiable->routeNotificationFor('firebaseMessagingCondition', $notification);
-                break;
-            case MessageTarget::TOKEN:
-            case null:
-                $targetValue = Arr::wrap($notifiable->routeNotificationFor('firebaseMessagingToken', $notification));
-                break;
-            case MessageTarget::TOPIC:
-                $targetValue = $notifiable->routeNotificationFor('firebaseMessagingTopic', $notification);
-                break;
-            default:
-                throw new InvalidArgumentException('Target "'.$targetType.'" is invalid.');
+        $targetType = strtolower($targetType ?? 'token');
+        if ($targetType === MessageTarget::TOKEN) {
+            $targetValue = Arr::wrap($targetValue);
         }
 
         return [
-            strtolower($targetType ?? 'token'),
+            $targetType,
             $targetValue,
         ];
     }

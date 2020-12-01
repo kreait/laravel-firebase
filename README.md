@@ -172,24 +172,18 @@ On `Illuminate\Notifications\Notifiable`, the following methods are available
 ```php
 use Illuminate\Notifications\Notification;
 
-// triggered if routeNotificationForFirebaseMessagingTarget is 'token', null, or not implemented
-public function routeNotificationForFirebaseMessagingToken(Notification $notification): string|array|null;
+// triggered for the target value
+public function routeNotificationForFirebaseMessaging(Notification $notification): string|array|null;
 
-// optional, defaults to 'token' target if not implemented
+// optional, 'token' target is assumed if not implemented
 // What target type to use (can be 'token', 'condition', 'topic' or null)
 public function routeNotificationForFirebaseMessagingTarget(Notification $notification): ?string;
-// 'token' or null: routeNotificationForFirebaseMessagingToken is called for a target value
-// 'condition': routeNotificationForFirebaseMessagingCondition is called for a target value
-// 'topic': routeNotificationForFirebaseMessagingTopic is called for a target value
+// 'token' or null: routeNotificationForFirebaseMessaging is called and its repsonse is assumed as a token
+// 'condition': routeNotificationForFirebaseMessaging is called and its repsonse is assumed as a condition
+// 'topic': routeNotificationForFirebaseMessaging is called and its repsonse is assumed as a topic
 
-// optional, only triggered if routeNotificationForFirebaseMessagingTarget returns 'condition'
-public function routeNotificationForFirebaseMessagingCondition(Notification $notification): ?string;
-
-// optional, only triggered if routeNotificationForFirebaseMessagingTarget returns 'topic'
-public function routeNotificationForFirebaseMessagingTopic(Notification $notification): ?string;
-
-// optional
-// specifies which firebase project to use, defaults to the default project
+// optional, assumes default project if not implemented
+// specifies which firebase project to use
 public function routeNotificationForFirebaseMessagingProject(Notification $notification): ?string;
 ```
 
