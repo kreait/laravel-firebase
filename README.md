@@ -10,17 +10,16 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 [![Discord](https://img.shields.io/discord/523866370778333184.svg?color=7289da&logo=discord)](https://discord.gg/nbgVfty)
 [![Sponsor](https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&color=ff69b4)](https://github.com/sponsors/jeromegamez)
 
-- [Firebase for Laravel](#firebase-for-laravel)
-  - [Installation](#installation)
-    - [Laravel](#laravel)
-    - [Lumen](#lumen)
-  - [Upgrade](#upgrade)
-  - [Configuration](#configuration)
-  - [Usage](#usage)
-    - [Multiple projects](#multiple-projects)
-    - [Notification channel](#notification-channel)
-  - [Support](#support)
-  - [License](#license)
+- [Installation](#installation)
+  - [Laravel](#laravel)
+  - [Lumen](#lumen)
+- [Upgrade](#upgrade)
+- [Configuration](#configuration)
+- [Usage](#usage)
+  - [Multiple projects](#multiple-projects)
+  - [Notification channel](#notification-channel)
+- [Support](#support)
+- [License](#license)
 
 ## Installation
 
@@ -61,7 +60,7 @@ $app->withFacades();
 ```
 
 ## Upgrade
-See [UPGRADE.md](upgrade.md) for upgrade instructions.
+See [UPGRADE.md](UPGRADE.md) for upgrade instructions.
 
 ## Configuration
 
