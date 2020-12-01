@@ -175,9 +175,9 @@ use Illuminate\Notifications\Notification;
 // triggered for the target value
 public function routeNotificationForFirebaseMessaging(Notification $notification): string|array|null;
 
-// optional, 'token' target is assumed if not implemented
+// optional, 'token' type is assumed if not implemented
 // What target type to use (can be 'token', 'condition', 'topic' or null)
-public function routeNotificationForFirebaseMessagingTarget(Notification $notification): ?string;
+public function routeNotificationForFirebaseMessagingType(Notification $notification): ?string;
 // 'token' or null: routeNotificationForFirebaseMessaging is called and its repsonse is assumed as a token
 // 'condition': routeNotificationForFirebaseMessaging is called and its repsonse is assumed as a condition
 // 'topic': routeNotificationForFirebaseMessaging is called and its repsonse is assumed as a topic

@@ -59,7 +59,7 @@ class FirebaseMessagingChannel
 
             return [
                 $this->getFirebaseMessaging($notifiable, $notification)->send(
-                    $message->withChangedTarget($targetType, $targetValue)
+                    $message->withChangedTarget($targetType, is_array($targetValue) ? Arr::first($targetValue) : $targetValue)
                 )
             ];
         } catch (MessagingException $e) {
@@ -110,7 +110,7 @@ class FirebaseMessagingChannel
      */
     protected function getTarget($notifiable, Notification $notification): array
     {
-        $targetType = $notifiable->routeNotificationFor('firebaseMessagingTarget', $notification);
+        $targetType = $notifiable->routeNotificationFor('firebaseMessagingType', $notification);
         $targetValue = $notifiable->routeNotificationFor('firebaseMessaging', $notification);
 
         $targetType = strtolower($targetType ?? 'token');
