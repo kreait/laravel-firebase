@@ -14,8 +14,8 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
   - [Laravel](#laravel)
   - [Lumen](#lumen)
 - [Configuration](#configuration)
-- [Upgrading to version 3](#upgrading-to-version-3)
-  - [Facades](#facades)
+- [Upgrading to version 3](#upgrade)
+  - [Facades](UPGRADE.md#facades)
 - [Usage](#usage)
   - [Multiple projects](#multiple-projects)
 - [Support](#support)
@@ -60,7 +60,7 @@ $app->withFacades();
 ```
 
 ## Upgrade
-See [UPGRADE.md](upgrade.md) for upgrade instructions.
+See [UPGRADE.md](UPGRADE.md) for upgrade instructions.
 
 ## Configuration
 
