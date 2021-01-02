@@ -35,7 +35,7 @@ return [
              * to configure the package.
              *
              * If you don't provide credentials, the Firebase Admin SDK will try to
-             * autodiscover them
+             * auto-discover them
              *
              * - by checking the environment variable FIREBASE_CREDENTIALS
              * - by checking the environment variable GOOGLE_APPLICATION_CREDENTIALS
@@ -139,8 +139,8 @@ return [
              */
 
             'logging' => [
-                'http_log_channel' => env('FIREBASE_HTTP_LOG_CHANNEL', null),
-                'http_debug_log_channel' => env('FIREBASE_HTTP_DEBUG_LOG_CHANNEL', null),
+                'http_log_channel' => env('FIREBASE_HTTP_LOG_CHANNEL'),
+                'http_debug_log_channel' => env('FIREBASE_HTTP_DEBUG_LOG_CHANNEL'),
             ],
 
             /*
@@ -155,14 +155,14 @@ return [
                  * Use a proxy that all API requests should be passed through.
                  * (default: none)
                  */
-                'proxy' => env('FIREBASE_HTTP_CLIENT_PROXY', null),
+                'proxy' => env('FIREBASE_HTTP_CLIENT_PROXY'),
 
                 /*
                  * Set the maximum amount of seconds (float) that can pass before
                  * a request is considered timed out
                  * (default: indefinitely)
                  */
-                'timeout' => env('FIREBASE_HTTP_CLIENT_TIMEOUT', null),
+                'timeout' => env('FIREBASE_HTTP_CLIENT_TIMEOUT'),
             ],
 
             /*
