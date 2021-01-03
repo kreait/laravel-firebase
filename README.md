@@ -129,8 +129,8 @@ $anotherAppAuth = Firebase::project('another-app')->auth();
 ## Support
 
 - [Issue Tracker (Laravel Package)](https://github.com/kreait/laravel-firebase/issues/)
-- [Issue Tracker (Admin SDK)](https://github.com/kreait/firebase-php/issues/)
-- [Discord Chat](https://discord.gg/nbgVfty)
+- [Bug Reports (Admin SDK)](https://github.com/kreait/firebase-php/issues/)
+- [Feature Requests and Discussions (Admin SDK)](https://github.com/kreait/firebase-php/discussions)
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/firebase+php)
 
 ## License
