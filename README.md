@@ -7,17 +7,15 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 [![Total Downloads](https://img.shields.io/packagist/dt/kreait/laravel-firebase.svg)](https://packagist.org/packages/kreait/laravel-firebase/stats)
 [![Tests](https://github.com/kreait/laravel-firebase/workflows/Tests/badge.svg?branch=main)](https://github.com/kreait/laravel-firebase/actions)
 [![codecov](https://codecov.io/gh/kreait/laravel-firebase/branch/main/graph/badge.svg)](https://codecov.io/gh/kreait/laravel-firebase)
-[![Discord](https://img.shields.io/discord/523866370778333184.svg?color=7289da&logo=discord)](https://discord.gg/nbgVfty)
 [![Sponsor](https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&color=ff69b4)](https://github.com/sponsors/jeromegamez)
 
 - [Installation](#installation)
   - [Laravel](#laravel)
   - [Lumen](#lumen)
 - [Configuration](#configuration)
-- [Upgrading to version 3](#upgrade)
-  - [Facades](UPGRADE.md#facades)
 - [Usage](#usage)
   - [Multiple projects](#multiple-projects)
+- [Upgrading](UPGRADE.md)
 - [Support](#support)
 - [License](#license)
 
@@ -116,15 +114,16 @@ done for you with the Laravel Service Provider. Use Dependency Injection, the Fa
 
 Multiple projects can be configured in [config/firebase.php](config/firebase.php) by adding another section to the projects array.
 
-When accessing components, the facade uses the default project. One can also explicitly use a project:
+When accessing components, the facade uses the default project. You can also explicitly use a project:
 
 ```php
-Firebase::auth() // returns an intance of \Kreait\Firebase\Auth with the configuration found for the default project
-// or
-// 'app' is configured as the default project by default, this would be equivalent to Firebase::firestore() when that is the case
-Firebase::project('app')->firestore() // returns an intance of \Kreait\Firebase\Firestore with the configuration found for the 'app' project
-// or
-Firebase::project('secondary-app')->database() // returns an instance of \Kreait\Firebase\Database with the configuration found for the 'secondary-app' project
+use Kreait\Laravel\Firebase\Facades\Firebase;
+
+// Return an instance of the Auth component for the default Firebase project
+$defaultAuth = Firebase::auth();
+// Return an instance of the Auth component for a specific Firebase project
+$appAuth = Firebase::project('app')->auth();
+$anotherAppAuth = Firebase::project('another-app')->auth();
 ```
 
 ## Support
