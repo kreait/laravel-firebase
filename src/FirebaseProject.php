@@ -103,4 +103,10 @@ class FirebaseProject
 
         return $this->storage;
     }
+     
+
+    public function factory(): Firebase\Factory
+    {
+        return $this->factory;
+    }
 }
