@@ -71,13 +71,16 @@ the Firebase APIs by inspecting certain environment variables and looking into G
 If you don't already have generated a Service Account, you can do so by following the instructions from the
 official documentation pages at https://firebase.google.com/docs/admin/setup#initialize_the_sdk.
 
-Once you have downloaded the Service Account JSON file, you can use it to configure the package by specifying
-the environment variable `FIREBASE_CREDENTIALS` in your `.env` file:
+Once you have downloaded the Service Account JSON file, you can configure the package by specifying
+environment variables starting with `FIREBASE_` in your `.env` file. Usually, the following are
+required for the package to work:
 
 ```
-FIREBASE_CREDENTIALS=/full/path/to/firebase_credentials.json
-# or
-FIREBASE_CREDENTIALS=relative/path/to/firebase_credentials.json
+# relative or full path to the Service Account JSON file
+FIREBASE_CREDENTIALS=
+# You can find the database URL for your project at
+# https://console.firebase.google.com/project/_/database
+FIREBASE_DATABASE_URL=https://<your-project>.firebaseio.com
 ```
 
 For further configuration, please see [config/firebase.php](config/firebase.php). You can modify the configuration
