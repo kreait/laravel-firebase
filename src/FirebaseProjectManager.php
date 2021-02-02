@@ -61,6 +61,10 @@ class FirebaseProjectManager
 
         $config = $this->configuration($name);
 
+        if ($tenantId = $config['auth']['tenant_id'] ?? null) {
+            $factory = $factory->withTenantId($tenantId);
+        }
+
         if ($credentials = $config['credentials']['file'] ?? null) {
             $resolvedCredentials = $this->resolveCredentials((string) $credentials);
 

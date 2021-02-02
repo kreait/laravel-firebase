@@ -95,6 +95,23 @@ final class FirebaseProjectManagerTest extends TestCase
     /**
      * @test
      */
+    public function a_tenant_id_can_be_set(): void
+    {
+        $this->app->config->set('firebase.projects.app.auth.tenant_id', $expected = 'abc123');
+
+        $auth = $this->app->make(Firebase\Auth::class);
+
+        /** @var Firebase\Auth\TenantId|null $tenantId */
+        $tenantId = ReflectionObject::createFromInstance($auth)->getProperty('tenantId')->getValue($auth);
+
+        $this->assertInstanceOf(Firebase\Auth\TenantId::class, $tenantId);
+
+        $this->assertSame($expected, $tenantId->toString());
+    }
+
+    /**
+     * @test
+     */
     public function projects_can_have_different_credentials(): void
     {
         // Reference credentials
