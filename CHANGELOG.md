@@ -1,6 +1,11 @@
 # CHANGELOG
 
-## Unreleased
+## 3.1.0 - 2021-02-03
+### Added
+* Support for tenant awareness via `FIREBASE_AUTH_TENANT_ID` environment variable
+  or `firebase.projects.*.auth.tenant_id` config variable.
+  ([#79](https://github.com/kreait/laravel-firebase/pull/79))
+  (thanks to [@sl0wik](https://github.com/sl0wik))
 
 ## 3.0.0 - 2020-11-01 
 ### Added
