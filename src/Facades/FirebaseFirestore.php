@@ -7,8 +7,8 @@ namespace Kreait\Laravel\Firebase\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Kreait\Firebase\Firestore
- * @mixin \Kreait\Firebase\Firestore
+ * @see \Kreait\Firebase\Contract\Firestore
+ * @mixin \Kreait\Firebase\Contract\Firestore
  *
  * @deprecated 3.0 Use {@see \Kreait\Laravel\Firebase\Facades\Firebase::firestore()} instead.
  */

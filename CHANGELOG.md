@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Unreleased
+### Changed
+* Type-hints have been updated to point to the interfaces that the underlying SDK provides
+  since more recent versions. 
+
 ## 3.1.0 - 2021-02-03
 ### Added
 * Support for tenant awareness via `FIREBASE_AUTH_TENANT_ID` environment variable

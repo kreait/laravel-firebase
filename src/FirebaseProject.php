@@ -14,25 +14,25 @@ class FirebaseProject
     /** @var array */
     protected $config;
 
-    /** @var \Kreait\Firebase\Auth|null */
+    /** @var \Kreait\Firebase\Contract\Auth|null */
     protected $auth;
 
-    /** @var \Kreait\Firebase\Database|null */
+    /** @var \Kreait\Firebase\Contract\Database|null */
     protected $database;
 
-    /** @var \Kreait\Firebase\DynamicLinks|null */
+    /** @var \Kreait\Firebase\Contract\DynamicLinks|null */
     protected $dynamicLinks;
 
-    /** @var \Kreait\Firebase\Firestore|null */
+    /** @var \Kreait\Firebase\Contract\Firestore|null */
     protected $firestore;
 
-    /** @var \Kreait\Firebase\Messaging|null */
+    /** @var \Kreait\Firebase\Contract\Messaging|null */
     protected $messaging;
 
-    /** @var \Kreait\Firebase\RemoteConfig|null */
+    /** @var \Kreait\Firebase\Contract\RemoteConfig|null */
     protected $remoteConfig;
 
-    /** @var \Kreait\Firebase\Storage|null */
+    /** @var \Kreait\Firebase\Contract\Storage|null */
     protected $storage;
 
     public function __construct(Firebase\Factory $factory, array $config)
@@ -41,7 +41,7 @@ class FirebaseProject
         $this->config = $config;
     }
 
-    public function auth(): Firebase\Auth
+    public function auth(): Firebase\Contract\Auth
     {
         if (!$this->auth) {
             $this->auth = $this->factory->createAuth();
@@ -50,7 +50,7 @@ class FirebaseProject
         return $this->auth;
     }
 
-    public function database(): Firebase\Database
+    public function database(): Firebase\Contract\Database
     {
         if (!$this->database) {
             $this->database = $this->factory->createDatabase();
@@ -59,7 +59,7 @@ class FirebaseProject
         return $this->database;
     }
 
-    public function dynamicLinks(): Firebase\DynamicLinks
+    public function dynamicLinks(): Firebase\Contract\DynamicLinks
     {
         if (!$this->dynamicLinks) {
             $this->dynamicLinks = $this->factory->createDynamicLinksService($this->config['dynamic_links']['default_domain'] ?? null);
@@ -68,7 +68,7 @@ class FirebaseProject
         return $this->dynamicLinks;
     }
 
-    public function firestore(): Firebase\Firestore
+    public function firestore(): Firebase\Contract\Firestore
     {
         if (!$this->firestore) {
             $this->firestore = $this->factory->createFirestore();
@@ -77,7 +77,7 @@ class FirebaseProject
         return $this->firestore; // @codeCoverageIgnore
     }
 
-    public function messaging(): Firebase\Messaging
+    public function messaging(): Firebase\Contract\Messaging
     {
         if (!$this->messaging) {
             $this->messaging = $this->factory->createMessaging();
@@ -86,7 +86,7 @@ class FirebaseProject
         return $this->messaging;
     }
 
-    public function remoteConfig(): Firebase\RemoteConfig
+    public function remoteConfig(): Firebase\Contract\RemoteConfig
     {
         if (!$this->remoteConfig) {
             $this->remoteConfig = $this->factory->createRemoteConfig();
@@ -95,7 +95,7 @@ class FirebaseProject
         return $this->remoteConfig;
     }
 
-    public function storage(): Firebase\Storage
+    public function storage(): Firebase\Contract\Storage
     {
         if (!$this->storage) {
             $this->storage = $this->factory->createStorage();
