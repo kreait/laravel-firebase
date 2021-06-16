@@ -221,6 +221,7 @@ final class FirebaseProjectManagerTest extends TestCase
     {
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.database.url', $url = 'https://domain.tld');
+        $this->app->config->set('firebase.projects.'.$projectName.'.database.auth_variable_override', ['uid' => 'some-uid']);
 
         $database = $this->app->make(Firebase\Database::class);
 

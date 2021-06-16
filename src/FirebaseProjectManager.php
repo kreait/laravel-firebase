@@ -80,6 +80,10 @@ class FirebaseProjectManager
             $factory = $factory->withDatabaseUri($databaseUrl);
         }
 
+        if ($authVariableOverride = $config['database']['auth_variable_override'] ?? null) {
+            $factory = $factory->withDatabaseAuthVariableOverride($authVariableOverride);
+        }
+
         if ($defaultStorageBucket = $config['storage']['default_bucket'] ?? null) {
             $factory = $factory->withDefaultStorageBucket($defaultStorageBucket);
         }
