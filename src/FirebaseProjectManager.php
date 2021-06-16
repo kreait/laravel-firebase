@@ -77,7 +77,7 @@ class FirebaseProjectManager
         }
 
         if ($databaseUrl = $config['database']['url'] ?? null) {
-            $factory = $factory->withDatabaseUri($databaseUrl);
+            $factory = $factory->withDatabaseUri($databaseUrl, $config['database']['auth_variable_override'] ?? null);
         }
 
         if ($defaultStorageBucket = $config['storage']['default_bucket'] ?? null) {
