@@ -50,6 +50,16 @@ class FirebaseProject
         return $this->auth;
     }
 
+    public function identityPlatform(): Firebase\IdentityPlatform
+    {
+        if (!$this->auth) {
+            $this->auth = $this->factory->createIdentityPlatform();
+        }
+
+        return $this->auth;
+    }
+
+
     public function database(): Firebase\Contract\Database
     {
         if (!$this->database) {

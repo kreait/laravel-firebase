@@ -78,6 +78,11 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return $app->make(FirebaseProjectManager::class)->project()->storage();
         });
         $this->app->alias(Firebase\Storage::class, 'firebase.storage');
+
+        $this->app->singleton(Firebase\IdentityPlatform::class, static function (Container $app) {
+            return $app->make(FirebaseProjectManager::class)->project()->identityPlatform();
+        });
+        $this->app->alias(Firebase\IdentityPlatform::class, 'firebase.identity_platform');
     }
 
     private function registerManager(): void
