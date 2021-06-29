@@ -1,7 +1,12 @@
 {
     "name": "kreait/laravel-firebase",
     "description": "A Laravel package for the Firebase PHP Admin SDK",
-    "keywords": ["laravel", "firebase", "fcm", "gcm"],
+    "keywords": [
+        "laravel",
+        "firebase",
+        "fcm",
+        "gcm"
+    ],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -12,7 +17,7 @@
     ],
     "require": {
         "php": "^7.2|~8.0.0",
-        "kreait/firebase-php": "^5.18",
+        "kreait/firebase-php": "dev-add-identity-platform",
         "illuminate/contracts": "^6.0|^7.0|^8.0",
         "illuminate/support": "^6.0|^7.0|^8.0"
     },
@@ -42,6 +47,7 @@
             "aliases": {
                 "Firebase": "Kreait\\Laravel\\Firebase\\Facades\\Firebase",
                 "FirebaseAuth": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseAuth",
+                "FirebaseIdentityPlatform": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseIdentityPlatform",
                 "FirebaseDatabase": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseDatabase",
                 "FirebaseDynamicLinks": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseDynamicLinks",
                 "FirebaseFirestore": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseFirestore",
@@ -50,5 +56,11 @@
                 "FirebaseStorage": "Kreait\\Laravel\\Firebase\\Facades\\FirebaseStorage"
             }
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Cybrary/firebase-php"
+        }
+    ]
 }
