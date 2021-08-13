@@ -1,5 +1,5 @@
 {
-    "name": "Cybrary/laravel-firebase",
+    "name": "cybrary/laravel-firebase",
     "description": "A Laravel package for the Firebase PHP Admin SDK",
     "keywords": [
         "laravel",
