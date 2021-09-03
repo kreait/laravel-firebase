@@ -55,7 +55,7 @@ class FirebaseProject
 
     public function identityPlatform(): Firebase\IdentityPlatform
     {
-        if (!$this->auth) {
+        if (!$this->identityPlatform) {
             $this->identityPlatform = $this->factory->createIdentityPlatform();
         }
 
