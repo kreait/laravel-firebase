@@ -26,6 +26,9 @@ class FirebaseProject
     /** @var \Kreait\Firebase\Contract\Firestore|null */
     protected $firestore;
 
+    /** @var \Kreait\Firebase\Contract\IdentityPlatform|null */
+    protected $identityPlatform;
+
     /** @var \Kreait\Firebase\Contract\Messaging|null */
     protected $messaging;
 
@@ -53,10 +56,10 @@ class FirebaseProject
     public function identityPlatform(): Firebase\IdentityPlatform
     {
         if (!$this->auth) {
-            $this->auth = $this->factory->createIdentityPlatform();
+            $this->identityPlatform = $this->factory->createIdentityPlatform();
         }
 
-        return $this->auth;
+        return $this->identityPlatform;
     }
 
 
