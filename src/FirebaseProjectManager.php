@@ -83,9 +83,15 @@ class FirebaseProjectManager
         if ($defaultStorageBucket = $config['storage']['default_bucket'] ?? null) {
             $factory = $factory->withDefaultStorageBucket($defaultStorageBucket);
         }
+        if ($logChannel = $config['logging']['http_debug_log_channel'] ?? null) {
+            $factory = $factory->withHttpDebugLogger(
+                $this->app->make('log')->channel($logChannel)
+            );
+        }
 
         if ($config['debug'] ?? false) {
-            $factory = $factory->withEnabledDebug();
+            $logger = $this->app->make('log')->channel($logChannel ?? null);
+            $factory = $factory->withEnabledDebug($logger);
         }
 
         if ($cacheStore = $config['cache_store'] ?? null) {
@@ -100,11 +106,7 @@ class FirebaseProjectManager
             );
         }
 
-        if ($logChannel = $config['logging']['http_debug_log_channel'] ?? null) {
-            $factory = $factory->withHttpDebugLogger(
-                $this->app->make('log')->channel($logChannel)
-            );
-        }
+
 
         $options = HttpClientOptions::default();
 
