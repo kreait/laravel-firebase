@@ -20,7 +20,7 @@ jobs:
                     -   laravel: '6.0'
                         testbench: '4.8'
 
-        name: Laravel ${{ matrix.laravel }}
+        name: Laravel ${{ matrix.laravel }} (PHP ${{ matrix.php }})
 
         steps:
             -   name: Checkout code
