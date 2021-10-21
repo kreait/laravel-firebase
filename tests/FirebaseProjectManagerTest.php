@@ -337,6 +337,11 @@ final class FirebaseProjectManagerTest extends TestCase
      */
     public function enabling_debug_with_a_boolean_triggers_a_deprecation(): void
     {
+
+        if (version_compare($this->app->version(), '8.65.0', '>=')) {
+            self::markTestSkipped('');
+        }
+
         $this->expectException(\Throwable::class);
         $this->expectExceptionMessageMatches('/deprecated/');
 
@@ -344,6 +349,6 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $this->app->config->set('firebase.projects.'.$projectName.'.debug', true);
 
-        $factory = $this->factoryForProject($projectName);
+        $this->factoryForProject($projectName);
     }
 }
