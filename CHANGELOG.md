@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Unreleased
+### Added
+* Ensure support for all PHP 8.x versions 
+  ([#110](https://github.com/kreait/laravel-firebase/pull/110))
+
 ## 3.2.0 - 2021-1021
 ### Added
 * Support for Database Auth Variable Overrides
