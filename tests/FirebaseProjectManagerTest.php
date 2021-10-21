@@ -331,24 +331,4 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $this->assertInstanceOf(\Illuminate\Contracts\Cache\Repository::class, $property->getValue($factory));
     }
-
-    /**
-     * @test
-     */
-    public function enabling_debug_with_a_boolean_triggers_a_deprecation(): void
-    {
-
-        if (version_compare($this->app->version(), '8.65.0', '>=')) {
-            self::markTestSkipped('');
-        }
-
-        $this->expectException(\Throwable::class);
-        $this->expectExceptionMessageMatches('/deprecated/');
-
-        $projectName = $this->app->config->get('firebase.default');
-
-        $this->app->config->set('firebase.projects.'.$projectName.'.debug', true);
-
-        $this->factoryForProject($projectName);
-    }
 }
