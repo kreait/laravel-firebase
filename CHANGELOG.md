@@ -1,9 +1,13 @@
 # CHANGELOG
 
-## Unreleased
+## 3.2.0 - 2021-1021
+### Added
+* Support for Database Auth Variable Overrides
+  ([#93](https://github.com/kreait/laravel-firebase/pull/93))
 ### Changed
 * Type-hints have been updated to point to the interfaces that the underlying SDK provides
-  since more recent versions. 
+  since more recent versions.
+* Bumped `kreait/firebase-php` dependency to `^5.24` (Database Auth Variable Overrides are supported since `5.22`)
 
 ## 3.1.0 - 2021-02-03
 ### Added
