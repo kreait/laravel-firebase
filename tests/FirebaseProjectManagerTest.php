@@ -52,8 +52,8 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $manager->setDefaultProject($projectName);
 
-        $this->assertEquals($projectName, $manager->getDefaultProject());
-        $this->assertEquals($projectName, $this->app->config->get('firebase.default'), 'default project should be set in config');
+        self::assertSame($projectName, $manager->getDefaultProject());
+        self::assertSame($projectName, $this->app->config->get('firebase.default'), 'default project should be set in config');
     }
 
     /**
