@@ -4,25 +4,23 @@ declare(strict_types=1);
 
 namespace Kreait\Laravel\Firebase\Tests;
 
+use Illuminate\Contracts\Cache\Repository;
 use Kreait\Firebase;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
 use Kreait\Laravel\Firebase\FirebaseProjectManager;
-use Roave\BetterReflection\Reflection\ReflectionObject;
+use ReflectionObject;
 
 /**
  * @internal
  */
 final class FirebaseProjectManagerTest extends TestCase
 {
-    protected function factoryForProject(?string $project = null): Factory
+    private function factoryForProject(?string $project = null): Factory
     {
-        $manager = $this->app->make(FirebaseProjectManager::class);
-        $project = $manager->project($project);
+        $project = $this->app->make(FirebaseProjectManager::class)->project($project);
 
-        $factory = ReflectionObject::createFromInstance($project)->getProperty('factory');
-
-        return $factory->getValue($project);
+        return $this->getAccessibleProperty($project, 'factory')->getValue($project);
     }
 
     /**
@@ -36,9 +34,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
 
-        ReflectionObject::createFromInstance($manager)
-            ->getMethod('configuration')
-            ->invoke($manager, $projectName);
+        $this->getAccessibleMethod($manager, 'configuration')->invoke($manager, $projectName);
     }
 
     /**
@@ -84,9 +80,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         // Retrieve service account
         /** @var Firebase\ServiceAccount $serviceAccount */
-        $serviceAccount = ReflectionObject::createFromInstance($factory)
-            ->getMethod('getServiceAccount')
-            ->invoke($factory);
+        $serviceAccount = $this->getAccessibleMethod($factory, 'getServiceAccount')->invoke($factory);
 
         // Validate value
         $this->assertSame($credentials, $serviceAccount->asArray());
@@ -102,7 +96,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $auth = $this->app->make(Firebase\Auth::class);
 
         /** @var Firebase\Auth\TenantId|null $tenantId */
-        $tenantId = ReflectionObject::createFromInstance($auth)->getProperty('tenantId')->getValue($auth);
+        $tenantId = $this->getAccessibleProperty($auth, 'tenantId')->getValue($auth);
 
         $this->assertInstanceOf(Firebase\Auth\TenantId::class, $tenantId);
 
@@ -134,14 +128,10 @@ final class FirebaseProjectManagerTest extends TestCase
         $secondFactory = $this->factoryForProject($secondProjectName);
 
         /** @var Firebase\ServiceAccount $serviceAccount */
-        $serviceAccount = ReflectionObject::createFromInstance($factory)
-            ->getMethod('getServiceAccount')
-            ->invoke($factory);
+        $serviceAccount = $this->getAccessibleMethod($factory, 'getServiceAccount')->invoke($factory);
 
         /** @var Firebase\ServiceAccount $secondServiceAccount */
-        $secondServiceAccount = ReflectionObject::createFromInstance($secondFactory)
-            ->getMethod('getServiceAccount')
-            ->invoke($secondFactory);
+        $secondServiceAccount = $this->getAccessibleMethod($factory, 'getServiceAccount')->invoke($secondFactory);
 
         // Validate values
         $this->assertSame($credentials, $serviceAccount->asArray());
@@ -157,8 +147,9 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('discoveryIsDisabled');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $this->getAccessibleMethod($factory, 'getServiceAccount')->invoke($factory);
+
+        $property = $this->getAccessibleProperty($factory, 'discoveryIsDisabled');
 
         $this->assertFalse($property->getValue($factory));
     }
@@ -174,8 +165,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('discoveryIsDisabled');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($factory, 'discoveryIsDisabled');
 
         $this->assertTrue($property->getValue($factory));
     }
@@ -191,8 +181,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $factory = $this->factoryForProject($projectName); // factory for default project with default settings
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('discoveryIsDisabled');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($factory, 'discoveryIsDisabled');
 
         $this->assertTrue($property->getValue($factory));
     }
@@ -208,8 +197,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('discoveryIsDisabled');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($factory, 'discoveryIsDisabled');
 
         $this->assertFalse($property->getValue($factory));
     }
@@ -225,8 +213,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $database = $this->app->make(Firebase\Database::class);
 
-        $property = ReflectionObject::createFromInstance($database)->getProperty('uri');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($database, 'uri');
 
         $this->assertSame($url, (string) $property->getValue($database));
     }
@@ -241,8 +228,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $dynamicLinks = $this->app->make(Firebase\DynamicLinks::class);
 
-        $property = ReflectionObject::createFromInstance($dynamicLinks)->getProperty('defaultDynamicLinksDomain');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($dynamicLinks, 'defaultDynamicLinksDomain');
 
         /** @var Firebase\Value\Url $configuredDomain */
         $configuredDomain = $property->getValue($dynamicLinks);
@@ -260,8 +246,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $storage = $this->app->make(Firebase\Storage::class);
 
-        $property = ReflectionObject::createFromInstance($storage)->getProperty('defaultBucket');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($storage, 'defaultBucket');
 
         $this->assertSame($name, $property->getValue($storage));
     }
@@ -276,8 +261,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('httpLogMiddleware');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($factory, 'httpLogMiddleware');
 
         $this->assertNotNull($property->getValue($factory));
     }
@@ -292,8 +276,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('httpDebugLogMiddleware');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($factory, 'httpDebugLogMiddleware');
 
         $this->assertNotNull($property->getValue($factory));
     }
@@ -309,11 +292,8 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('httpClientOptions');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
-
         /** @var Firebase\Http\HttpClientOptions $httpClientOptions */
-        $httpClientOptions = $property->getValue($factory);
+        $httpClientOptions = $this->getAccessibleProperty($factory, 'httpClientOptions')->getValue($factory);
 
         $this->assertSame('proxy.domain.tld', $httpClientOptions->proxy());
         $this->assertSame(1.23, $httpClientOptions->timeout());
@@ -327,9 +307,24 @@ final class FirebaseProjectManagerTest extends TestCase
         $projectName = $this->app->config->get('firebase.default');
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('verifierCache');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($factory, 'verifierCache');
 
-        $this->assertInstanceOf(\Illuminate\Contracts\Cache\Repository::class, $property->getValue($factory));
+        $this->assertInstanceOf(Repository::class, $property->getValue($factory));
+    }
+
+    private function getAccessibleProperty(object $object, string $propertyName): \ReflectionProperty
+    {
+        $property = (new ReflectionObject($object))->getProperty($propertyName);
+        $property->setAccessible(true);
+
+        return $property;
+    }
+
+    private function getAccessibleMethod(object $object, string $methodName): \ReflectionMethod
+    {
+        $property = (new ReflectionObject($object))->getMethod($methodName);
+        $property->setAccessible(true);
+
+        return $property;
     }
 }
