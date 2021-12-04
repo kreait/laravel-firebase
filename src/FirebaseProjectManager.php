@@ -8,6 +8,10 @@ use Illuminate\Contracts\Container\Container;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Http\HttpClientOptions;
+use Psr\Cache\CacheItemPoolInterface;
+use Psr\SimpleCache\CacheInterface;
+use Symfony\Component\Cache\Adapter\Psr16Adapter;
+use Symfony\Component\Cache\Psr16Cache;
 
 class FirebaseProjectManager
 {
@@ -93,9 +97,21 @@ class FirebaseProjectManager
         }
 
         if ($cacheStore = $config['cache_store'] ?? null) {
-            $factory = $factory->withVerifierCache(
-                $this->app->make('cache')->store($cacheStore)
-            );
+            $cache = $this->app->make('cache')->store($cacheStore);
+
+            if ($cache instanceof CacheItemPoolInterface) {
+                $psr6Cache = $cache;
+                $psr16Cache = new Psr16Cache($cache);
+            } elseif ($cache instanceof CacheInterface) {
+                $psr6Cache = new Psr16Adapter($cache);
+                $psr16Cache = $cache;
+            } else {
+                throw new InvalidArgumentException("The cache store must be an instance of a PSR-6 or PSR-16 cache");
+            }
+
+            $factory = $factory
+                ->withVerifierCache($psr16Cache)
+                ->withAuthTokenCache($psr6Cache);
         }
 
         if ($logChannel = $config['logging']['http_log_channel'] ?? null) {

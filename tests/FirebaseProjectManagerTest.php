@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Kreait\Laravel\Firebase\Tests;
 
-use Illuminate\Contracts\Cache\Repository;
 use Kreait\Firebase;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
 use Kreait\Laravel\Firebase\FirebaseProjectManager;
+use Psr\Cache\CacheItemPoolInterface;
+use Psr\SimpleCache\CacheInterface;
 use ReflectionObject;
 
 /**
@@ -302,14 +303,27 @@ final class FirebaseProjectManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_uses_the_laravel_cache(): void
+    public function it_uses_the_laravel_cache_as_verifier_cache(): void
     {
         $projectName = $this->app->config->get('firebase.default');
         $factory = $this->factoryForProject($projectName);
 
         $property = $this->getAccessibleProperty($factory, 'verifierCache');
 
-        $this->assertInstanceOf(Repository::class, $property->getValue($factory));
+        $this->assertInstanceOf(CacheInterface::class, $property->getValue($factory));
+    }
+
+    /**
+     * @test
+     */
+    public function it_uses_the_laravel_cache_as_auth_token_cache(): void
+    {
+        $projectName = $this->app->config->get('firebase.default');
+        $factory = $this->factoryForProject($projectName);
+
+        $property = $this->getAccessibleProperty($factory, 'authTokenCache');
+
+        $this->assertInstanceOf(CacheItemPoolInterface::class, $property->getValue($factory));
     }
 
     private function getAccessibleProperty(object $object, string $propertyName): \ReflectionProperty
