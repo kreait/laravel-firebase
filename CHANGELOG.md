@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
+
+## 3.4.0 - 2021-12-04
 ### Added
 * Added support for caching the authentication tokens used for connecting to the Firebase servers.
 
