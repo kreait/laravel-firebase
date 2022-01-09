@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 4.0.0 - 2022-01-09
 
 This is a release with breaking changes. Please review the following changes and adapt your application where needed.
 
