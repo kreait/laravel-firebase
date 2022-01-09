@@ -16,7 +16,6 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 - [Configuration](#configuration)
 - [Usage](#usage)
   - [Multiple projects](#multiple-projects)
-- [Upgrading](UPGRADE.md)
 - [Support](#support)
 - [License](#license)
 
@@ -57,9 +56,6 @@ $app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
 // If you want to use the Facades provided by the package
 $app->withFacades();
 ```
-
-## Upgrade
-See [UPGRADE.md](UPGRADE.md) for upgrade instructions.
 
 ## Configuration
 
