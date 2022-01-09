@@ -4,44 +4,36 @@ declare(strict_types=1);
 
 namespace Kreait\Laravel\Firebase;
 
-use Kreait\Firebase;
+use Kreait\Firebase\Contract\Auth;
+use Kreait\Firebase\Contract\Database;
+use Kreait\Firebase\Contract\DynamicLinks;
+use Kreait\Firebase\Contract\Firestore;
+use Kreait\Firebase\Contract\Messaging;
+use Kreait\Firebase\Contract\RemoteConfig;
+use Kreait\Firebase\Contract\Storage;
+use Kreait\Firebase\Factory;
 
 class FirebaseProject
 {
-    /** @var \Kreait\Firebase\Factory */
-    protected $factory;
+    protected Factory $factory;
 
-    /** @var array */
-    protected $config;
+    protected array $config;
 
-    /** @var \Kreait\Firebase\Contract\Auth|null */
-    protected $auth;
+    protected ?Auth $auth = null;
+    protected ?Database $database = null;
+    protected ?DynamicLinks $dynamicLinks = null;
+    protected ?Firestore $firestore = null;
+    protected ?Messaging $messaging = null;
+    protected ?RemoteConfig $remoteConfig = null;
+    protected ?Storage $storage = null;
 
-    /** @var \Kreait\Firebase\Contract\Database|null */
-    protected $database;
-
-    /** @var \Kreait\Firebase\Contract\DynamicLinks|null */
-    protected $dynamicLinks;
-
-    /** @var \Kreait\Firebase\Contract\Firestore|null */
-    protected $firestore;
-
-    /** @var \Kreait\Firebase\Contract\Messaging|null */
-    protected $messaging;
-
-    /** @var \Kreait\Firebase\Contract\RemoteConfig|null */
-    protected $remoteConfig;
-
-    /** @var \Kreait\Firebase\Contract\Storage|null */
-    protected $storage;
-
-    public function __construct(Firebase\Factory $factory, array $config)
+    public function __construct(Factory $factory, array $config)
     {
         $this->factory = $factory;
         $this->config = $config;
     }
 
-    public function auth(): Firebase\Contract\Auth
+    public function auth(): Auth
     {
         if (!$this->auth) {
             $this->auth = $this->factory->createAuth();
@@ -50,7 +42,7 @@ class FirebaseProject
         return $this->auth;
     }
 
-    public function database(): Firebase\Contract\Database
+    public function database(): Database
     {
         if (!$this->database) {
             $this->database = $this->factory->createDatabase();
@@ -59,7 +51,7 @@ class FirebaseProject
         return $this->database;
     }
 
-    public function dynamicLinks(): Firebase\Contract\DynamicLinks
+    public function dynamicLinks(): DynamicLinks
     {
         if (!$this->dynamicLinks) {
             $this->dynamicLinks = $this->factory->createDynamicLinksService($this->config['dynamic_links']['default_domain'] ?? null);
@@ -68,7 +60,7 @@ class FirebaseProject
         return $this->dynamicLinks;
     }
 
-    public function firestore(): Firebase\Contract\Firestore
+    public function firestore(): Firestore
     {
         if (!$this->firestore) {
             $this->firestore = $this->factory->createFirestore();
@@ -77,7 +69,7 @@ class FirebaseProject
         return $this->firestore; // @codeCoverageIgnore
     }
 
-    public function messaging(): Firebase\Contract\Messaging
+    public function messaging(): Messaging
     {
         if (!$this->messaging) {
             $this->messaging = $this->factory->createMessaging();
@@ -86,7 +78,7 @@ class FirebaseProject
         return $this->messaging;
     }
 
-    public function remoteConfig(): Firebase\Contract\RemoteConfig
+    public function remoteConfig(): RemoteConfig
     {
         if (!$this->remoteConfig) {
             $this->remoteConfig = $this->factory->createRemoteConfig();
@@ -95,7 +87,7 @@ class FirebaseProject
         return $this->remoteConfig;
     }
 
-    public function storage(): Firebase\Contract\Storage
+    public function storage(): Storage
     {
         if (!$this->storage) {
             $this->storage = $this->factory->createStorage();

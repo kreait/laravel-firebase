@@ -6,6 +6,8 @@ This is a release with breaking changes. Please review the following changes and
 
 ### Changes
 
+* Added support for `kreait/firebase-php` ^6.0
+* Dropped support for `kreait/firebase-php` <6.0
 * Dropped support for Laravel/Lumen <8.0
 * Removed deprecated Facades - use the `Kreait\Laravel\Firebase\Facades\Firebase` facade instead 
   * `Kreait\Laravel\Firebase\Facades\FirebaseAuth`

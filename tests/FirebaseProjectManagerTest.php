@@ -9,7 +9,6 @@ use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
 use Kreait\Laravel\Firebase\FirebaseProjectManager;
 use Psr\Cache\CacheItemPoolInterface;
-use Psr\SimpleCache\CacheInterface;
 use ReflectionObject;
 
 /**
@@ -17,11 +16,9 @@ use ReflectionObject;
  */
 final class FirebaseProjectManagerTest extends TestCase
 {
-    private function factoryForProject(?string $project = null): Factory
+    protected function defineEnvironment($app): void
     {
-        $project = $this->app->make(FirebaseProjectManager::class)->project($project);
-
-        return $this->getAccessibleProperty($project, 'factory')->getValue($project);
+        $app['config']->set('firebase.projects.app.credentials.file', __DIR__.'/_fixtures/service_account.json');
     }
 
     /**
@@ -94,14 +91,11 @@ final class FirebaseProjectManagerTest extends TestCase
     {
         $this->app->config->set('firebase.projects.app.auth.tenant_id', $expected = 'abc123');
 
-        $auth = $this->app->make(Firebase\Auth::class);
+        $auth = $this->app->make(Firebase\Contract\Auth::class);
 
-        /** @var Firebase\Auth\TenantId|null $tenantId */
         $tenantId = $this->getAccessibleProperty($auth, 'tenantId')->getValue($auth);
 
-        $this->assertInstanceOf(Firebase\Auth\TenantId::class, $tenantId);
-
-        $this->assertSame($expected, $tenantId->toString());
+        $this->assertSame($expected, $tenantId);
     }
 
     /**
@@ -212,7 +206,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->app->config->set('firebase.projects.'.$projectName.'.database.url', $url = 'https://domain.tld');
         $this->app->config->set('firebase.projects.'.$projectName.'.database.auth_variable_override', ['uid' => 'some-uid']);
 
-        $database = $this->app->make(Firebase\Database::class);
+        $database = $this->app->make(Firebase\Contract\Database::class);
 
         $property = $this->getAccessibleProperty($database, 'uri');
 
@@ -227,14 +221,13 @@ final class FirebaseProjectManagerTest extends TestCase
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.dynamic_links.default_domain', $domain = 'https://domain.tld');
 
-        $dynamicLinks = $this->app->make(Firebase\DynamicLinks::class);
+        $dynamicLinks = $this->app->make(Firebase\Contract\DynamicLinks::class);
 
         $property = $this->getAccessibleProperty($dynamicLinks, 'defaultDynamicLinksDomain');
 
-        /** @var Firebase\Value\Url $configuredDomain */
         $configuredDomain = $property->getValue($dynamicLinks);
 
-        $this->assertSame($domain, (string) $configuredDomain->toUri());
+        $this->assertSame($domain, $configuredDomain);
     }
 
     /**
@@ -245,7 +238,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.storage.default_bucket', $name = 'my-bucket');
 
-        $storage = $this->app->make(Firebase\Storage::class);
+        $storage = $this->app->make(Firebase\Contract\Storage::class);
 
         $property = $this->getAccessibleProperty($storage, 'defaultBucket');
 
@@ -310,7 +303,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $property = $this->getAccessibleProperty($factory, 'verifierCache');
 
-        $this->assertInstanceOf(CacheInterface::class, $property->getValue($factory));
+        $this->assertInstanceOf(CacheItemPoolInterface::class, $property->getValue($factory));
     }
 
     /**
@@ -324,6 +317,13 @@ final class FirebaseProjectManagerTest extends TestCase
         $property = $this->getAccessibleProperty($factory, 'authTokenCache');
 
         $this->assertInstanceOf(CacheItemPoolInterface::class, $property->getValue($factory));
+    }
+
+    private function factoryForProject(?string $project = null): Factory
+    {
+        $project = $this->app->make(FirebaseProjectManager::class)->project($project);
+
+        return $this->getAccessibleProperty($project, 'factory')->getValue($project);
     }
 
     private function getAccessibleProperty(object $object, string $propertyName): \ReflectionProperty

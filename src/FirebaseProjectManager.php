@@ -5,21 +5,20 @@ declare(strict_types=1);
 namespace Kreait\Laravel\Firebase;
 
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Foundation\Application;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Http\HttpClientOptions;
-use Psr\Cache\CacheItemPoolInterface;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Cache\Adapter\Psr16Adapter;
-use Symfony\Component\Cache\Psr16Cache;
 
 class FirebaseProjectManager
 {
-    /** @var \Illuminate\Contracts\Foundation\Application */
+    /** @var Application */
     protected $app;
 
     /** @var FirebaseProject[] */
-    protected $projects = [];
+    protected array $projects = [];
 
     public function __construct(Container $app)
     {
@@ -39,7 +38,7 @@ class FirebaseProjectManager
 
     protected function configuration(string $name): array
     {
-        $config = $this->app->config->get('firebase.projects.'.$name) ?? null;
+        $config = $this->app->config->get('firebase.projects.'.$name);
 
         if (!$config) {
             throw new InvalidArgumentException("Firebase project [{$name}] not configured.");
@@ -50,9 +49,9 @@ class FirebaseProjectManager
 
     protected function resolveCredentials(string $credentials): string
     {
-        $isJsonString = \strpos($credentials, '{') === 0;
-        $isAbsoluteLinuxPath = \strpos($credentials, '/') === 0;
-        $isAbsoluteWindowsPath = \strpos($credentials, ':\\') !== false;
+        $isJsonString = \str_starts_with($credentials, '{');
+        $isAbsoluteLinuxPath = \str_starts_with($credentials, '/');
+        $isAbsoluteWindowsPath = \str_contains($credentials, ':\\');
 
         $isRelativePath = !$isJsonString && !$isAbsoluteLinuxPath && !$isAbsoluteWindowsPath;
 
@@ -75,7 +74,7 @@ class FirebaseProjectManager
             $factory = $factory->withServiceAccount($resolvedCredentials);
         }
 
-        $enableAutoDiscovery = $config['credentials']['auto_discovery'] ?? ($this->getDefaultProject() == $name ? true : false);
+        $enableAutoDiscovery = $config['credentials']['auto_discovery'] ?? ($this->getDefaultProject() === $name);
         if (!$enableAutoDiscovery) {
             $factory = $factory->withDisabledAutoDiscovery();
         }
@@ -92,26 +91,19 @@ class FirebaseProjectManager
             $factory = $factory->withDefaultStorageBucket($defaultStorageBucket);
         }
 
-        if ($config['debug'] ?? false) {
-            $factory = $factory->withEnabledDebug();
-        }
-
         if ($cacheStore = $config['cache_store'] ?? null) {
             $cache = $this->app->make('cache')->store($cacheStore);
 
-            if ($cache instanceof CacheItemPoolInterface) {
-                $psr6Cache = $cache;
-                $psr16Cache = new Psr16Cache($cache);
-            } elseif ($cache instanceof CacheInterface) {
-                $psr6Cache = new Psr16Adapter($cache);
-                $psr16Cache = $cache;
+            if ($cache instanceof CacheInterface) {
+                $cache = new Psr16Adapter($cache);
             } else {
-                throw new InvalidArgumentException("The cache store must be an instance of a PSR-6 or PSR-16 cache");
+                throw new InvalidArgumentException('The cache store must be an instance of a PSR-6 or PSR-16 cache');
             }
 
             $factory = $factory
-                ->withVerifierCache($psr16Cache)
-                ->withAuthTokenCache($psr6Cache);
+                ->withVerifierCache($cache)
+                ->withAuthTokenCache($cache)
+            ;
         }
 
         if ($logChannel = $config['logging']['http_log_channel'] ?? null) {
