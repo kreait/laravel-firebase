@@ -185,15 +185,6 @@ return [
                  */
                 'timeout' => env('FIREBASE_HTTP_CLIENT_TIMEOUT'),
             ],
-
-            /*
-             * ------------------------------------------------------------------------
-             * Debug (deprecated)
-             * ------------------------------------------------------------------------
-             *
-             * Enable debugging of HTTP requests made directly from the SDK.
-             */
-            'debug' => env('FIREBASE_ENABLE_DEBUG', false),
         ],
     ],
 ];

@@ -14,6 +14,8 @@ This is a release with breaking changes. Please review the following changes and
   * `Kreait\Laravel\Firebase\Facades\FirebaseMessaging`
   * `Kreait\Laravel\Firebase\Facades\FirebaseRemoteConfig`
   * `Kreait\Laravel\Firebase\Facades\FirebaseStorage`
+* Removed support deprecated config options and environment variables
+  * `$config['debug']`/`FIREBASE_ENABLE_DEBUG`, use the `http_debug_log_channel` config option instead
 
 ## 3.4.0 - 2021-12-04
 ### Added
