@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+This is a release with breaking changes. Please review the following changes and adapt your application where needed.
+
+### Changes
+
+* Removed deprecated Facades - use the `Kreait\Laravel\Firebase\Facades\Firebase` facade instead 
+  * `Kreait\Laravel\Firebase\Facades\FirebaseAuth`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseDatabase`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseDynamicLinks`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseFirestore`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseMessaging`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseRemoteConfig`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseStorage`
+
 ## 3.4.0 - 2021-12-04
 ### Added
 * Added support for caching the authentication tokens used for connecting to the Firebase servers.
