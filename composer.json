@@ -13,8 +13,8 @@
     "require": {
         "php": "^7.4|^8.0",
         "kreait/firebase-php": "^6.0",
-        "illuminate/contracts": "^8.0",
-        "illuminate/support": "^8.0",
+        "illuminate/contracts": "^8.0 || ^9.0",
+        "illuminate/support": "^8.0 || ^9.0",
         "symfony/cache": "^5.4|^6.0"
     },
     "require-dev": {
