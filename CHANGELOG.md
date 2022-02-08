@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.1.0 - 2022-02-08
+
+* Added support for Laravel 9 ([#118](https://github.com/kreait/laravel-firebase/pull/118))
+
 ## 4.0.0 - 2022-01-09
 
 This is a release with breaking changes. Please review the following changes and adapt your application where needed.
