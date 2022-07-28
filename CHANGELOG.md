@@ -51,12 +51,9 @@ This is a release with breaking changes. Please review the following changes and
 
 ## 3.0.0 - 2020-11-01 
 ### Added
-* Support for multiple firebase projects
-  (thanks to [@dododedodonl](https://github.com/dododedodonl)).
-  See "upgrading to version 3" section in [UPGRADE.md](UPGRADE.md)
+* Support for multiple firebase projects (thanks to [@dododedodonl](https://github.com/dododedodonl)).
 * `\Kreait\Laravel\Firebase\Facades\Firebase` facade
-* HTTP Client Options are now configurable 
-  (thanks to [@kakajansh](https://github.com/kakajansh))
+* HTTP Client Options are now configurable (thanks to [@kakajansh](https://github.com/kakajansh))
 
 ### Changed
 * [config/firebase.php](config/firebase.php) has a new format to support multiple projects
