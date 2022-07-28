@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Unreleased
+
+* Bumped dependencies, the minimum version of the underlying SDK is now 6.7.0.
+* Updated comment in `config/firebase.php` to reference the default HTTP timeout
+  * With `kreait/firebase` 6.7.0, the default was changed from ∞ to 30 seconds.
+
 ## 4.1.0 - 2022-02-08
 
 * Added support for Laravel 9 ([#118](https://github.com/kreait/laravel-firebase/pull/118))
