@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 4.2.0 - 2022-07-28
+
 * Bumped dependencies, the minimum version of the underlying SDK is now 6.7.0.
 * Updated comment in `config/firebase.php` to reference the default HTTP timeout
   * With `kreait/firebase` 6.7.0, the default was changed from ∞ to 30 seconds.
