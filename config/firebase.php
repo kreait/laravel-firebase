@@ -181,9 +181,9 @@ return [
                 /*
                  * Set the maximum amount of seconds (float) that can pass before
                  * a request is considered timed out
-                 * (default: indefinitely)
+                 * (default: 30 seconds)
                  */
-                'timeout' => env('FIREBASE_HTTP_CLIENT_TIMEOUT'),
+                'timeout' => env('FIREBASE_HTTP_CLIENT_TIMEOUT', 30),
             ],
         ],
     ],
