@@ -18,13 +18,13 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
         // @codeCoverageIgnoreEnd
 
         $this->publishes([
-            __DIR__.'/../config/firebase.php' => $this->app->configPath('firebase.php'),
+            __DIR__ . '/../config/firebase.php' => $this->app->configPath('firebase.php'),
         ], 'config');
     }
 
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/firebase.php', 'firebase');
+        $this->mergeConfigFrom(__DIR__ . '/../config/firebase.php', 'firebase');
 
         $this->registerManager();
         $this->registerComponents();

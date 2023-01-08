@@ -38,7 +38,7 @@ class FirebaseProjectManager
 
     protected function configuration(string $name): array
     {
-        $config = $this->app->config->get('firebase.projects.'.$name);
+        $config = $this->app->config->get('firebase.projects.' . $name);
 
         if (!$config) {
             throw new InvalidArgumentException("Firebase project [{$name}] not configured.");
