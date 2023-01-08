@@ -74,11 +74,6 @@ class FirebaseProjectManager
             $factory = $factory->withServiceAccount($resolvedCredentials);
         }
 
-        $enableAutoDiscovery = $config['credentials']['auto_discovery'] ?? ($this->getDefaultProject() === $name);
-        if (!$enableAutoDiscovery) {
-            $factory = $factory->withDisabledAutoDiscovery();
-        }
-
         if ($databaseUrl = $config['database']['url'] ?? null) {
             $factory = $factory->withDatabaseUri($databaseUrl);
         }

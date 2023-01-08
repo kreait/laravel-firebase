@@ -77,11 +77,10 @@ final class FirebaseProjectManagerTest extends TestCase
         $factory = $this->factoryForProject($projectName);
 
         // Retrieve service account
-        /** @var Firebase\ServiceAccount $serviceAccount */
-        $serviceAccount = $this->getAccessibleMethod($factory, 'getServiceAccount')->invoke($factory);
+        $serviceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($factory);
 
         // Validate value
-        $this->assertSame($credentials, $serviceAccount->asArray());
+        $this->assertSame($credentials, $serviceAccount);
     }
 
     /**
@@ -108,79 +107,12 @@ final class FirebaseProjectManagerTest extends TestCase
         $factory = $this->factoryForProject($projectName);
         $secondFactory = $this->factoryForProject($secondProjectName);
 
-        /** @var Firebase\ServiceAccount $serviceAccount */
-        $serviceAccount = $this->getAccessibleMethod($factory, 'getServiceAccount')->invoke($factory);
-
-        /** @var Firebase\ServiceAccount $secondServiceAccount */
-        $secondServiceAccount = $this->getAccessibleMethod($factory, 'getServiceAccount')->invoke($secondFactory);
+        $serviceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($factory);
+        $secondServiceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($secondFactory);
 
         // Validate values
-        $this->assertSame($credentials, $serviceAccount->asArray());
-        $this->assertSame($secondCredentials, $secondServiceAccount->asArray());
-    }
-
-    /**
-     * @test
-     */
-    public function credential_auto_discovery_is_enabled_by_default_for_default_project(): void
-    {
-        $projectName = $this->app->config->get('firebase.default');
-
-        $factory = $this->factoryForProject($projectName);
-
-        $this->getAccessibleMethod($factory, 'getServiceAccount')->invoke($factory);
-
-        $property = $this->getAccessibleProperty($factory, 'discoveryIsDisabled');
-
-        $this->assertFalse($property->getValue($factory));
-    }
-
-    /**
-     * @test
-     */
-    public function credential_auto_discovery_can_be_disabled_for_default_project(): void
-    {
-        $projectName = $this->app->config->get('firebase.default');
-
-        $this->app->config->set('firebase.projects.' . $projectName . '.credentials.auto_discovery', false);
-
-        $factory = $this->factoryForProject($projectName);
-
-        $property = $this->getAccessibleProperty($factory, 'discoveryIsDisabled');
-
-        $this->assertTrue($property->getValue($factory));
-    }
-
-    /**
-     * @test
-     */
-    public function credential_auto_discovery_is_not_enabled_by_default_for_other_projects(): void
-    {
-        $projectName = 'another-app';
-
-        $this->app->config->set('firebase.projects.' . $projectName . '.credentials', []);
-
-        $factory = $this->factoryForProject($projectName); // factory for default project with default settings
-
-        $property = $this->getAccessibleProperty($factory, 'discoveryIsDisabled');
-
-        $this->assertTrue($property->getValue($factory));
-    }
-
-    /**
-     * @test
-     */
-    public function credential_auto_discovery_can_be_enabled_for_other_project(): void
-    {
-        $projectName = 'another-app';
-
-        $this->app->config->set('firebase.projects.' . $projectName . '.credentials.auto_discovery', true);
-
-        $factory = $this->factoryForProject($projectName);
-
-        $property = $this->getAccessibleProperty($factory, 'discoveryIsDisabled');
-
-        $this->assertFalse($property->getValue($factory));
+        $this->assertSame($credentials, $serviceAccount);
+        $this->assertSame($secondCredentials, $secondServiceAccount);
     }
 
     /**

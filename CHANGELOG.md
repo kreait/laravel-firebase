@@ -2,9 +2,11 @@
 
 ## Unreleased
 
-* Dropped support for Lumen
+* Upgraded `kreait/firebase-php` from 6.x to 7.x
+* Dropped support for PHP <8.1, Laravel <9.0
+* Dropped support for Lumen ([it is not recommended anymore to use it](https://github.com/laravel/lumen/commit/69b26578d2f15595ea901278434b74df459c4329))
 * The ability to disable credentials auto-discovery has been removed. If you don't want a service account to be
-  auto-discovered, provide it by setting the `GOOGLE_APPLICATION_CREDENTIALS` environment variable or by adapting
+  auto-discovered, provide it by setting the `GOOGLE_APPLICATION_CREDENTIALS` environment variable or by modifying
   the package configuration. 
 
 ## 4.2.0 - 2022-07-28
