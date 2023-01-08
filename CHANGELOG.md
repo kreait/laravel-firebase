@@ -3,6 +3,9 @@
 ## Unreleased
 
 * Dropped support for Lumen
+* The ability to disable credentials auto-discovery has been removed. If you don't want a service account to be
+  auto-discovered, provide it by setting the `GOOGLE_APPLICATION_CREDENTIALS` environment variable or by adapting
+  the package configuration. 
 
 ## 4.2.0 - 2022-07-28
 

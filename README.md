@@ -31,6 +31,9 @@ For server-to-server communication this is done with a Service Account.
 The package uses auto discovery for the default project to find the credentials needed for authenticating requests to
 the Firebase APIs by inspecting certain environment variables and looking into Google's well known path(s).
 
+If you don't want a service account to be auto-discovered, provide it by setting the `GOOGLE_APPLICATION_CREDENTIALS`
+environment variable or by adapting the package configuration.
+
 If you don't already have generated a Service Account, you can do so by following the instructions from the
 official documentation pages at https://firebase.google.com/docs/admin/setup#initialize_the_sdk.
 
@@ -39,8 +42,6 @@ environment variables starting with `FIREBASE_` in your `.env` file. Usually, th
 required for the package to work:
 
 ```
-# relative or full path to the Service Account JSON file
-FIREBASE_CREDENTIALS=
 # You can find the database URL for your project at
 # https://console.firebase.google.com/project/_/database
 FIREBASE_DATABASE_URL=https://<your-project>.firebaseio.com

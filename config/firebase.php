@@ -48,13 +48,6 @@ return [
              */
             'credentials' => [
                 'file' => env('FIREBASE_CREDENTIALS', env('GOOGLE_APPLICATION_CREDENTIALS')),
-
-                /*
-                 * If you want to prevent the auto discovery of credentials, set the
-                 * following parameter to false. If you disable it, you must
-                 * provide a credentials file.
-                 */
-                'auto_discovery' => true,
             ],
 
             /*
@@ -153,7 +146,7 @@ return [
              * Log channels are defined in config/logging.php
              *
              * Successful HTTP messages are logged with the log level 'info'.
-             * Failed HTTP messages are logged with the the log level 'notice'.
+             * Failed HTTP messages are logged with the log level 'notice'.
              *
              * Note: Using the same channel for simple and debug logs will result in
              * two entries per request and response.
