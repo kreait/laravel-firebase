@@ -11,7 +11,6 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 
 - [Installation](#installation)
   - [Laravel](#laravel)
-  - [Lumen](#lumen)
 - [Configuration](#configuration)
 - [Usage](#usage)
   - [Multiple projects](#multiple-projects)
@@ -20,40 +19,8 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 
 ## Installation
 
-This package requires Laravel 8.x and higher or Lumen 8.x and higher.
-
 ```bash
 composer require kreait/laravel-firebase
-```
-
-If you use Lumen or don't use Laravel's package auto-discovery, add the following service provider in
-`config/app.php` (Laravel) or `bootstrap/app.php` (Lumen):
-
-### Laravel
-
-```php
-<?php
-// config/app.php
-return [
-    // ...
-    'providers' => [
-        // ...
-        Kreait\Laravel\Firebase\ServiceProvider::class,
-    ]
-    // ...
-];
-```
-
-### Lumen
-
-```php
-<?php
-// bootstrap/app.php
-
-$app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
-
-// If you want to use the Facades provided by the package
-$app->withFacades();
 ```
 
 ## Configuration
@@ -85,15 +52,11 @@ by copying it to your local `config` directory or by defining the environment va
 ```bash
 # Laravel
 php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" --tag=config
-
-# Lumen
-mkdir -p config
-cp vendor/kreait/laravel-firebase/config/firebase.php config/firebase.php
 ```
 
 ## Usage
 
-| Component                                                                                             | [Automatic Injection](https://laravel.com/docs/container#automatic-injection) | [Facades](https://laravel.com/docs/facades) | [`app()`](https://laravel.com/docs/helpers#method-app) |
+| Component                                                                                             | [Container Injection](https://laravel.com/docs/container#automatic-injection) | [Facades](https://laravel.com/docs/facades) | [`app()`](https://laravel.com/docs/helpers#method-app) |
 |-------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|---------------------------------------------|--------------------------------------------------------|
 | [Authentication](https://firebase-php.readthedocs.io/en/stable/authentication.html)                   | `\Kreait\Firebase\Contract\Auth`                                              | `Firebase::auth()`                          | `app('firebase.auth')`                                 |
 | [Cloud Firestore](https://firebase-php.readthedocs.io/en/stable/cloud-firestore.html)                 | `\Kreait\Firebase\Contract\Firestore`                                         | `Firebase::firestore()`                     | `app('firebase.firestore')`                            |
@@ -128,8 +91,7 @@ $anotherAppAuth = Firebase::project('another-app')->auth();
 ## Support
 
 - [Issue Tracker (Laravel Package)](https://github.com/kreait/laravel-firebase/issues/)
-- [Bug Reports (Admin SDK)](https://github.com/kreait/firebase-php/issues/)
-- [Feature Requests and Discussions (Admin SDK)](https://github.com/kreait/firebase-php/discussions)
+- [Issue Tracker (Admin SDK)](https://github.com/kreait/firebase-php/issues/)
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/firebase+php)
 
 _If you or your team rely on this project and me maintaining it, please consider becoming a
@@ -138,6 +100,6 @@ support._
 
 ## License
 
-Firebase Admin PHP SDK is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
 
 Your use of Firebase is governed by the [Terms of Service for Firebase Services](https://firebase.google.com/terms/).

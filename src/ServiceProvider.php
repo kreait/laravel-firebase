@@ -6,7 +6,6 @@ namespace Kreait\Laravel\Firebase;
 
 use Illuminate\Contracts\Container\Container;
 use Kreait\Firebase;
-use Laravel\Lumen\Application as Lumen;
 
 final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -14,10 +13,6 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         // @codeCoverageIgnoreStart
         if (!$this->app->runningInConsole()) {
-            return;
-        }
-
-        if ($this->app instanceof Lumen) {
             return;
         }
         // @codeCoverageIgnoreEnd
@@ -29,12 +24,6 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function register(): void
     {
-        // @codeCoverageIgnoreStart
-        if ($this->app instanceof Lumen) {
-            $this->app->configure('firebase');
-        }
-        // @codeCoverageIgnoreEnd
-
         $this->mergeConfigFrom(__DIR__.'/../config/firebase.php', 'firebase');
 
         $this->registerManager();

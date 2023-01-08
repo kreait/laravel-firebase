@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Dropped support for Lumen
+
 ## 4.2.0 - 2022-07-28
 
 * Bumped dependencies, the minimum version of the underlying SDK is now 6.7.0.
