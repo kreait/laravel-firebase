@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 5.0 - 2023-01-13
+
 * Upgraded `kreait/firebase-php` from 6.x to 7.x
 * Dropped support for PHP <8.1, Laravel <9.0
 * Dropped support for Lumen ([it is not recommended anymore to use it](https://github.com/laravel/lumen/commit/69b26578d2f15595ea901278434b74df459c4329))
