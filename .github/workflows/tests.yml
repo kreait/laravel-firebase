@@ -9,7 +9,7 @@ jobs:
     # Don't run the tests on internal PRs
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
 
-    name: PHP ${{ matrix.php }}
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
     runs-on: 'ubuntu-latest'
 
     strategy:
@@ -17,6 +17,9 @@ jobs:
         php:
           - "8.1"
           - "8.2"
+        laravel:
+          - "9"
+          - "10"
 
     env:
       extensions: ctype, dom, grpc, json, mbstring, openssl, xml, zip, zlib
@@ -49,15 +52,15 @@ jobs:
           tools: composer, pecl
           coverage: xdebug
 
-      - uses: "ramsey/composer-install@v2"
-        with:
-          composer-options: "${{ matrix.composer-options }}"
+      - name: Install dependencies
+        run: |
+          composer require -W "illuminate/contracts:^${{ matrix.laravel }}.0"
+          composer require -W --dev orchestra/testbench
 
-      - name: Setup problem matchers for PHP
-        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
-
-      - name: Setup Problem Matchers for PHPUnit
-        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+      - name: Setup Problem Matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit --coverage-clover=coverage.xml --log-junit=test-report.xml --testdox
