@@ -19,6 +19,7 @@
     },
     "require-dev": {
         "orchestra/testbench": "^7.0 || ^8.0",
+        "phpunit/phpunit": "^9.5",    
         "symplify/easy-coding-standard": "^11.1"
     },
     "autoload": {
