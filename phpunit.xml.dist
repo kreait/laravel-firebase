@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" beStrictAboutOutputDuringTests="true" colors="true">
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+        beStrictAboutOutputDuringTests="true"
+        colors="true"
+>
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
     <coverage ignoreDeprecatedCodeUnits="true" processUncoveredFiles="true">
         <include>
             <directory suffix=".php">src</directory>
@@ -8,11 +19,7 @@
             <directory>src/Facades</directory>
         </exclude>
     </coverage>
-    <testsuites>
-        <testsuite name="Test Suite">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
+
     <php>
         <ini name="date.timezone" value="UTC"/>
         <server name="APP_ENV" value="testing"/>

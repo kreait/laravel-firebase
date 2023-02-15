@@ -32,7 +32,7 @@ final class ServiceProviderTest extends TestCase
     public function it_does_not_provide_optional_components(): void
     {
         $this->expectException(\Throwable::class);
-        $this->expectDeprecationMessageMatches('/unable/i');
+        $this->expectExceptionMessageMatches('/unable/i');
 
         $this->app->make(Firebase\Contract\Firestore::class);
     }

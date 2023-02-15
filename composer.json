@@ -14,12 +14,13 @@
         "php": "~8.1.0 || ~8.2.0",
         "kreait/firebase-php": "^7.0",
         "illuminate/contracts": "^9.0 || ^10.0",
-        "illuminate/support": "^9.0  || ^10.0",
+        "illuminate/support": "^9.0 || ^10.0",
         "symfony/cache": "^6.1.2"
     },
     "require-dev": {
         "orchestra/testbench": "^7.0 || ^8.0",
-        "symplify/easy-coding-standard": "^11.1"
+        "symplify/easy-coding-standard": "^11.1",
+        "phpunit/phpunit": "^9.6"
     },
     "autoload": {
         "psr-4": {
