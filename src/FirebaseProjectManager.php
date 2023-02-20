@@ -52,8 +52,9 @@ class FirebaseProjectManager
         $isJsonString = \str_starts_with($credentials, '{');
         $isAbsoluteLinuxPath = \str_starts_with($credentials, '/');
         $isAbsoluteWindowsPath = \str_contains($credentials, ':\\');
+        $isAbsoluteS3Path = \str_starts_with($credentials, 'https://');
 
-        $isRelativePath = !$isJsonString && !$isAbsoluteLinuxPath && !$isAbsoluteWindowsPath;
+        $isRelativePath = !$isJsonString && !$isAbsoluteLinuxPath && !$isAbsoluteWindowsPath && !$isAbsoluteS3Path;
 
         return $isRelativePath ? $this->app->basePath($credentials) : $credentials;
     }
