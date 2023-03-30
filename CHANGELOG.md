@@ -2,11 +2,16 @@
 
 ## Unreleased
 
-## 5.1 - 2023-02-15
+## 5.2.0 - 2023-03-30
+
+* Added AppCheck support
+  ([#174](https://github.com/kreait/laravel-firebase/pull/174))
+
+## 5.1.0 - 2023-02-15
 
 * Added support for Laravel 10
 
-## 5.0 - 2023-01-13
+## 5.0.0 - 2023-01-13
 
 * Upgraded `kreait/firebase-php` from 6.x to 7.x
 * Dropped support for PHP <8.1, Laravel <9.0
