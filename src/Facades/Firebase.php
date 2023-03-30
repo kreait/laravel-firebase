@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Kreait\Laravel\Firebase\FirebaseProject project(string $name = null)
  * @method static string getDefaultProject()
  * @method static void setDefaultProject(string $name)
+ * @method static \Kreait\Firebase\Contract\AppCheck appCheck()
  * @method static \Kreait\Firebase\Contract\Auth auth()
  * @method static \Kreait\Firebase\Contract\Database database()
  * @method static \Kreait\Firebase\Contract\DynamicLinks dynamicLinks()

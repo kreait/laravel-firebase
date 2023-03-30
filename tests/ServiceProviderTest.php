@@ -18,6 +18,7 @@ final class ServiceProviderTest extends TestCase
     {
         $this->app->config->set('firebase.projects.app.credentials.file', \realpath(__DIR__ . '/_fixtures/service_account.json'));
 
+        $this->assertInstanceOf(Firebase\Contract\AppCheck::class, $this->app->make(Firebase\Contract\AppCheck::class));
         $this->assertInstanceOf(Firebase\Contract\Auth::class, $this->app->make(Firebase\Contract\Auth::class));
         $this->assertInstanceOf(Firebase\Contract\Database::class, $this->app->make(Firebase\Contract\Database::class));
         $this->assertInstanceOf(Firebase\Contract\DynamicLinks::class, $this->app->make(Firebase\Contract\DynamicLinks::class));

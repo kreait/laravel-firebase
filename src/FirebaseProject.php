@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kreait\Laravel\Firebase;
 
+use Kreait\Firebase\Contract\AppCheck;
 use Kreait\Firebase\Contract\Auth;
 use Kreait\Firebase\Contract\Database;
 use Kreait\Firebase\Contract\DynamicLinks;
@@ -19,6 +20,7 @@ class FirebaseProject
 
     protected array $config;
 
+    protected ?AppCheck $appCheck = null;
     protected ?Auth $auth = null;
     protected ?Database $database = null;
     protected ?DynamicLinks $dynamicLinks = null;
@@ -31,6 +33,15 @@ class FirebaseProject
     {
         $this->factory = $factory;
         $this->config = $config;
+    }
+
+    public function appCheck(): AppCheck
+    {
+        if (!$this->appCheck) {
+            $this->appCheck = $this->factory->createAppCheck();
+        }
+
+        return $this->appCheck;
     }
 
     public function auth(): Auth

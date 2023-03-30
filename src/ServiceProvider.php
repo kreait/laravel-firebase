@@ -32,6 +32,9 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function registerComponents(): void
     {
+        $this->app->singleton(Firebase\Contract\AppCheck::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->appCheck());
+        $this->app->alias(Firebase\Contract\AppCheck::class, 'firebase.app_check');
+
         $this->app->singleton(Firebase\Contract\Auth::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->auth());
         $this->app->alias(Firebase\Contract\Auth::class, 'firebase.auth');
 
