@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kreait\Laravel\Firebase\Tests;
 
+use GuzzleHttp\RetryMiddleware;
 use Kreait\Firebase;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
@@ -201,6 +202,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.' . $projectName . '.http_client_options.proxy', 'proxy.domain.tld');
         $this->app->config->set('firebase.projects.' . $projectName . '.http_client_options.timeout', 1.23);
+        $this->app->config->set('firebase.projects.' . $projectName . '.http_client_options.guzzle_middlewares', [RetryMiddleware::class]);
 
         $factory = $this->factoryForProject($projectName);
 
@@ -209,6 +211,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $this->assertSame('proxy.domain.tld', $httpClientOptions->proxy());
         $this->assertSame(1.23, $httpClientOptions->timeout());
+        $this->assertSame([RetryMiddleware::class], $httpClientOptions->guzzleMiddlewares());
     }
 
     /**
