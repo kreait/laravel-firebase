@@ -123,6 +123,10 @@ class FirebaseProjectManager
             $options = $options->withTimeOut((float) $timeout);
         }
 
+        if ($middlewares = $config['http_client_options']['guzzle_middlewares'] ?? null) {
+            $options = $options->withGuzzleMiddlewares($middlewares);
+        }
+
         $factory = $factory->withHttpClientOptions($options);
 
         return new FirebaseProject($factory, $config);
