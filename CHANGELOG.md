@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 5.3.0 - 2023-07-26
+
+* Enabled injecting middlewares into the Firebase API client
+  ([#187](https://github.com/kreait/laravel-firebase/pull/187))
+
 ## 5.2.0 - 2023-03-30
 
 * Added AppCheck support
