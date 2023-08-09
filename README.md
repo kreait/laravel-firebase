@@ -14,7 +14,7 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 - [Configuration](#configuration)
 - [Usage](#usage)
   - [Multiple projects](#multiple-projects)
-- [Support](#support)
+- [Supported Versions](#supported-versions)
 - [License](#license)
 
 ## Installation
@@ -57,17 +57,6 @@ php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" 
 
 ## Usage
 
-| Component                                                                                             | [Container Injection](https://laravel.com/docs/container#automatic-injection) | [Facades](https://laravel.com/docs/facades) | [`app()`](https://laravel.com/docs/helpers#method-app) |
-|-------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|---------------------------------------------|--------------------------------------------------------|
-| [AppCheck](https://firebase-php.readthedocs.io/en/stable/app-check.html)                              | `\Kreait\Firebase\Contract\AppCheck`                                          | `Firebase::appCheck()`                      | `app('firebase.app_check')`                            |
-| [Authentication](https://firebase-php.readthedocs.io/en/stable/authentication.html)                   | `\Kreait\Firebase\Contract\Auth`                                              | `Firebase::auth()`                          | `app('firebase.auth')`                                 |
-| [Cloud Firestore](https://firebase-php.readthedocs.io/en/stable/cloud-firestore.html)                 | `\Kreait\Firebase\Contract\Firestore`                                         | `Firebase::firestore()`                     | `app('firebase.firestore')`                            |
-| [Cloud&nbsp;Messaging&nbsp;(FCM)](https://firebase-php.readthedocs.io/en/stable/cloud-messaging.html) | `\Kreait\Firebase\Contract\Messaging`                                         | `Firebase::messaging()`                     | `app('firebase.messaging')`                            |
-| [Dynamic&nbsp;Links](https://firebase-php.readthedocs.io/en/stable/dynamic-links.html)                | `\Kreait\Firebase\Contract\DynamicLinks`                                      | `Firebase::dynamicLinks()`                  | `app('firebase.dynamic_links')`                        |
-| [Realtime Database](https://firebase-php.readthedocs.io/en/stable/realtime-database.html)             | `\Kreait\Firebase\Contract\Database`                                          | `Firebase::database()`                      | `app('firebase.database')`                             |
-| [Remote Config](https://firebase-php.readthedocs.io/en/stable/remote-config.html)                     | `\Kreait\Firebase\Contract\RemoteConfig`                                      | `Firebase::remoteConfig()`                  | `app('firebase.remote_config')`                        |
-| [Cloud Storage](https://firebase-php.readthedocs.io/en/stable/cloud-storage.html)                     | `\Kreait\Firebase\Contract\Storage`                                           | `Firebase::storage()`                       | `app('firebase.storage')`                              |
-
 Once you have retrieved a component, please refer to the [documentation of the Firebase PHP Admin SDK](https://firebase-php.readthedocs.io)
 for further information on how to use it.
 
@@ -90,15 +79,20 @@ $appAuth = Firebase::project('app')->auth();
 $anotherAppAuth = Firebase::project('another-app')->auth();
 ```
 
-## Support
+## Supported Versions
 
-- [Issue Tracker (Laravel Package)](https://github.com/kreait/laravel-firebase/issues/)
-- [Issue Tracker (Admin SDK)](https://github.com/kreait/firebase-php/issues/)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/firebase+php)
+**Only the latest version is actively supported.**
 
-_If you or your team rely on this project and me maintaining it, please consider becoming a
-[Sponsor](https://github.com/sponsors/jeromegamez/) 🙏. Higher tiers enable access to extended
-support._
+Earlier versions will receive security fixes as long as their **lowest** SDK requirement receives security fixes. You
+can find the currently supported versions and support options in the [SDK's README](https://github.com/kreait/firebase-php).
+
+| Version | Initial Release | Supported SDK Versions | Supported Laravel Versions | Status         |
+|---------|-----------------|------------------------|----------------------------|----------------|
+| `5.x`   | 13 Jan 2023     | `^7.0`                 | `^9.0`                     | Active support |
+| `4.x`   | 09 Jan 2022     | `^6.0`                 | `^8.0`                     | End of life    |
+| `3.x`   | 01 Nov 2020     | `^5.24`                | `^6.0, ^7.0, ^8.0`         | End of life    |
+| `2.x`   | 01 Apr 2020     | `^5.0`                 | `^5.8, ^6.0, ^7.0, ^8.0`   | End of life    |
+| `1.x`   | 17 Aug 2019     | `^4.40.1`              | `^5.8, ^6.0, ^7.0`         | End of life    |
 
 ## License
 
