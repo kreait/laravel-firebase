@@ -9,6 +9,16 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 [![codecov](https://codecov.io/gh/kreait/laravel-firebase/branch/main/graph/badge.svg)](https://codecov.io/gh/kreait/laravel-firebase)
 [![Sponsor](https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&color=ff69b4)](https://github.com/sponsors/jeromegamez)
 
+---
+
+## The future of this project
+
+**Unless funding is found to continue maintaining this project and the underlying SDK, maintenance will be halted.**
+
+[You can find more information in the GitHub Repo of the Firebase PHP Admin SDK.](https://github.com/kreait/firebase-php)
+
+---
+
 - [Installation](#installation)
   - [Laravel](#laravel)
 - [Configuration](#configuration)
@@ -86,13 +96,13 @@ $anotherAppAuth = Firebase::project('another-app')->auth();
 Earlier versions will receive security fixes as long as their **lowest** SDK requirement receives security fixes. You
 can find the currently supported versions and support options in the [SDK's README](https://github.com/kreait/firebase-php).
 
-| Version | Initial Release | Supported SDK Versions | Supported Laravel Versions | Status         |
-|---------|-----------------|------------------------|----------------------------|----------------|
-| `5.x`   | 13 Jan 2023     | `^7.0`                 | `^9.0`                     | Active support |
-| `4.x`   | 09 Jan 2022     | `^6.0`                 | `^8.0`                     | End of life    |
-| `3.x`   | 01 Nov 2020     | `^5.24`                | `^6.0, ^7.0, ^8.0`         | End of life    |
-| `2.x`   | 01 Apr 2020     | `^5.0`                 | `^5.8, ^6.0, ^7.0, ^8.0`   | End of life    |
-| `1.x`   | 17 Aug 2019     | `^4.40.1`              | `^5.8, ^6.0, ^7.0`         | End of life    |
+| Version | Initial Release | Supported SDK Versions | Supported Laravel Versions | Status      |
+|---------|-----------------|------------------------|----------------------------|-------------|
+| `5.x`   | 13 Jan 2023     | `^7.0`                 | `^9.0`                     | Halted      |
+| `4.x`   | 09 Jan 2022     | `^6.0`                 | `^8.0`                     | End of life |
+| `3.x`   | 01 Nov 2020     | `^5.24`                | `^6.0, ^7.0, ^8.0`         | End of life |
+| `2.x`   | 01 Apr 2020     | `^5.0`                 | `^5.8, ^6.0, ^7.0, ^8.0`   | End of life |
+| `1.x`   | 17 Aug 2019     | `^4.40.1`              | `^5.8, ^6.0, ^7.0`         | End of life |
 
 ## License
 
