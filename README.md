@@ -11,11 +11,10 @@ A Laravel package for the [Firebase PHP Admin SDK](https://github.com/kreait/fir
 
 ---
 
-## The future of this project
+## The future of the Firebase Admin PHP SDK
 
-**Unless funding is found to continue maintaining this project and the underlying SDK, maintenance will be halted.**
-
-[You can find more information in the GitHub Repo of the Firebase PHP Admin SDK.](https://github.com/kreait/firebase-php)
+Please read about the future of the Firebase Admin PHP SDK on the
+[SDK's GitHub Repository](https://github.com/kreait/firebase-php).
 
 ---
 
@@ -98,7 +97,7 @@ can find the currently supported versions and support options in the [SDK's READ
 
 | Version | Initial Release | Supported SDK Versions | Supported Laravel Versions | Status      |
 |---------|-----------------|------------------------|----------------------------|-------------|
-| `5.x`   | 13 Jan 2023     | `^7.0`                 | `^9.0`                     | Halted      |
+| `5.x`   | 13 Jan 2023     | `^7.0`                 | `^9.0`                     | Active      |
 | `4.x`   | 09 Jan 2022     | `^6.0`                 | `^8.0`                     | End of life |
 | `3.x`   | 01 Nov 2020     | `^5.24`                | `^6.0, ^7.0, ^8.0`         | End of life |
 | `2.x`   | 01 Apr 2020     | `^5.0`                 | `^5.8, ^6.0, ^7.0, ^8.0`   | End of life |
