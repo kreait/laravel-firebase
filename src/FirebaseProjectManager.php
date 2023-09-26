@@ -6,6 +6,7 @@ namespace Kreait\Laravel\Firebase;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Arr;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Http\HttpClientOptions;
@@ -64,33 +65,33 @@ class FirebaseProjectManager
 
         $config = $this->configuration($name);
 
-        if ($tenantId = $config['auth']['tenant_id'] ?? null) {
+        if ($tenantId = Arr::get($config, 'auth.tenant_id')) {
             $factory = $factory->withTenantId($tenantId);
         }
 
-        if ($credentials = $config['credentials'] ?? null) {
+        if ($credentials = Arr::get($config, 'credentials.file', Arr::get($config, 'credentials'))) {
             if (is_string($credentials)) {
                 $factory = $factory->withServiceAccount($this->resolveCredentials($credentials));
             }
 
-            if (is_array($credentials)) {
+            if (is_array($credentials) && Arr::has($credentials, ['type', 'project_id'])) {
                 $factory = $factory->withServiceAccount($credentials);
             }
         }
 
-        if ($databaseUrl = $config['database']['url'] ?? null) {
+        if ($databaseUrl = Arr::get($config, 'database.url')) {
             $factory = $factory->withDatabaseUri($databaseUrl);
         }
 
-        if ($authVariableOverride = $config['database']['auth_variable_override'] ?? null) {
+        if ($authVariableOverride = Arr::get($config, 'database.auth_variable_override')) {
             $factory = $factory->withDatabaseAuthVariableOverride($authVariableOverride);
         }
 
-        if ($defaultStorageBucket = $config['storage']['default_bucket'] ?? null) {
+        if ($defaultStorageBucket = Arr::get($config, 'storage.default_bucket')) {
             $factory = $factory->withDefaultStorageBucket($defaultStorageBucket);
         }
 
-        if ($cacheStore = $config['cache_store'] ?? null) {
+        if ($cacheStore = Arr::get($config, 'cache_store')) {
             $cache = $this->app->make('cache')->store($cacheStore);
 
             if ($cache instanceof CacheInterface) {
@@ -99,19 +100,16 @@ class FirebaseProjectManager
                 throw new InvalidArgumentException('The cache store must be an instance of a PSR-6 or PSR-16 cache');
             }
 
-            $factory = $factory
-                ->withVerifierCache($cache)
-                ->withAuthTokenCache($cache)
-            ;
+            $factory = $factory->withVerifierCache($cache)->withAuthTokenCache($cache);
         }
 
-        if ($logChannel = $config['logging']['http_log_channel'] ?? null) {
+        if ($logChannel = Arr::get($config, 'logging.http_log_channel')) {
             $factory = $factory->withHttpLogger(
                 $this->app->make('log')->channel($logChannel)
             );
         }
 
-        if ($logChannel = $config['logging']['http_debug_log_channel'] ?? null) {
+        if ($logChannel = Arr::get($config, 'logging.http_debug_log_channel')) {
             $factory = $factory->withHttpDebugLogger(
                 $this->app->make('log')->channel($logChannel)
             );
@@ -119,15 +117,15 @@ class FirebaseProjectManager
 
         $options = HttpClientOptions::default();
 
-        if ($proxy = $config['http_client_options']['proxy'] ?? null) {
+        if ($proxy = Arr::get($config, 'http_client_options.proxy')) {
             $options = $options->withProxy($proxy);
         }
 
-        if ($timeout = $config['http_client_options']['timeout'] ?? null) {
+        if ($timeout = Arr::get($config, 'http_client_options.timeout')) {
             $options = $options->withTimeOut((float) $timeout);
         }
 
-        if ($middlewares = $config['http_client_options']['guzzle_middlewares'] ?? null) {
+        if ($middlewares = Arr::get($config, 'http_client_options.guzzle_middlewares')) {
             $options = $options->withGuzzleMiddlewares($middlewares);
         }
 
