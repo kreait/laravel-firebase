@@ -18,13 +18,15 @@ Please read about the future of the Firebase Admin PHP SDK on the
 
 ---
 
-- [Installation](#installation)
-  - [Laravel](#laravel)
-- [Configuration](#configuration)
-- [Usage](#usage)
-  - [Multiple projects](#multiple-projects)
-- [Supported Versions](#supported-versions)
-- [License](#license)
+-   [Installation](#installation)
+    -   [Laravel](#laravel)
+-   [Configuration](#configuration)
+    -   [Credentials with JSON files](#credentials-with-json-files-auto-discovered)
+    -   [Credentials with arrays](#credentials-with-arrays)
+-   [Usage](#usage)
+    -   [Multiple projects](#multiple-projects)
+-   [Supported Versions](#supported-versions)
+-   [License](#license)
 
 ## Installation
 
@@ -36,12 +38,6 @@ composer require kreait/laravel-firebase
 
 In order to access a Firebase project and its related services using a server SDK, requests must be authenticated.
 For server-to-server communication this is done with a Service Account.
-
-The package uses auto discovery for the default project to find the credentials needed for authenticating requests to
-the Firebase APIs by inspecting certain environment variables and looking into Google's well known path(s).
-
-If you don't want a service account to be auto-discovered, provide it by setting the `GOOGLE_APPLICATION_CREDENTIALS`
-environment variable or by adapting the package configuration.
 
 If you don't already have generated a Service Account, you can do so by following the instructions from the
 official documentation pages at https://firebase.google.com/docs/admin/setup#initialize_the_sdk.
@@ -63,6 +59,39 @@ by copying it to your local `config` directory or by defining the environment va
 # Laravel
 php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" --tag=config
 ```
+
+### Credentials with JSON files auto-discovered
+
+The package uses auto discovery for the default project to find the credentials needed for authenticating requests to
+the Firebase APIs by inspecting certain environment variables and looking into Google's well known path(s).
+
+If you don't want a service account to be auto-discovered, provide it by setting the `FIREBASE_CREDENTIALS` or `GOOGLE_APPLICATION_CREDENTIALS` environment variable or by adapting the package configuration, like so for example:
+
+```.env
+FIREBASE_CREDENTIALS=storage/app/firebase-auth.json
+```
+
+### Credentials with JSON arrays
+
+If you prefer to have more control over the configuration items required to configure the credentials, you can also transpose the Service Account JSON file as an array within your `config/firebase.php` file.
+
+```php
+'credentials' => [
+    'type' => 'service_account',
+    'project_id' => 'some-project-123',
+    'private_key_id' => '123456789',
+    'private_key' => '-----BEGIN PRIVATE KEY-----\nFOO_BAR_123456789\n-----END PRIVATE KEY-----\n',
+    'client_email' => 'firebase-adminsdk-cwiuo@some-project-123.iam.gserviceaccount.com',
+    'client_id' => '123456789',
+    'auth_uri' => 'https://accounts.google.com/o/oauth2/auth',
+    'token_uri' => 'https://oauth2.googleapis.com/token',
+    'auth_provider_x509_cert_url' => 'https://www.googleapis.com/oauth2/v1/certs',
+    'client_x509_cert_url' => 'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-cwiuo%40some-project-123.iam.gserviceaccount.com',
+    'universe_domain' => 'googleapis.com',
+],
+```
+
+Feel free to introduce more environment variables as you see fit, for example `env('FIREBASE_CREDENTIALS_APP_PROJECT_ID')`.
 
 ## Usage
 
@@ -96,7 +125,7 @@ Earlier versions will receive security fixes as long as their **lowest** SDK req
 can find the currently supported versions and support options in the [SDK's README](https://github.com/kreait/firebase-php).
 
 | Version | Initial Release | Supported SDK Versions | Supported Laravel Versions | Status      |
-|---------|-----------------|------------------------|----------------------------|-------------|
+| ------- | --------------- | ---------------------- | -------------------------- | ----------- |
 | `5.x`   | 13 Jan 2023     | `^7.0`                 | `^9.0`                     | Active      |
 | `4.x`   | 09 Jan 2022     | `^6.0`                 | `^8.0`                     | End of life |
 | `3.x`   | 01 Nov 2020     | `^5.24`                | `^6.0, ^7.0, ^8.0`         | End of life |

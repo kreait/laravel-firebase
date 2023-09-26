@@ -68,10 +68,14 @@ class FirebaseProjectManager
             $factory = $factory->withTenantId($tenantId);
         }
 
-        if ($credentials = $config['credentials']['file'] ?? null) {
-            $resolvedCredentials = $this->resolveCredentials((string) $credentials);
+        if ($credentials = $config['credentials'] ?? null) {
+            if (is_string($credentials)) {
+                $factory = $factory->withServiceAccount($this->resolveCredentials($credentials));
+            }
 
-            $factory = $factory->withServiceAccount($resolvedCredentials);
+            if (is_array($credentials)) {
+                $factory = $factory->withServiceAccount($credentials);
+            }
         }
 
         if ($databaseUrl = $config['database']['url'] ?? null) {

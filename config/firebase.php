@@ -46,9 +46,7 @@ return [
              * first time you try to access a component of the Firebase Admin SDK.
              *
              */
-            'credentials' => [
-                'file' => env('FIREBASE_CREDENTIALS', env('GOOGLE_APPLICATION_CREDENTIALS')),
-            ],
+            'credentials' => env('FIREBASE_CREDENTIALS', env('GOOGLE_APPLICATION_CREDENTIALS')),
 
             /*
              * ------------------------------------------------------------------------
