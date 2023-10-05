@@ -18,15 +18,15 @@ Please read about the future of the Firebase Admin PHP SDK on the
 
 ---
 
--   [Installation](#installation)
-    -   [Laravel](#laravel)
--   [Configuration](#configuration)
-    -   [Credentials with JSON files](#credentials-with-json-files-auto-discovered)
-    -   [Credentials with arrays](#credentials-with-arrays)
--   [Usage](#usage)
-    -   [Multiple projects](#multiple-projects)
--   [Supported Versions](#supported-versions)
--   [License](#license)
+- [Installation](#installation)
+  - [Laravel](#laravel)
+- [Configuration](#configuration)
+  - [Credentials with JSON files](#credentials-with-json-files)
+  - [Credentials with Arrays](#credentials-with-arrays)
+- [Usage](#usage)
+  - [Multiple projects](#multiple-projects)
+- [Supported Versions](#supported-versions)
+- [License](#license)
 
 ## Installation
 
