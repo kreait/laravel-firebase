@@ -47,7 +47,7 @@ class FirebaseProjectManager
         return $config;
     }
 
-    protected function resolveCredentials(string $credentials): string
+    protected function resolveJsonCredentials(string $credentials): string
     {
         $isJsonString = \str_starts_with($credentials, '{');
         $isAbsoluteLinuxPath = \str_starts_with($credentials, '/');
@@ -68,10 +68,12 @@ class FirebaseProjectManager
             $factory = $factory->withTenantId($tenantId);
         }
 
-        if ($credentials = $config['credentials']['file'] ?? null) {
-            $resolvedCredentials = $this->resolveCredentials((string) $credentials);
+        if ($credentials = $config['credentials']['file'] ?? ($config['credentials'] ?? null)) {
+            if (is_string($credentials)) {
+                $credentials = $this->resolveJsonCredentials($credentials);
+            }
 
-            $factory = $factory->withServiceAccount($resolvedCredentials);
+            $factory = $factory->withServiceAccount($credentials);
         }
 
         if ($databaseUrl = $config['database']['url'] ?? null) {
@@ -97,8 +99,7 @@ class FirebaseProjectManager
 
             $factory = $factory
                 ->withVerifierCache($cache)
-                ->withAuthTokenCache($cache)
-            ;
+                ->withAuthTokenCache($cache);
         }
 
         if ($logChannel = $config['logging']['http_log_channel'] ?? null) {

@@ -19,7 +19,7 @@ final class FirebaseProjectManagerTest extends TestCase
 {
     protected function defineEnvironment($app): void
     {
-        $app['config']->set('firebase.projects.app.credentials.file', __DIR__ . '/_fixtures/service_account.json');
+        $app['config']->set('firebase.projects.app.credentials', __DIR__ . '/_fixtures/service_account.json');
     }
 
     /**
@@ -66,7 +66,28 @@ final class FirebaseProjectManagerTest extends TestCase
     /**
      * @test
      */
-    public function credentials_can_be_configured(): void
+    public function credentials_can_be_configured_using_a_json_file(): void
+    {
+        // Reference credentials
+        $credentialsPath = \realpath(__DIR__ . '/_fixtures/service_account.json');
+        $credentials = \json_decode(\file_get_contents($credentialsPath), true);
+
+        // Set configuration and retrieve project
+        $projectName = 'app';
+        $this->app->config->set('firebase.projects.' . $projectName . '.credentials', \realpath(__DIR__ . '/_fixtures/service_account.json'));
+        $factory = $this->factoryForProject($projectName);
+
+        // Retrieve service account
+        $serviceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($factory);
+
+        // Validate value
+        $this->assertSame($credentials, $serviceAccount);
+    }
+
+    /**
+     * @test
+     */
+    public function json_file_credentials_can_be_used_using_the_deprecated_configuration_entry(): void
     {
         // Reference credentials
         $credentialsPath = \realpath(__DIR__ . '/_fixtures/service_account.json');
@@ -75,6 +96,34 @@ final class FirebaseProjectManagerTest extends TestCase
         // Set configuration and retrieve project
         $projectName = 'app';
         $this->app->config->set('firebase.projects.' . $projectName . '.credentials.file', \realpath(__DIR__ . '/_fixtures/service_account.json'));
+        $factory = $this->factoryForProject($projectName);
+
+        // Retrieve service account
+        $serviceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($factory);
+
+        // Validate value
+        $this->assertSame($credentials, $serviceAccount);
+    }
+
+    /**
+     * @test
+     */
+    public function credentials_can_be_configured_using_an_array(): void
+    {
+        // Set configuration and retrieve project
+        $projectName = 'app';
+        $this->app->config->set('firebase.projects.' . $projectName . '.credentials', $credentials = [
+            'type' => 'service_account',
+            'project_id' => 'project',
+            'private_key_id' => 'private_key_id',
+            'private_key' => '-----BEGIN PRIVATE KEY-----\nsome gibberish\n-----END PRIVATE KEY-----\n',
+            'client_email' => 'client@email.tld',
+            'client_id' => '1234567890',
+            'auth_uri' => 'https://some.google.tld/o/oauth2/auth',
+            'token_uri' => 'https://some.google.tld/o/oauth2/token',
+            'auth_provider_x509_cert_url' => 'https://some.google.tld/oauth2/v1/certs',
+            'client_x509_cert_url' => 'https://some.google.tld/robot/v1/metadata/x509/user%40project.iam.gserviceaccount.com',
+        ]);
         $factory = $this->factoryForProject($projectName);
 
         // Retrieve service account
@@ -101,8 +150,8 @@ final class FirebaseProjectManagerTest extends TestCase
         $secondProjectName = 'another-app';
 
         // Set service accounts explicitly
-        $this->app->config->set('firebase.projects.' . $projectName . '.credentials.file', \realpath(__DIR__ . '/_fixtures/service_account.json'));
-        $this->app->config->set('firebase.projects.' . $secondProjectName . '.credentials.file', \realpath(__DIR__ . '/_fixtures/another_service_account.json'));
+        $this->app->config->set('firebase.projects.' . $projectName . '.credentials', \realpath(__DIR__ . '/_fixtures/service_account.json'));
+        $this->app->config->set('firebase.projects.' . $secondProjectName . '.credentials', \realpath(__DIR__ . '/_fixtures/another_service_account.json'));
 
         // Retrieve factories and service accounts
         $factory = $this->factoryForProject($projectName);
