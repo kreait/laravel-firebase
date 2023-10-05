@@ -60,7 +60,7 @@ by copying it to your local `config` directory or by defining the environment va
 php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" --tag=config
 ```
 
-### Credentials with JSON files auto-discovered
+### Credentials with JSON files
 
 The package uses auto discovery for the default project to find the credentials needed for authenticating requests to
 the Firebase APIs by inspecting certain environment variables and looking into Google's well known path(s).
