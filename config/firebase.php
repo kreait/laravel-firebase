@@ -8,7 +8,6 @@ return [
      * Default Firebase project
      * ------------------------------------------------------------------------
      */
-
     'default' => env('FIREBASE_PROJECT', 'app'),
 
     /*
