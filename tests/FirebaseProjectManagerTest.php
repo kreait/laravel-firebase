@@ -87,6 +87,27 @@ final class FirebaseProjectManagerTest extends TestCase
     /**
      * @test
      */
+    public function json_file_credentials_can_be_used_using_the_deprecated_configuration_entry(): void
+    {
+        // Reference credentials
+        $credentialsPath = \realpath(__DIR__ . '/_fixtures/service_account.json');
+        $credentials = \json_decode(\file_get_contents($credentialsPath), true);
+
+        // Set configuration and retrieve project
+        $projectName = 'app';
+        $this->app->config->set('firebase.projects.' . $projectName . '.credentials.file', \realpath(__DIR__ . '/_fixtures/service_account.json'));
+        $factory = $this->factoryForProject($projectName);
+
+        // Retrieve service account
+        $serviceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($factory);
+
+        // Validate value
+        $this->assertSame($credentials, $serviceAccount);
+    }
+
+    /**
+     * @test
+     */
     public function credentials_can_be_configured_using_an_array(): void
     {
         // Set configuration and retrieve project

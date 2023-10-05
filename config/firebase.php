@@ -16,7 +16,6 @@ return [
      * ------------------------------------------------------------------------
      */
     'projects' => [
-
         'app' => [
             /*
              * ------------------------------------------------------------------------
@@ -47,7 +46,6 @@ return [
              * first time you try to access a component of the Firebase Admin SDK.
              *
              */
-
             'credentials' => env('FIREBASE_CREDENTIALS', env('GOOGLE_APPLICATION_CREDENTIALS')),
 
             /*
@@ -93,7 +91,6 @@ return [
             ],
 
             'dynamic_links' => [
-
                 /*
                  * Dynamic links can be built with any URL prefix registered on
                  *
@@ -105,9 +102,7 @@ return [
                  * The value must be a valid domain, for example,
                  * https://example.page.link
                  */
-
                 'default_domain' => env('FIREBASE_DYNAMIC_LINKS_DEFAULT_DOMAIN'),
-
             ],
 
             /*
@@ -117,7 +112,6 @@ return [
              */
 
             'storage' => [
-
                 /*
                  * Your project's default storage bucket usually uses the project ID
                  * as its name. If you have multiple storage buckets and want to
@@ -126,7 +120,6 @@ return [
                  */
 
                 'default_bucket' => env('FIREBASE_STORAGE_DEFAULT_BUCKET'),
-
             ],
 
             /*
@@ -185,7 +178,7 @@ return [
                  */
                 'timeout' => env('FIREBASE_HTTP_CLIENT_TIMEOUT'),
 
-                // 'guzzle_middlewares' => [],
+                'guzzle_middlewares' => [],
             ],
         ],
     ],

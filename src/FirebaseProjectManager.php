@@ -6,7 +6,6 @@ namespace Kreait\Laravel\Firebase;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\Arr;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Http\HttpClientOptions;
@@ -48,7 +47,7 @@ class FirebaseProjectManager
         return $config;
     }
 
-    protected function resolveCredentials(string $credentials): string
+    protected function resolveJsonCredentials(string $credentials): string
     {
         $isJsonString = \str_starts_with($credentials, '{');
         $isAbsoluteLinuxPath = \str_starts_with($credentials, '/');
@@ -65,33 +64,31 @@ class FirebaseProjectManager
 
         $config = $this->configuration($name);
 
-        if ($tenantId = Arr::get($config, 'auth.tenant_id')) {
+        if ($tenantId = $config['auth']['tenant_id'] ?? null) {
             $factory = $factory->withTenantId($tenantId);
         }
 
-        if ($credentials = Arr::get($config, 'credentials.file', Arr::get($config, 'credentials'))) {
+        if ($credentials = $config['credentials']['file'] ?? ($config['credentials'] ?? null)) {
             if (is_string($credentials)) {
-                $factory = $factory->withServiceAccount($this->resolveCredentials($credentials));
+                $credentials = $this->resolveJsonCredentials($credentials);
             }
 
-            if (is_array($credentials) && Arr::has($credentials, ['type', 'project_id'])) {
-                $factory = $factory->withServiceAccount($credentials);
-            }
+            $factory = $factory->withServiceAccount($credentials);
         }
 
-        if ($databaseUrl = Arr::get($config, 'database.url')) {
+        if ($databaseUrl = $config['database']['url'] ?? null) {
             $factory = $factory->withDatabaseUri($databaseUrl);
         }
 
-        if ($authVariableOverride = Arr::get($config, 'database.auth_variable_override')) {
+        if ($authVariableOverride = $config['database']['auth_variable_override'] ?? null) {
             $factory = $factory->withDatabaseAuthVariableOverride($authVariableOverride);
         }
 
-        if ($defaultStorageBucket = Arr::get($config, 'storage.default_bucket')) {
+        if ($defaultStorageBucket = $config['storage']['default_bucket'] ?? null) {
             $factory = $factory->withDefaultStorageBucket($defaultStorageBucket);
         }
 
-        if ($cacheStore = Arr::get($config, 'cache_store')) {
+        if ($cacheStore = $config['cache_store'] ?? null) {
             $cache = $this->app->make('cache')->store($cacheStore);
 
             if ($cache instanceof CacheInterface) {
@@ -100,16 +97,18 @@ class FirebaseProjectManager
                 throw new InvalidArgumentException('The cache store must be an instance of a PSR-6 or PSR-16 cache');
             }
 
-            $factory = $factory->withVerifierCache($cache)->withAuthTokenCache($cache);
+            $factory = $factory
+                ->withVerifierCache($cache)
+                ->withAuthTokenCache($cache);
         }
 
-        if ($logChannel = Arr::get($config, 'logging.http_log_channel')) {
+        if ($logChannel = $config['logging']['http_log_channel'] ?? null) {
             $factory = $factory->withHttpLogger(
                 $this->app->make('log')->channel($logChannel)
             );
         }
 
-        if ($logChannel = Arr::get($config, 'logging.http_debug_log_channel')) {
+        if ($logChannel = $config['logging']['http_debug_log_channel'] ?? null) {
             $factory = $factory->withHttpDebugLogger(
                 $this->app->make('log')->channel($logChannel)
             );
@@ -117,15 +116,15 @@ class FirebaseProjectManager
 
         $options = HttpClientOptions::default();
 
-        if ($proxy = Arr::get($config, 'http_client_options.proxy')) {
+        if ($proxy = $config['http_client_options']['proxy'] ?? null) {
             $options = $options->withProxy($proxy);
         }
 
-        if ($timeout = Arr::get($config, 'http_client_options.timeout')) {
+        if ($timeout = $config['http_client_options']['timeout'] ?? null) {
             $options = $options->withTimeOut((float) $timeout);
         }
 
-        if ($middlewares = Arr::get($config, 'http_client_options.guzzle_middlewares')) {
+        if ($middlewares = $config['http_client_options']['guzzle_middlewares'] ?? null) {
             $options = $options->withGuzzleMiddlewares($middlewares);
         }
 
