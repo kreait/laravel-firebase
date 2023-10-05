@@ -80,7 +80,6 @@ return [
                  * Please make sure that you use a full URL like, for example,
                  * https://my-project-id.firebaseio.com
                  */
-
                 'url' => env('FIREBASE_DATABASE_URL'),
 
                 /*
