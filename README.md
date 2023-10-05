@@ -91,8 +91,6 @@ If you prefer to have more control over the configuration items required to conf
 ],
 ```
 
-Feel free to introduce more environment variables as you see fit, for example `env('FIREBASE_CREDENTIALS_APP_PROJECT_ID')`.
-
 ## Usage
 
 Once you have retrieved a component, please refer to the [documentation of the Firebase PHP Admin SDK](https://firebase-php.readthedocs.io)
