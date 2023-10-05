@@ -43,4 +43,4 @@ jobs:
         run: vendor/bin/phpunit --coverage-clover=coverage.xml --log-junit=test-report.xml --testdox
 
       - name: Upload code coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v3
