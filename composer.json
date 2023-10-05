@@ -19,8 +19,8 @@
     },
     "require-dev": {
         "orchestra/testbench": "^7.0 || ^8.0",
-        "symplify/easy-coding-standard": "^11.1",
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "^9.6",
+        "laravel/pint": "^1.13"
     },
     "autoload": {
         "psr-4": {
@@ -44,7 +44,7 @@
     },
     "scripts": {
         "cs": [
-            "vendor/bin/ecs --fix"
+            "vendor/bin/pint"
         ],
         "test": [
             "vendor/bin/phpunit"

@@ -25,11 +25,11 @@ class FirebaseProjectManager
         $this->app = $app;
     }
 
-    public function project(?string $name = null): FirebaseProject
+    public function project(string $name = null): FirebaseProject
     {
         $name = $name ?? $this->getDefaultProject();
 
-        if (!isset($this->projects[$name])) {
+        if (! isset($this->projects[$name])) {
             $this->projects[$name] = $this->configure($name);
         }
 
@@ -38,9 +38,9 @@ class FirebaseProjectManager
 
     protected function configuration(string $name): array
     {
-        $config = $this->app->config->get('firebase.projects.' . $name);
+        $config = $this->app->config->get('firebase.projects.'.$name);
 
-        if (!$config) {
+        if (! $config) {
             throw new InvalidArgumentException("Firebase project [{$name}] not configured.");
         }
 
@@ -53,7 +53,7 @@ class FirebaseProjectManager
         $isAbsoluteLinuxPath = \str_starts_with($credentials, '/');
         $isAbsoluteWindowsPath = \str_contains($credentials, ':\\');
 
-        $isRelativePath = !$isJsonString && !$isAbsoluteLinuxPath && !$isAbsoluteWindowsPath;
+        $isRelativePath = ! $isJsonString && ! $isAbsoluteLinuxPath && ! $isAbsoluteWindowsPath;
 
         return $isRelativePath ? $this->app->basePath($credentials) : $credentials;
     }

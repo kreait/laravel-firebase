@@ -21,12 +21,19 @@ class FirebaseProject
     protected array $config;
 
     protected ?AppCheck $appCheck = null;
+
     protected ?Auth $auth = null;
+
     protected ?Database $database = null;
+
     protected ?DynamicLinks $dynamicLinks = null;
+
     protected ?Firestore $firestore = null;
+
     protected ?Messaging $messaging = null;
+
     protected ?RemoteConfig $remoteConfig = null;
+
     protected ?Storage $storage = null;
 
     public function __construct(Factory $factory, array $config)
@@ -37,7 +44,7 @@ class FirebaseProject
 
     public function appCheck(): AppCheck
     {
-        if (!$this->appCheck) {
+        if (! $this->appCheck) {
             $this->appCheck = $this->factory->createAppCheck();
         }
 
@@ -46,7 +53,7 @@ class FirebaseProject
 
     public function auth(): Auth
     {
-        if (!$this->auth) {
+        if (! $this->auth) {
             $this->auth = $this->factory->createAuth();
         }
 
@@ -55,7 +62,7 @@ class FirebaseProject
 
     public function database(): Database
     {
-        if (!$this->database) {
+        if (! $this->database) {
             $this->database = $this->factory->createDatabase();
         }
 
@@ -64,7 +71,7 @@ class FirebaseProject
 
     public function dynamicLinks(): DynamicLinks
     {
-        if (!$this->dynamicLinks) {
+        if (! $this->dynamicLinks) {
             $this->dynamicLinks = $this->factory->createDynamicLinksService($this->config['dynamic_links']['default_domain'] ?? null);
         }
 
@@ -73,7 +80,7 @@ class FirebaseProject
 
     public function firestore(): Firestore
     {
-        if (!$this->firestore) {
+        if (! $this->firestore) {
             $this->firestore = $this->factory->createFirestore();
         }
 
@@ -82,7 +89,7 @@ class FirebaseProject
 
     public function messaging(): Messaging
     {
-        if (!$this->messaging) {
+        if (! $this->messaging) {
             $this->messaging = $this->factory->createMessaging();
         }
 
@@ -91,7 +98,7 @@ class FirebaseProject
 
     public function remoteConfig(): RemoteConfig
     {
-        if (!$this->remoteConfig) {
+        if (! $this->remoteConfig) {
             $this->remoteConfig = $this->factory->createRemoteConfig();
         }
 
@@ -100,7 +107,7 @@ class FirebaseProject
 
     public function storage(): Storage
     {
-        if (!$this->storage) {
+        if (! $this->storage) {
             $this->storage = $this->factory->createStorage();
         }
 

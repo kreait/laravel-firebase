@@ -12,19 +12,19 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function boot(): void
     {
         // @codeCoverageIgnoreStart
-        if (!$this->app->runningInConsole()) {
+        if (! $this->app->runningInConsole()) {
             return;
         }
         // @codeCoverageIgnoreEnd
 
         $this->publishes([
-            __DIR__ . '/../config/firebase.php' => $this->app->configPath('firebase.php'),
+            __DIR__.'/../config/firebase.php' => $this->app->configPath('firebase.php'),
         ], 'config');
     }
 
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/firebase.php', 'firebase');
+        $this->mergeConfigFrom(__DIR__.'/../config/firebase.php', 'firebase');
 
         $this->registerManager();
         $this->registerComponents();

@@ -19,7 +19,7 @@ final class FirebaseProjectManagerTest extends TestCase
 {
     protected function defineEnvironment($app): void
     {
-        $app['config']->set('firebase.projects.app.credentials', __DIR__ . '/_fixtures/service_account.json');
+        $app['config']->set('firebase.projects.app.credentials', __DIR__.'/_fixtures/service_account.json');
     }
 
     /**
@@ -69,12 +69,12 @@ final class FirebaseProjectManagerTest extends TestCase
     public function credentials_can_be_configured_using_a_json_file(): void
     {
         // Reference credentials
-        $credentialsPath = \realpath(__DIR__ . '/_fixtures/service_account.json');
+        $credentialsPath = \realpath(__DIR__.'/_fixtures/service_account.json');
         $credentials = \json_decode(\file_get_contents($credentialsPath), true);
 
         // Set configuration and retrieve project
         $projectName = 'app';
-        $this->app->config->set('firebase.projects.' . $projectName . '.credentials', \realpath(__DIR__ . '/_fixtures/service_account.json'));
+        $this->app->config->set('firebase.projects.'.$projectName.'.credentials', \realpath(__DIR__.'/_fixtures/service_account.json'));
         $factory = $this->factoryForProject($projectName);
 
         // Retrieve service account
@@ -90,12 +90,12 @@ final class FirebaseProjectManagerTest extends TestCase
     public function json_file_credentials_can_be_used_using_the_deprecated_configuration_entry(): void
     {
         // Reference credentials
-        $credentialsPath = \realpath(__DIR__ . '/_fixtures/service_account.json');
+        $credentialsPath = \realpath(__DIR__.'/_fixtures/service_account.json');
         $credentials = \json_decode(\file_get_contents($credentialsPath), true);
 
         // Set configuration and retrieve project
         $projectName = 'app';
-        $this->app->config->set('firebase.projects.' . $projectName . '.credentials.file', \realpath(__DIR__ . '/_fixtures/service_account.json'));
+        $this->app->config->set('firebase.projects.'.$projectName.'.credentials.file', \realpath(__DIR__.'/_fixtures/service_account.json'));
         $factory = $this->factoryForProject($projectName);
 
         // Retrieve service account
@@ -112,7 +112,7 @@ final class FirebaseProjectManagerTest extends TestCase
     {
         // Set configuration and retrieve project
         $projectName = 'app';
-        $this->app->config->set('firebase.projects.' . $projectName . '.credentials', $credentials = [
+        $this->app->config->set('firebase.projects.'.$projectName.'.credentials', $credentials = [
             'type' => 'service_account',
             'project_id' => 'project',
             'private_key_id' => 'private_key_id',
@@ -139,10 +139,10 @@ final class FirebaseProjectManagerTest extends TestCase
     public function projects_can_have_different_credentials(): void
     {
         // Reference credentials
-        $credentialsPath = \realpath(__DIR__ . '/_fixtures/service_account.json');
+        $credentialsPath = \realpath(__DIR__.'/_fixtures/service_account.json');
         $credentials = \json_decode(\file_get_contents($credentialsPath), true);
 
-        $secondCredentialsPath = \realpath(__DIR__ . '/_fixtures/another_service_account.json');
+        $secondCredentialsPath = \realpath(__DIR__.'/_fixtures/another_service_account.json');
         $secondCredentials = \json_decode(\file_get_contents($secondCredentialsPath), true);
 
         // Project names to use
@@ -150,8 +150,8 @@ final class FirebaseProjectManagerTest extends TestCase
         $secondProjectName = 'another-app';
 
         // Set service accounts explicitly
-        $this->app->config->set('firebase.projects.' . $projectName . '.credentials', \realpath(__DIR__ . '/_fixtures/service_account.json'));
-        $this->app->config->set('firebase.projects.' . $secondProjectName . '.credentials', \realpath(__DIR__ . '/_fixtures/another_service_account.json'));
+        $this->app->config->set('firebase.projects.'.$projectName.'.credentials', \realpath(__DIR__.'/_fixtures/service_account.json'));
+        $this->app->config->set('firebase.projects.'.$secondProjectName.'.credentials', \realpath(__DIR__.'/_fixtures/another_service_account.json'));
 
         // Retrieve factories and service accounts
         $factory = $this->factoryForProject($projectName);
@@ -171,8 +171,8 @@ final class FirebaseProjectManagerTest extends TestCase
     public function the_realtime_database_url_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
-        $this->app->config->set('firebase.projects.' . $projectName . '.database.url', $url = 'https://domain.tld');
-        $this->app->config->set('firebase.projects.' . $projectName . '.database.auth_variable_override', ['uid' => 'some-uid']);
+        $this->app->config->set('firebase.projects.'.$projectName.'.database.url', $url = 'https://domain.tld');
+        $this->app->config->set('firebase.projects.'.$projectName.'.database.auth_variable_override', ['uid' => 'some-uid']);
 
         $database = $this->app->make(Firebase\Contract\Database::class);
 
@@ -187,7 +187,7 @@ final class FirebaseProjectManagerTest extends TestCase
     public function the_dynamic_links_default_domain_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
-        $this->app->config->set('firebase.projects.' . $projectName . '.dynamic_links.default_domain', $domain = 'https://domain.tld');
+        $this->app->config->set('firebase.projects.'.$projectName.'.dynamic_links.default_domain', $domain = 'https://domain.tld');
 
         $dynamicLinks = $this->app->make(Firebase\Contract\DynamicLinks::class);
 
@@ -204,7 +204,7 @@ final class FirebaseProjectManagerTest extends TestCase
     public function the_storage_default_bucket_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
-        $this->app->config->set('firebase.projects.' . $projectName . '.storage.default_bucket', $name = 'my-bucket');
+        $this->app->config->set('firebase.projects.'.$projectName.'.storage.default_bucket', $name = 'my-bucket');
 
         $storage = $this->app->make(Firebase\Contract\Storage::class);
 
@@ -219,7 +219,7 @@ final class FirebaseProjectManagerTest extends TestCase
     public function logging_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
-        $this->app->config->set('firebase.projects.' . $projectName . '.logging.http_log_channel', 'stack');
+        $this->app->config->set('firebase.projects.'.$projectName.'.logging.http_log_channel', 'stack');
 
         $factory = $this->factoryForProject($projectName);
 
@@ -234,7 +234,7 @@ final class FirebaseProjectManagerTest extends TestCase
     public function debug_logging_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
-        $this->app->config->set('firebase.projects.' . $projectName . '.logging.http_debug_log_channel', 'stack');
+        $this->app->config->set('firebase.projects.'.$projectName.'.logging.http_debug_log_channel', 'stack');
 
         $factory = $this->factoryForProject($projectName);
 
@@ -249,9 +249,9 @@ final class FirebaseProjectManagerTest extends TestCase
     public function http_client_options_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
-        $this->app->config->set('firebase.projects.' . $projectName . '.http_client_options.proxy', 'proxy.domain.tld');
-        $this->app->config->set('firebase.projects.' . $projectName . '.http_client_options.timeout', 1.23);
-        $this->app->config->set('firebase.projects.' . $projectName . '.http_client_options.guzzle_middlewares', [RetryMiddleware::class]);
+        $this->app->config->set('firebase.projects.'.$projectName.'.http_client_options.proxy', 'proxy.domain.tld');
+        $this->app->config->set('firebase.projects.'.$projectName.'.http_client_options.timeout', 1.23);
+        $this->app->config->set('firebase.projects.'.$projectName.'.http_client_options.guzzle_middlewares', [RetryMiddleware::class]);
 
         $factory = $this->factoryForProject($projectName);
 
@@ -289,7 +289,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertInstanceOf(CacheItemPoolInterface::class, $property->getValue($factory));
     }
 
-    private function factoryForProject(?string $project = null): Factory
+    private function factoryForProject(string $project = null): Factory
     {
         $project = $this->app->make(FirebaseProjectManager::class)->project($project);
 
