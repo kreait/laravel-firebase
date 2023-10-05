@@ -123,8 +123,8 @@ Earlier versions will receive security fixes as long as their **lowest** SDK req
 can find the currently supported versions and support options in the [SDK's README](https://github.com/kreait/firebase-php).
 
 | Version | Initial Release | Supported SDK Versions | Supported Laravel Versions | Status      |
-| ------- | --------------- | ---------------------- | -------------------------- | ----------- |
-| `5.x`   | 13 Jan 2023     | `^7.0`                 | `^9.0`                     | Active      |
+|---------|-----------------|------------------------|----------------------------|-------------|
+| `5.x`   | 13 Jan 2023     | `^7.0`                 | `^9.0`, `^10.0`            | Active      |
 | `4.x`   | 09 Jan 2022     | `^6.0`                 | `^8.0`                     | End of life |
 | `3.x`   | 01 Nov 2020     | `^5.24`                | `^6.0, ^7.0, ^8.0`         | End of life |
 | `2.x`   | 01 Apr 2020     | `^5.0`                 | `^5.8, ^6.0, ^7.0, ^8.0`   | End of life |
