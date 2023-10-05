@@ -71,7 +71,7 @@ If you don't want a service account to be auto-discovered, provide it by setting
 FIREBASE_CREDENTIALS=storage/app/firebase-auth.json
 ```
 
-### Credentials with JSON arrays
+### Credentials with Arrays
 
 If you prefer to have more control over the configuration items required to configure the credentials, you can also transpose the Service Account JSON file as an array within your `config/firebase.php` file.
 
