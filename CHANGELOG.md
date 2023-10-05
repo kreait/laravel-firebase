@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 5.4.0 - 2023-10-05
+
+* Added support for configuration of credentials with a config array
+  ([#202](https://github.com/kreait/laravel-firebase/pull/202))
+
 ## 5.3.0 - 2023-07-26
 
 * Enabled injecting middlewares into the Firebase API client
