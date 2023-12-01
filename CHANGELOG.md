@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Added support for PHP 8.3
+
 ## 5.4.0 - 2023-10-05
 
 * Added support for configuration of credentials with a config array
