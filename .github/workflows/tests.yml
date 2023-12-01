@@ -1,8 +1,22 @@
 name: Tests
 
 on:
-  push:
   pull_request:
+    paths:
+      - 'config/**'
+      - 'src/**'
+      - 'tests/**'
+      - '.github/workflows/tests.yml'
+      - 'composer.json'
+  push:
+    branches: ['main']
+    paths:
+      - 'config/**'
+      - 'src/**'
+      - 'tests/**'
+      - '.github/workflows/tests.yml'
+      - 'composer.json'
+  workflow_dispatch:
 
 jobs:
   test:
