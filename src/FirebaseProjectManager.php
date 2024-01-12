@@ -25,7 +25,7 @@ class FirebaseProjectManager
         $this->app = $app;
     }
 
-    public function project(string $name = null): FirebaseProject
+    public function project(?string $name = null): FirebaseProject
     {
         $name = $name ?? $this->getDefaultProject();
 
