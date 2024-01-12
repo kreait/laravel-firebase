@@ -64,6 +64,26 @@ return [
 
             /*
              * ------------------------------------------------------------------------
+             * Firestore Component
+             * ------------------------------------------------------------------------
+             */
+
+            'firestore' => [
+
+                /*
+                 * If you want to access a Firestore database other than the default database,
+                 * enter its name here.
+                 *
+                 * By default, the Firestore client will connect to the `(default)` database.
+                 *
+                 * https://firebase.google.com/docs/firestore/manage-databases
+                 */
+
+                // 'database' => env('FIREBASE_FIRESTORE_DATABASE'),
+            ],
+
+            /*
+             * ------------------------------------------------------------------------
              * Firebase Realtime Database
              * ------------------------------------------------------------------------
              */

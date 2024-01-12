@@ -279,6 +279,20 @@ final class FirebaseProjectManagerTest extends TestCase
     /**
      * @test
      */
+    public function it_overrides_the_default_firestore_database(): void
+    {
+        config(['firebase.projects.app.firestore.database' => 'override-database']);
+        $projectName = $this->app->config->get('firebase.default');
+        $factory = $this->factoryForProject($projectName);
+
+        $property = $this->getAccessibleProperty($factory, 'firestoreClientConfig');
+
+        $this->assertEquals('override-database', $property->getValue($factory)['database']);
+    }
+
+    /**
+     * @test
+     */
     public function it_uses_the_laravel_cache_as_auth_token_cache(): void
     {
         $projectName = $this->app->config->get('firebase.default');

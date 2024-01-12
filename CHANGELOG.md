@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+* Added support for overriding the name of the Firestore Default Database
+  ([#209](https://github.com/kreait/laravel-firebase/pull/209))
+
 ## 5.5.0 - 2023-11-30
 
 * Added support for PHP 8.3
