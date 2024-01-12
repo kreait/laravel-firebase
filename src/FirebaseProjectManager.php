@@ -64,6 +64,10 @@ class FirebaseProjectManager
 
         $config = $this->configuration($name);
 
+        $factory = $factory->withFirestoreDatabase(
+            $config['firestore']['database'] ?? '(default)'
+        );
+
         if ($tenantId = $config['auth']['tenant_id'] ?? null) {
             $factory = $factory->withTenantId($tenantId);
         }
