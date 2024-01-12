@@ -289,7 +289,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertInstanceOf(CacheItemPoolInterface::class, $property->getValue($factory));
     }
 
-    private function factoryForProject(string $project = null): Factory
+    private function factoryForProject(?string $project = null): Factory
     {
         $project = $this->app->make(FirebaseProjectManager::class)->project($project);
 
