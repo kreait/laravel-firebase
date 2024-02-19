@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Enabled using `symfony/cache:^7`
+
 ## 5.6.0 - 2024-01-13
 
 * Added support for overriding the name of the Firestore Default Database

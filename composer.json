@@ -15,7 +15,7 @@
         "kreait/firebase-php": "^7.0",
         "illuminate/contracts": "^9.0 || ^10.0",
         "illuminate/support": "^9.0 || ^10.0",
-        "symfony/cache": "^6.1.2"
+        "symfony/cache": "^6.1.2 || ^7.0.3"
     },
     "require-dev": {
         "orchestra/testbench": "^7.0 || ^8.0",
