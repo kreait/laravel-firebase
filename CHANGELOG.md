@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 5.7.0 - 2024-02-19
+
 * Enabled using `symfony/cache:^7`
 
 ## 5.6.0 - 2024-01-13
