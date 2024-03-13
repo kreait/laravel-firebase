@@ -11,10 +11,7 @@ use Kreait\Firebase;
  */
 final class ServiceProviderTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function it_provides_components(): void
+    public function test_it_provides_components(): void
     {
         $this->app->config->set('firebase.projects.app.credentials', \realpath(__DIR__.'/_fixtures/service_account.json'));
 
@@ -27,10 +24,7 @@ final class ServiceProviderTest extends TestCase
         $this->assertInstanceOf(Firebase\Contract\Storage::class, $this->app->make(Firebase\Contract\Storage::class));
     }
 
-    /**
-     * @test
-     */
-    public function it_does_not_provide_optional_components(): void
+    public function test_it_does_not_provide_optional_components(): void
     {
         $this->expectException(\Throwable::class);
         $this->expectExceptionMessageMatches('/unable/i');

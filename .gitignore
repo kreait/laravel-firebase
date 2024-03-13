@@ -5,3 +5,4 @@
 /composer.lock
 /google-service-account.json
 /phpunit.xml
+.phpunit.cache

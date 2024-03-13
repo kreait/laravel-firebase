@@ -22,10 +22,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $app['config']->set('firebase.projects.app.credentials', __DIR__.'/_fixtures/service_account.json');
     }
 
-    /**
-     * @test
-     */
-    public function a_project_configuration_has_to_exist(): void
+    public function test_a_project_configuration_has_to_exist(): void
     {
         $manager = $this->app->make(FirebaseProjectManager::class);
 
@@ -36,10 +33,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->getAccessibleMethod($manager, 'configuration')->invoke($manager, $projectName);
     }
 
-    /**
-     * @test
-     */
-    public function a_default_project_can_be_set(): void
+    public function test_a_default_project_can_be_set(): void
     {
         $manager = $this->app->make(FirebaseProjectManager::class);
 
@@ -51,10 +45,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($projectName, $this->app->config->get('firebase.default'), 'default project should be set in config');
     }
 
-    /**
-     * @test
-     */
-    public function calls_are_passed_to_default_project(): void
+    public function test_calls_are_passed_to_default_project(): void
     {
         $manager = $this->app->make(FirebaseProjectManager::class);
 
@@ -63,10 +54,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($manager->project($projectName)->auth(), $manager->auth());
     }
 
-    /**
-     * @test
-     */
-    public function credentials_can_be_configured_using_a_json_file(): void
+    public function test_credentials_can_be_configured_using_a_json_file(): void
     {
         // Reference credentials
         $credentialsPath = \realpath(__DIR__.'/_fixtures/service_account.json');
@@ -84,10 +72,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($credentials, $serviceAccount);
     }
 
-    /**
-     * @test
-     */
-    public function json_file_credentials_can_be_used_using_the_deprecated_configuration_entry(): void
+    public function test_json_file_credentials_can_be_used_using_the_deprecated_configuration_entry(): void
     {
         // Reference credentials
         $credentialsPath = \realpath(__DIR__.'/_fixtures/service_account.json');
@@ -105,10 +90,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($credentials, $serviceAccount);
     }
 
-    /**
-     * @test
-     */
-    public function credentials_can_be_configured_using_an_array(): void
+    public function test_credentials_can_be_configured_using_an_array(): void
     {
         // Set configuration and retrieve project
         $projectName = 'app';
@@ -133,10 +115,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($credentials, $serviceAccount);
     }
 
-    /**
-     * @test
-     */
-    public function projects_can_have_different_credentials(): void
+    public function test_projects_can_have_different_credentials(): void
     {
         // Reference credentials
         $credentialsPath = \realpath(__DIR__.'/_fixtures/service_account.json');
@@ -165,10 +144,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($secondCredentials, $secondServiceAccount);
     }
 
-    /**
-     * @test
-     */
-    public function the_realtime_database_url_can_be_configured(): void
+    public function test_the_realtime_database_url_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.database.url', $url = 'https://domain.tld');
@@ -181,10 +157,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($url, (string) $property->getValue($database));
     }
 
-    /**
-     * @test
-     */
-    public function the_dynamic_links_default_domain_can_be_configured(): void
+    public function test_the_dynamic_links_default_domain_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.dynamic_links.default_domain', $domain = 'https://domain.tld');
@@ -198,10 +171,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($domain, $configuredDomain);
     }
 
-    /**
-     * @test
-     */
-    public function the_storage_default_bucket_can_be_configured(): void
+    public function test_the_storage_default_bucket_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.storage.default_bucket', $name = 'my-bucket');
@@ -213,10 +183,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame($name, $property->getValue($storage));
     }
 
-    /**
-     * @test
-     */
-    public function logging_can_be_configured(): void
+    public function test_logging_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.logging.http_log_channel', 'stack');
@@ -228,10 +195,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertNotNull($property->getValue($factory));
     }
 
-    /**
-     * @test
-     */
-    public function debug_logging_can_be_configured(): void
+    public function test_debug_logging_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.logging.http_debug_log_channel', 'stack');
@@ -243,10 +207,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertNotNull($property->getValue($factory));
     }
 
-    /**
-     * @test
-     */
-    public function http_client_options_can_be_configured(): void
+    public function test_http_client_options_can_be_configured(): void
     {
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.http_client_options.proxy', 'proxy.domain.tld');
@@ -263,10 +224,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertSame([RetryMiddleware::class], $httpClientOptions->guzzleMiddlewares());
     }
 
-    /**
-     * @test
-     */
-    public function it_uses_the_laravel_cache_as_verifier_cache(): void
+    public function test_it_uses_the_laravel_cache_as_verifier_cache(): void
     {
         $projectName = $this->app->config->get('firebase.default');
         $factory = $this->factoryForProject($projectName);
@@ -276,10 +234,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertInstanceOf(CacheItemPoolInterface::class, $property->getValue($factory));
     }
 
-    /**
-     * @test
-     */
-    public function it_overrides_the_default_firestore_database(): void
+    public function test_it_overrides_the_default_firestore_database(): void
     {
         config(['firebase.projects.app.firestore.database' => 'override-database']);
         $projectName = $this->app->config->get('firebase.default');
@@ -290,10 +245,7 @@ final class FirebaseProjectManagerTest extends TestCase
         $this->assertEquals('override-database', $property->getValue($factory)['database']);
     }
 
-    /**
-     * @test
-     */
-    public function it_uses_the_laravel_cache_as_auth_token_cache(): void
+    public function test_it_uses_the_laravel_cache_as_auth_token_cache(): void
     {
         $projectName = $this->app->config->get('firebase.default');
         $factory = $this->factoryForProject($projectName);
