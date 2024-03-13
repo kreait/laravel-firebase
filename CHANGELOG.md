@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 5.8.0 - 2024-03-13
+
 * Added support for Laravel 11 
   ([#214](https://github.com/kreait/laravel-firebase/pull/214))
 
