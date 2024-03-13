@@ -35,7 +35,7 @@ jobs:
           - "11"
         exclude:
           - php: "8.1"
-            laravel: "11"          
+            laravel: "11"
 
     steps:
       - name: Checkout code
@@ -63,3 +63,5 @@ jobs:
 
       - name: Upload code coverage
         uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
