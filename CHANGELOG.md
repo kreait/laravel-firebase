@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+* Added support for Laravel 11 
+  ([#214](https://github.com/kreait/laravel-firebase/pull/214))
+
 ## 5.7.0 - 2024-02-19
 
 * Enabled using `symfony/cache:^7`
