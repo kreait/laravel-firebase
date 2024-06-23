@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+* Revert making the Service provider deferrable. The auto discovery problem is hopefully still fixed because of
+  the change in the latest version of the SDK.
+
 ## 5.9.0 - 2024-06-23
 
 * Service Provider Registration is now deferred. This should fix the credentials auto discovery in Laravel's 

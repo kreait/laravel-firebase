@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Kreait\Laravel\Firebase;
 
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Support\DeferrableProvider;
 use Kreait\Firebase;
 
-final class ServiceProvider extends \Illuminate\Support\ServiceProvider implements DeferrableProvider
+final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     public function boot(): void
     {
@@ -62,20 +61,5 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider implemen
     {
         $this->app->singleton(FirebaseProjectManager::class, static fn (Container $app) => new FirebaseProjectManager($app));
         $this->app->alias(FirebaseProjectManager::class, 'firebase.manager');
-    }
-
-    public function provides(): array
-    {
-        return [
-            Firebase\Contract\AppCheck::class,
-            Firebase\Contract\Auth::class,
-            Firebase\Contract\Database::class,
-            Firebase\Contract\DynamicLinks::class,
-            Firebase\Contract\Firestore::class,
-            Firebase\Contract\Messaging::class,
-            Firebase\Contract\RemoteConfig::class,
-            Firebase\Contract\Storage::class,
-            FirebaseProjectManager::class,
-        ];
     }
 }
