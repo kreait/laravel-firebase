@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+* Service Provider Registration is now deferred. This should fix the credentials auto discovery in Laravel's 
+  package discovery stage
+  ([#210](https://github.com/kreait/laravel-firebase/pull/210))
+
 ## 5.8.0 - 2024-03-13
 
 * Added support for Laravel 11 
