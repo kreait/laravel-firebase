@@ -40,7 +40,7 @@ In order to access a Firebase project and its related services using a server SD
 For server-to-server communication this is done with a Service Account.
 
 If you don't already have generated a Service Account, you can do so by following the instructions from the
-official documentation pages at https://firebase.google.com/docs/admin/setup#initialize_the_sdk.
+official documentation pages at https://firebase.google.com/docs/admin/setup#initialize_the_sdk_in_non-google_environments.
 
 Once you have downloaded the Service Account JSON file, you can configure the package by specifying
 environment variables starting with `FIREBASE_` in your `.env` file. Usually, the following are
