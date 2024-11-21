@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Added support for PHP 8.4
+
 ## 5.9.1 - 2024-06-23
 
 * Revert making the Service provider deferrable. The auto discovery problem is hopefully still fixed because of
