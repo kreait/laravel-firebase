@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Unreleased
+
+* Dropped support for Laravel 9 and 10
+* Dropped support for PHP 8.1 (Laravel 11 requires at least PHP 8.2)
+
 ## 5.10.0 - 2024-11-22
 
 * Added support for PHP 8.4
