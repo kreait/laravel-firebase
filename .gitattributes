@@ -4,5 +4,6 @@
 /.editorconfig export-ignore
 /.gitattributes export-ignore
 /.gitignore export-ignore
+/ecs.php export-ignore
 /phpunit.xml.dist export-ignore
 /tests export-ignore

@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace Kreait\Laravel\Firebase\Tests;
 
+use GuzzleHttp\RetryMiddleware;
 use Kreait\Firebase;
 use Kreait\Firebase\Exception\InvalidArgumentException;
 use Kreait\Firebase\Factory;
 use Kreait\Laravel\Firebase\FirebaseProjectManager;
-use Roave\BetterReflection\Reflection\ReflectionObject;
+use Psr\Cache\CacheItemPoolInterface;
+use ReflectionObject;
 
 /**
  * @internal
  */
 final class FirebaseProjectManagerTest extends TestCase
 {
-    protected function factoryForProject(?string $project = null): Factory
+    protected function defineEnvironment($app): void
     {
-        $manager = $this->app->make(FirebaseProjectManager::class);
-        $project = $manager->project($project);
-
-        $factory = ReflectionObject::createFromInstance($project)->getProperty('factory');
-
-        return $factory->getValue($project);
+        $app['config']->set('firebase.projects.app.credentials', __DIR__.'/_fixtures/service_account.json');
     }
 
     /**
@@ -36,9 +33,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
 
-        ReflectionObject::createFromInstance($manager)
-            ->getMethod('configuration')
-            ->invoke($manager, $projectName);
+        $this->getAccessibleMethod($manager, 'configuration')->invoke($manager, $projectName);
     }
 
     /**
@@ -52,8 +47,8 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $manager->setDefaultProject($projectName);
 
-        $this->assertEquals($projectName, $manager->getDefaultProject());
-        $this->assertEquals($projectName, $this->app->config->get('firebase.default'), 'default project should be set in config');
+        $this->assertSame($projectName, $manager->getDefaultProject());
+        $this->assertSame($projectName, $this->app->config->get('firebase.default'), 'default project should be set in config');
     }
 
     /**
@@ -71,7 +66,28 @@ final class FirebaseProjectManagerTest extends TestCase
     /**
      * @test
      */
-    public function credentials_can_be_configured(): void
+    public function credentials_can_be_configured_using_a_json_file(): void
+    {
+        // Reference credentials
+        $credentialsPath = \realpath(__DIR__.'/_fixtures/service_account.json');
+        $credentials = \json_decode(\file_get_contents($credentialsPath), true);
+
+        // Set configuration and retrieve project
+        $projectName = 'app';
+        $this->app->config->set('firebase.projects.'.$projectName.'.credentials', \realpath(__DIR__.'/_fixtures/service_account.json'));
+        $factory = $this->factoryForProject($projectName);
+
+        // Retrieve service account
+        $serviceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($factory);
+
+        // Validate value
+        $this->assertSame($credentials, $serviceAccount);
+    }
+
+    /**
+     * @test
+     */
+    public function json_file_credentials_can_be_used_using_the_deprecated_configuration_entry(): void
     {
         // Reference credentials
         $credentialsPath = \realpath(__DIR__.'/_fixtures/service_account.json');
@@ -83,30 +99,38 @@ final class FirebaseProjectManagerTest extends TestCase
         $factory = $this->factoryForProject($projectName);
 
         // Retrieve service account
-        /** @var Firebase\ServiceAccount $serviceAccount */
-        $serviceAccount = ReflectionObject::createFromInstance($factory)
-            ->getMethod('getServiceAccount')
-            ->invoke($factory);
+        $serviceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($factory);
 
         // Validate value
-        $this->assertSame($credentials, $serviceAccount->asArray());
+        $this->assertSame($credentials, $serviceAccount);
     }
 
     /**
      * @test
      */
-    public function a_tenant_id_can_be_set(): void
+    public function credentials_can_be_configured_using_an_array(): void
     {
-        $this->app->config->set('firebase.projects.app.auth.tenant_id', $expected = 'abc123');
+        // Set configuration and retrieve project
+        $projectName = 'app';
+        $this->app->config->set('firebase.projects.'.$projectName.'.credentials', $credentials = [
+            'type' => 'service_account',
+            'project_id' => 'project',
+            'private_key_id' => 'private_key_id',
+            'private_key' => '-----BEGIN PRIVATE KEY-----\nsome gibberish\n-----END PRIVATE KEY-----\n',
+            'client_email' => 'client@email.tld',
+            'client_id' => '1234567890',
+            'auth_uri' => 'https://some.google.tld/o/oauth2/auth',
+            'token_uri' => 'https://some.google.tld/o/oauth2/token',
+            'auth_provider_x509_cert_url' => 'https://some.google.tld/oauth2/v1/certs',
+            'client_x509_cert_url' => 'https://some.google.tld/robot/v1/metadata/x509/user%40project.iam.gserviceaccount.com',
+        ]);
+        $factory = $this->factoryForProject($projectName);
 
-        $auth = $this->app->make(Firebase\Auth::class);
+        // Retrieve service account
+        $serviceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($factory);
 
-        /** @var Firebase\Auth\TenantId|null $tenantId */
-        $tenantId = ReflectionObject::createFromInstance($auth)->getProperty('tenantId')->getValue($auth);
-
-        $this->assertInstanceOf(Firebase\Auth\TenantId::class, $tenantId);
-
-        $this->assertSame($expected, $tenantId->toString());
+        // Validate value
+        $this->assertSame($credentials, $serviceAccount);
     }
 
     /**
@@ -126,92 +150,19 @@ final class FirebaseProjectManagerTest extends TestCase
         $secondProjectName = 'another-app';
 
         // Set service accounts explicitly
-        $this->app->config->set('firebase.projects.'.$projectName.'.credentials.file', \realpath(__DIR__.'/_fixtures/service_account.json'));
-        $this->app->config->set('firebase.projects.'.$secondProjectName.'.credentials.file', \realpath(__DIR__.'/_fixtures/another_service_account.json'));
+        $this->app->config->set('firebase.projects.'.$projectName.'.credentials', \realpath(__DIR__.'/_fixtures/service_account.json'));
+        $this->app->config->set('firebase.projects.'.$secondProjectName.'.credentials', \realpath(__DIR__.'/_fixtures/another_service_account.json'));
 
         // Retrieve factories and service accounts
         $factory = $this->factoryForProject($projectName);
         $secondFactory = $this->factoryForProject($secondProjectName);
 
-        /** @var Firebase\ServiceAccount $serviceAccount */
-        $serviceAccount = ReflectionObject::createFromInstance($factory)
-            ->getMethod('getServiceAccount')
-            ->invoke($factory);
-
-        /** @var Firebase\ServiceAccount $secondServiceAccount */
-        $secondServiceAccount = ReflectionObject::createFromInstance($secondFactory)
-            ->getMethod('getServiceAccount')
-            ->invoke($secondFactory);
+        $serviceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($factory);
+        $secondServiceAccount = $this->getAccessibleProperty($factory, 'serviceAccount')->getValue($secondFactory);
 
         // Validate values
-        $this->assertSame($credentials, $serviceAccount->asArray());
-        $this->assertSame($secondCredentials, $secondServiceAccount->asArray());
-    }
-
-    /**
-     * @test
-     */
-    public function credential_auto_discovery_is_enabled_by_default_for_default_project(): void
-    {
-        $projectName = $this->app->config->get('firebase.default');
-
-        $factory = $this->factoryForProject($projectName);
-
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('discoveryIsDisabled');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
-
-        $this->assertFalse($property->getValue($factory));
-    }
-
-    /**
-     * @test
-     */
-    public function credential_auto_discovery_can_be_disabled_for_default_project(): void
-    {
-        $projectName = $this->app->config->get('firebase.default');
-
-        $this->app->config->set('firebase.projects.'.$projectName.'.credentials.auto_discovery', false);
-
-        $factory = $this->factoryForProject($projectName);
-
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('discoveryIsDisabled');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
-
-        $this->assertTrue($property->getValue($factory));
-    }
-
-    /**
-     * @test
-     */
-    public function credential_auto_discovery_is_not_enabled_by_default_for_other_projects(): void
-    {
-        $projectName = 'another-app';
-
-        $this->app->config->set('firebase.projects.'.$projectName.'.credentials', []);
-
-        $factory = $this->factoryForProject($projectName); // factory for default project with default settings
-
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('discoveryIsDisabled');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
-
-        $this->assertTrue($property->getValue($factory));
-    }
-
-    /**
-     * @test
-     */
-    public function credential_auto_discovery_can_be_enabled_for_other_project(): void
-    {
-        $projectName = 'another-app';
-
-        $this->app->config->set('firebase.projects.'.$projectName.'.credentials.auto_discovery', true);
-
-        $factory = $this->factoryForProject($projectName);
-
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('discoveryIsDisabled');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
-
-        $this->assertFalse($property->getValue($factory));
+        $this->assertSame($credentials, $serviceAccount);
+        $this->assertSame($secondCredentials, $secondServiceAccount);
     }
 
     /**
@@ -221,11 +172,11 @@ final class FirebaseProjectManagerTest extends TestCase
     {
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.database.url', $url = 'https://domain.tld');
+        $this->app->config->set('firebase.projects.'.$projectName.'.database.auth_variable_override', ['uid' => 'some-uid']);
 
-        $database = $this->app->make(Firebase\Database::class);
+        $database = $this->app->make(Firebase\Contract\Database::class);
 
-        $property = ReflectionObject::createFromInstance($database)->getProperty('uri');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($database, 'uri');
 
         $this->assertSame($url, (string) $property->getValue($database));
     }
@@ -238,15 +189,13 @@ final class FirebaseProjectManagerTest extends TestCase
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.dynamic_links.default_domain', $domain = 'https://domain.tld');
 
-        $dynamicLinks = $this->app->make(Firebase\DynamicLinks::class);
+        $dynamicLinks = $this->app->make(Firebase\Contract\DynamicLinks::class);
 
-        $property = ReflectionObject::createFromInstance($dynamicLinks)->getProperty('defaultDynamicLinksDomain');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($dynamicLinks, 'defaultDynamicLinksDomain');
 
-        /** @var Firebase\Value\Url $configuredDomain */
         $configuredDomain = $property->getValue($dynamicLinks);
 
-        $this->assertSame($domain, (string) $configuredDomain->toUri());
+        $this->assertSame($domain, $configuredDomain);
     }
 
     /**
@@ -257,10 +206,9 @@ final class FirebaseProjectManagerTest extends TestCase
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.storage.default_bucket', $name = 'my-bucket');
 
-        $storage = $this->app->make(Firebase\Storage::class);
+        $storage = $this->app->make(Firebase\Contract\Storage::class);
 
-        $property = ReflectionObject::createFromInstance($storage)->getProperty('defaultBucket');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($storage, 'defaultBucket');
 
         $this->assertSame($name, $property->getValue($storage));
     }
@@ -275,8 +223,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('httpLogMiddleware');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($factory, 'httpLogMiddleware');
 
         $this->assertNotNull($property->getValue($factory));
     }
@@ -291,8 +238,7 @@ final class FirebaseProjectManagerTest extends TestCase
 
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('httpDebugLogMiddleware');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($factory, 'httpDebugLogMiddleware');
 
         $this->assertNotNull($property->getValue($factory));
     }
@@ -305,45 +251,78 @@ final class FirebaseProjectManagerTest extends TestCase
         $projectName = $this->app->config->get('firebase.default');
         $this->app->config->set('firebase.projects.'.$projectName.'.http_client_options.proxy', 'proxy.domain.tld');
         $this->app->config->set('firebase.projects.'.$projectName.'.http_client_options.timeout', 1.23);
+        $this->app->config->set('firebase.projects.'.$projectName.'.http_client_options.guzzle_middlewares', [RetryMiddleware::class]);
 
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('httpClientOptions');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
-
         /** @var Firebase\Http\HttpClientOptions $httpClientOptions */
-        $httpClientOptions = $property->getValue($factory);
+        $httpClientOptions = $this->getAccessibleProperty($factory, 'httpClientOptions')->getValue($factory);
 
         $this->assertSame('proxy.domain.tld', $httpClientOptions->proxy());
         $this->assertSame(1.23, $httpClientOptions->timeout());
+        $this->assertSame([RetryMiddleware::class], $httpClientOptions->guzzleMiddlewares());
     }
 
     /**
      * @test
      */
-    public function it_uses_the_laravel_cache(): void
+    public function it_uses_the_laravel_cache_as_verifier_cache(): void
     {
         $projectName = $this->app->config->get('firebase.default');
         $factory = $this->factoryForProject($projectName);
 
-        $property = ReflectionObject::createFromInstance($factory)->getProperty('verifierCache');
-        $property->setVisibility(\ReflectionProperty::IS_PUBLIC);
+        $property = $this->getAccessibleProperty($factory, 'verifierCache');
 
-        $this->assertInstanceOf(\Illuminate\Contracts\Cache\Repository::class, $property->getValue($factory));
+        $this->assertInstanceOf(CacheItemPoolInterface::class, $property->getValue($factory));
     }
 
     /**
      * @test
      */
-    public function enabling_debug_with_a_boolean_triggers_a_deprecation(): void
+    public function it_overrides_the_default_firestore_database(): void
     {
-        $this->expectException(\Throwable::class);
-        $this->expectExceptionMessageMatches('/deprecated/');
-
+        config(['firebase.projects.app.firestore.database' => 'override-database']);
         $projectName = $this->app->config->get('firebase.default');
-
-        $this->app->config->set('firebase.projects.'.$projectName.'.debug', true);
-
         $factory = $this->factoryForProject($projectName);
+
+        $property = $this->getAccessibleProperty($factory, 'firestoreClientConfig');
+
+        $this->assertEquals('override-database', $property->getValue($factory)['database']);
+    }
+
+    /**
+     * @test
+     */
+    public function it_uses_the_laravel_cache_as_auth_token_cache(): void
+    {
+        $projectName = $this->app->config->get('firebase.default');
+        $factory = $this->factoryForProject($projectName);
+
+        $property = $this->getAccessibleProperty($factory, 'authTokenCache');
+
+        $this->assertInstanceOf(CacheItemPoolInterface::class, $property->getValue($factory));
+    }
+
+    private function factoryForProject(?string $project = null): Factory
+    {
+        $project = $this->app->make(FirebaseProjectManager::class)->project($project);
+
+        return $this->getAccessibleProperty($project, 'factory')->getValue($project);
+    }
+
+    private function getAccessibleProperty(object $object, string $propertyName): \ReflectionProperty
+    {
+        $property = (new ReflectionObject($object))->getProperty($propertyName);
+        $property->setAccessible(true);
+
+        return $property;
+    }
+
+    private function getAccessibleMethod(object $object, string $methodName): \ReflectionMethod
+    {
+        $property = (new ReflectionObject($object))->getMethod($methodName);
+        $property->setAccessible(true);
+
+        return $property;
     }
 }

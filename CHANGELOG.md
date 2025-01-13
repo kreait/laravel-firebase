@@ -1,9 +1,113 @@
 # CHANGELOG
 
-## Unreleased
+## 5.10.0 - 2024-11-22
+
+* Added support for PHP 8.4
+
+## 5.9.1 - 2024-06-23
+
+* Revert making the Service provider deferrable. The auto discovery problem is hopefully still fixed because of
+  the change in the latest version of the SDK.
+
+## 5.9.0 - 2024-06-23
+
+* Service Provider Registration is now deferred. This should fix the credentials auto discovery in Laravel's 
+  package discovery stage
+  ([#210](https://github.com/kreait/laravel-firebase/pull/210))
+
+## 5.8.0 - 2024-03-13
+
+* Added support for Laravel 11 
+  ([#214](https://github.com/kreait/laravel-firebase/pull/214))
+
+## 5.7.0 - 2024-02-19
+
+* Enabled using `symfony/cache:^7`
+
+## 5.6.0 - 2024-01-13
+
+* Added support for overriding the name of the Firestore Default Database
+  ([#209](https://github.com/kreait/laravel-firebase/pull/209))
+
+## 5.5.0 - 2023-11-30
+
+* Added support for PHP 8.3
+
+## 5.4.0 - 2023-10-05
+
+* Added support for configuration of credentials with a config array
+  ([#202](https://github.com/kreait/laravel-firebase/pull/202))
+
+## 5.3.0 - 2023-07-26
+
+* Enabled injecting middlewares into the Firebase API client
+  ([#187](https://github.com/kreait/laravel-firebase/pull/187))
+
+## 5.2.0 - 2023-03-30
+
+* Added AppCheck support
+  ([#174](https://github.com/kreait/laravel-firebase/pull/174))
+
+## 5.1.0 - 2023-02-15
+
+* Added support for Laravel 10
+
+## 5.0.0 - 2023-01-13
+
+* Upgraded `kreait/firebase-php` from 6.x to 7.x
+* Dropped support for PHP <8.1, Laravel <9.0
+* Dropped support for Lumen ([it is not recommended anymore to use it](https://github.com/laravel/lumen/commit/69b26578d2f15595ea901278434b74df459c4329))
+* The ability to disable credentials auto-discovery has been removed. If you don't want a service account to be
+  auto-discovered, provide it by setting the `GOOGLE_APPLICATION_CREDENTIALS` environment variable or by modifying
+  the package configuration. 
+
+## 4.2.0 - 2022-07-28
+
+* Bumped dependencies, the minimum version of the underlying SDK is now 6.7.0.
+* Updated comment in `config/firebase.php` to reference the default HTTP timeout
+  * With `kreait/firebase` 6.7.0, the default was changed from ∞ to 30 seconds.
+
+## 4.1.0 - 2022-02-08
+
+* Added support for Laravel 9 ([#118](https://github.com/kreait/laravel-firebase/pull/118))
+
+## 4.0.0 - 2022-01-09
+
+This is a release with breaking changes. Please review the following changes and adapt your application where needed.
+
+### Changes
+
+* Added support for `kreait/firebase-php` ^6.0
+* Dropped support for `kreait/firebase-php` <6.0
+* Dropped support for Laravel/Lumen <8.0
+* Removed deprecated Facades - use the `Kreait\Laravel\Firebase\Facades\Firebase` facade instead 
+  * `Kreait\Laravel\Firebase\Facades\FirebaseAuth`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseDatabase`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseDynamicLinks`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseFirestore`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseMessaging`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseRemoteConfig`
+  * `Kreait\Laravel\Firebase\Facades\FirebaseStorage`
+* Removed support deprecated config options and environment variables
+  * `$config['debug']`/`FIREBASE_ENABLE_DEBUG`, use the `http_debug_log_channel` config option instead
+
+## 3.4.0 - 2021-12-04
+### Added
+* Added support for caching the authentication tokens used for connecting to the Firebase servers.
+
+## 3.3.0 - 2021-11-29
+### Added
+* Ensure support for all PHP 8.x versions 
+  ([#110](https://github.com/kreait/laravel-firebase/pull/110))
+
+## 3.2.0 - 2021-10-21
+### Added
+* Support for Database Auth Variable Overrides
+  ([#93](https://github.com/kreait/laravel-firebase/pull/93))
 ### Changed
 * Type-hints have been updated to point to the interfaces that the underlying SDK provides
-  since more recent versions. 
+  since more recent versions.
+* Bumped `kreait/firebase-php` dependency to `^5.24` (Database Auth Variable Overrides are supported since `5.22`)
 
 ## 3.1.0 - 2021-02-03
 ### Added
@@ -14,12 +118,9 @@
 
 ## 3.0.0 - 2020-11-01 
 ### Added
-* Support for multiple firebase projects
-  (thanks to [@dododedodonl](https://github.com/dododedodonl)).
-  See "upgrading to version 3" section in [UPGRADE.md](UPGRADE.md)
+* Support for multiple firebase projects (thanks to [@dododedodonl](https://github.com/dododedodonl)).
 * `\Kreait\Laravel\Firebase\Facades\Firebase` facade
-* HTTP Client Options are now configurable 
-  (thanks to [@kakajansh](https://github.com/kakajansh))
+* HTTP Client Options are now configurable (thanks to [@kakajansh](https://github.com/kakajansh))
 
 ### Changed
 * [config/firebase.php](config/firebase.php) has a new format to support multiple projects

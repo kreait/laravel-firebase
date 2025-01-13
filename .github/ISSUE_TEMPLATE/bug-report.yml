@@ -1,0 +1,92 @@
+name: 🐞 Bug report
+description: For unintended behaviors. Missing features aren't bugs.
+labels:
+    - bug
+assignees:
+    - jeromegamez
+body:
+    - type: markdown
+      attributes:
+          value: |
+              ### Important note
+
+              This issue form is for reporting bugs only. Please provide as much information as possible. If a problem cannot be reproduced or understood, your issue may be closed as non-actionable.
+
+              Before submitting an issue, please try to reproduce it in a new project:
+
+              ```shell
+              composer create-project laravel/laravel laravel-with-firebase
+              cd laravel-with-firebase
+              composer require -W kreait/laravel-firebase
+              php artisan vendor:publish --provider="Kreait\Laravel\Firebase\ServiceProvider" --tag=config
+              composer update -W
+              ```
+
+              You can request custom support if you are a [GitHub Sponsor in a _Firebase_ tier](https://github.com/sponsors/jeromegamez). If this issue does not describe a bug and you are not a GitHub sponsor, your issue may be closed.
+
+              You can learn more about the reasoning for this project's Terms of Support at [What the FOSS](https://jerome.gamez.name/what-the-foss/).
+    - type: markdown
+      attributes:
+          value: |
+              ###
+    - type: textarea
+      attributes:
+          label: Describe the bug
+          description: A clear and concise description of what the bug is.
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: Installed packages
+          description: |
+              Please paste the full content of your `composer.json` file.
+              This can help with finding outdated dependencies or known conflicts.
+              Remove identifying information like the project name, description to your discretion.
+          render: json
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: PHP version and extensions
+          description: |
+              You can generate a list with `composer show --platform`.
+              This can help with finding missing, outdated or conflicting PHP versions and extensions.
+          render: shell
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: Steps to reproduce the issue.
+          description: |
+              Provide clear and concise step by step instructions and add code snippets if needed.
+              Please use code blocks for better readability.
+              Please note that bugs without minimal reproductions can be closed as non-actionable.
+              If single, self-contained code snippets are not sufficient, please provide the link to a git Repository visualising the issue.
+
+          value: |
+              ```shell
+              # Insert the commands issued in the terminal if they are needed
+              # to reproduce the issue. Otherwise, delete this code block.
+              ```
+
+              ```php
+              // Insert the PHP code to reproduce the issue. Please ensure that it is code that
+              // can be copy pasted to reproduce it.
+              ```
+      validations:
+          required: true
+
+    - type: textarea
+      attributes:
+          label: Error message/Stack trace
+          description: |
+              If a stack trace is available, please include it in full, or type `-`
+          render: shell
+      validations:
+          required: true
+
+    - type: textarea
+      attributes:
+          label: Additional information
+          description: >
+              If you have any additional information, use the field below.

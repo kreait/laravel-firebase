@@ -6,18 +6,13 @@ namespace Kreait\Laravel\Firebase;
 
 use Illuminate\Contracts\Container\Container;
 use Kreait\Firebase;
-use Laravel\Lumen\Application as Lumen;
 
 final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         // @codeCoverageIgnoreStart
-        if (!$this->app->runningInConsole()) {
-            return;
-        }
-
-        if ($this->app instanceof Lumen) {
+        if (! $this->app->runningInConsole()) {
             return;
         }
         // @codeCoverageIgnoreEnd
@@ -27,14 +22,8 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
         ], 'config');
     }
 
-    public function register()
+    public function register(): void
     {
-        // @codeCoverageIgnoreStart
-        if ($this->app instanceof Lumen) {
-            $this->app->configure('firebase');
-        }
-        // @codeCoverageIgnoreEnd
-
         $this->mergeConfigFrom(__DIR__.'/../config/firebase.php', 'firebase');
 
         $this->registerManager();
@@ -43,53 +32,39 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function registerComponents(): void
     {
-        $this->app->singleton(Firebase\Contract\Auth::class, static function (Container $app) {
-            return $app->make(FirebaseProjectManager::class)->project()->auth();
-        });
-        $this->app->alias(Firebase\Contract\Auth::class, Firebase\Auth::class);
+        $this->app->singleton(Firebase\Contract\AppCheck::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->appCheck());
+        $this->app->alias(Firebase\Contract\AppCheck::class, 'firebase.app_check');
+
+        $this->app->singleton(Firebase\Contract\Auth::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->auth());
         $this->app->alias(Firebase\Contract\Auth::class, 'firebase.auth');
 
-        $this->app->singleton(Firebase\Database::class, static function (Container $app) {
-            return $app->make(FirebaseProjectManager::class)->project()->database();
-        });
-        $this->app->alias(Firebase\Database::class, 'firebase.database');
+        $this->app->singleton(Firebase\Contract\Database::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->database());
+        $this->app->alias(Firebase\Contract\Database::class, 'firebase.database');
 
-        $this->app->singleton(Firebase\DynamicLinks::class, static function (Container $app) {
-            return $app->make(FirebaseProjectManager::class)->project()->dynamicLinks();
-        });
-        $this->app->alias(Firebase\DynamicLinks::class, 'firebase.dynamic_links');
+        $this->app->singleton(Firebase\Contract\DynamicLinks::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->dynamicLinks());
+        $this->app->alias(Firebase\Contract\DynamicLinks::class, 'firebase.dynamic_links');
 
-        $this->app->singleton(Firebase\Firestore::class, static function (Container $app) {
-            return $app->make(FirebaseProjectManager::class)->project()->firestore();
-        });
-        $this->app->alias(Firebase\Firestore::class, 'firebase.firestore');
+        $this->app->singleton(Firebase\Contract\Firestore::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->firestore());
+        $this->app->alias(Firebase\Contract\Firestore::class, 'firebase.firestore');
 
-        $this->app->singleton(Firebase\Messaging::class, static function (Container $app) {
-            return $app->make(FirebaseProjectManager::class)->project()->messaging();
-        });
-        $this->app->alias(Firebase\Messaging::class, 'firebase.messaging');
+        $this->app->singleton(Firebase\Contract\Messaging::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->messaging());
+        $this->app->alias(Firebase\Contract\Messaging::class, 'firebase.messaging');
 
-        $this->app->singleton(Firebase\RemoteConfig::class, static function (Container $app) {
-            return $app->make(FirebaseProjectManager::class)->project()->remoteConfig();
-        });
-        $this->app->alias(Firebase\RemoteConfig::class, 'firebase.remote_config');
+        $this->app->singleton(Firebase\Contract\RemoteConfig::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->remoteConfig());
+        $this->app->alias(Firebase\Contract\RemoteConfig::class, 'firebase.remote_config');
 
-        $this->app->singleton(Firebase\Storage::class, static function (Container $app) {
-            return $app->make(FirebaseProjectManager::class)->project()->storage();
-        });
-        $this->app->alias(Firebase\Storage::class, 'firebase.storage');
 
         $this->app->singleton(Firebase\IdentityPlatform::class, static function (Container $app) {
             return $app->make(FirebaseProjectManager::class)->project()->identityPlatform();
         });
         $this->app->alias(Firebase\IdentityPlatform::class, 'firebase.identity_platform');
+        $this->app->singleton(Firebase\Contract\Storage::class, static fn (Container $app) => $app->make(FirebaseProjectManager::class)->project()->storage());
+        $this->app->alias(Firebase\Contract\Storage::class, 'firebase.storage');
     }
 
     private function registerManager(): void
     {
-        $this->app->singleton(FirebaseProjectManager::class, static function (Container $app) {
-            return new FirebaseProjectManager($app);
-        });
+        $this->app->singleton(FirebaseProjectManager::class, static fn (Container $app) => new FirebaseProjectManager($app));
         $this->app->alias(FirebaseProjectManager::class, 'firebase.manager');
     }
 }
