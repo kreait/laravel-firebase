@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* Added support for Laravel 12
 * Dropped support for Laravel 9 and 10
 * Dropped support for PHP 8.1 (Laravel 11 requires at least PHP 8.2)
 
