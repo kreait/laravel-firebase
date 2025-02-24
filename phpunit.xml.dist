@@ -11,14 +11,17 @@
         </testsuite>
     </testsuites>
 
-    <coverage ignoreDeprecatedCodeUnits="true" processUncoveredFiles="true">
+    <coverage>
+    </coverage>
+
+    <source>
         <include>
-            <directory suffix=".php">src</directory>
+            <directory>src</directory>
         </include>
         <exclude>
             <directory>src/Facades</directory>
         </exclude>
-    </coverage>
+    </source>
 
     <php>
         <ini name="date.timezone" value="UTC"/>
