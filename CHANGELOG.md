@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 6.1.0 - 2025-06-14
 
 * Added support for callable strings/arrays when defining Guzzle Middlewares. This ensures that the Firebase config
   can be cached.
