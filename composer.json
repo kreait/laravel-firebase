@@ -19,9 +19,9 @@
         "symfony/cache": "^6.1.2 || ^7.0.3"
     },
     "require-dev": {
-        "orchestra/testbench": "^9.0 || ^10.0",
-        "laravel/pint": "^1.14",
-        "phpunit/phpunit": "^11.4.3"
+        "orchestra/testbench": "^9.0 || ^10.4",
+        "laravel/pint": "^1.22.1",
+        "phpunit/phpunit": "^11.5.23"
     },
     "autoload": {
         "psr-4": {
