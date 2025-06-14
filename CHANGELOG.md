@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+* Added support for callable strings/arrays when defining Guzzle Middlewares. This ensures that the Firebase config
+  can be cached.
+  ([#247](https://github.com/kreait/laravel-firebase/pull/247))
+
 ## 6.0.0 - 2025-02-24
 
 * Added support for Laravel 12
