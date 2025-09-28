@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
         "kreait/firebase-php": "^7.19",
         "illuminate/contracts": "^11.0 || ^12.0",
         "illuminate/notifications": "^11.0 || ^12.0",
