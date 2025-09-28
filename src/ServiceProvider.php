@@ -59,7 +59,7 @@ final class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function registerManager(): void
     {
-        $this->app->singleton(FirebaseProjectManager::class, static fn (Container $app) => new FirebaseProjectManager($app));
+        $this->app->singleton(FirebaseProjectManager::class);
         $this->app->alias(FirebaseProjectManager::class, 'firebase.manager');
     }
 }

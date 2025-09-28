@@ -16,10 +16,6 @@ use Kreait\Firebase\Factory;
 
 class FirebaseProject
 {
-    protected Factory $factory;
-
-    protected array $config;
-
     protected ?AppCheck $appCheck = null;
 
     protected ?Auth $auth = null;
@@ -36,11 +32,11 @@ class FirebaseProject
 
     protected ?Storage $storage = null;
 
-    public function __construct(Factory $factory, array $config)
-    {
-        $this->factory = $factory;
-        $this->config = $config;
-    }
+    public function __construct(
+        protected Factory $factory,
+        protected ?string $dynamicLinksDefaultDomain,
+        protected ?string $firestoreDatabase
+    ) {}
 
     public function appCheck(): AppCheck
     {
@@ -72,7 +68,7 @@ class FirebaseProject
     public function dynamicLinks(): DynamicLinks
     {
         if (! $this->dynamicLinks) {
-            $this->dynamicLinks = $this->factory->createDynamicLinksService($this->config['dynamic_links']['default_domain'] ?? null);
+            $this->dynamicLinks = $this->factory->createDynamicLinksService($this->dynamicLinksDefaultDomain);
         }
 
         return $this->dynamicLinks;
@@ -81,7 +77,7 @@ class FirebaseProject
     public function firestore(): Firestore
     {
         if (! $this->firestore) {
-            $this->firestore = $this->factory->createFirestore();
+            $this->firestore = $this->factory->createFirestore($this->firestoreDatabase);
         }
 
         return $this->firestore; // @codeCoverageIgnore
