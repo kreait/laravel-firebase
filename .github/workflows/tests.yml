@@ -29,18 +29,10 @@ jobs:
           - "8.2"
           - "8.3"
           - "8.4"
+          - "8.5"
         laravel:
           - "11"
           - "12"
-        include:
-          - php: "8.5"
-            laravel: "11"
-            composer-options: "--ignore-platform-reqs"
-            dependencies: "highest"
-          - php: "8.5"
-            laravel: "12"
-            composer-options: "--ignore-platform-reqs"
-            dependencies: "highest"
 
     steps:
       - name: Checkout code
