@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 6.2.0 - 2025-11-28
+
 * The package is now ready for PHP 8.5
 
 ## 6.1.0 - 2025-06-14
