@@ -62,7 +62,19 @@ jobs:
       - name: Run PHPUnit
         run: vendor/bin/phpunit --coverage-clover=coverage.xml --log-junit=test-report.xml --testdox
 
-      - name: Upload code coverage
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          report_type: test_results
+          fail_ci_if_error: false
+
+      - name: Upload coverage to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: false
