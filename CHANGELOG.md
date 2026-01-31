@@ -10,7 +10,7 @@
 
 * Added support for callable strings/arrays when defining Guzzle Middlewares. This ensures that the Firebase config
   can be cached.
-  ([#247](https://github.com/kreait/laravel-firebase/pull/247))
+  ([#247](https://github.com/beste/laravel-firebase/pull/247))
 
 ## 6.0.0 - 2025-02-24
 
@@ -31,12 +31,12 @@
 
 * Service Provider Registration is now deferred. This should fix the credentials auto discovery in Laravel's 
   package discovery stage
-  ([#210](https://github.com/kreait/laravel-firebase/pull/210))
+  ([#210](https://github.com/beste/laravel-firebase/pull/210))
 
 ## 5.8.0 - 2024-03-13
 
 * Added support for Laravel 11 
-  ([#214](https://github.com/kreait/laravel-firebase/pull/214))
+  ([#214](https://github.com/beste/laravel-firebase/pull/214))
 
 ## 5.7.0 - 2024-02-19
 
@@ -45,7 +45,7 @@
 ## 5.6.0 - 2024-01-13
 
 * Added support for overriding the name of the Firestore Default Database
-  ([#209](https://github.com/kreait/laravel-firebase/pull/209))
+  ([#209](https://github.com/beste/laravel-firebase/pull/209))
 
 ## 5.5.0 - 2023-11-30
 
@@ -54,17 +54,17 @@
 ## 5.4.0 - 2023-10-05
 
 * Added support for configuration of credentials with a config array
-  ([#202](https://github.com/kreait/laravel-firebase/pull/202))
+  ([#202](https://github.com/beste/laravel-firebase/pull/202))
 
 ## 5.3.0 - 2023-07-26
 
 * Enabled injecting middlewares into the Firebase API client
-  ([#187](https://github.com/kreait/laravel-firebase/pull/187))
+  ([#187](https://github.com/beste/laravel-firebase/pull/187))
 
 ## 5.2.0 - 2023-03-30
 
 * Added AppCheck support
-  ([#174](https://github.com/kreait/laravel-firebase/pull/174))
+  ([#174](https://github.com/beste/laravel-firebase/pull/174))
 
 ## 5.1.0 - 2023-02-15
 
@@ -87,7 +87,7 @@
 
 ## 4.1.0 - 2022-02-08
 
-* Added support for Laravel 9 ([#118](https://github.com/kreait/laravel-firebase/pull/118))
+* Added support for Laravel 9 ([#118](https://github.com/beste/laravel-firebase/pull/118))
 
 ## 4.0.0 - 2022-01-09
 
@@ -116,12 +116,12 @@ This is a release with breaking changes. Please review the following changes and
 ## 3.3.0 - 2021-11-29
 ### Added
 * Ensure support for all PHP 8.x versions 
-  ([#110](https://github.com/kreait/laravel-firebase/pull/110))
+  ([#110](https://github.com/beste/laravel-firebase/pull/110))
 
 ## 3.2.0 - 2021-10-21
 ### Added
 * Support for Database Auth Variable Overrides
-  ([#93](https://github.com/kreait/laravel-firebase/pull/93))
+  ([#93](https://github.com/beste/laravel-firebase/pull/93))
 ### Changed
 * Type-hints have been updated to point to the interfaces that the underlying SDK provides
   since more recent versions.
@@ -131,7 +131,7 @@ This is a release with breaking changes. Please review the following changes and
 ### Added
 * Support for tenant awareness via `FIREBASE_AUTH_TENANT_ID` environment variable
   or `firebase.projects.*.auth.tenant_id` config variable.
-  ([#79](https://github.com/kreait/laravel-firebase/pull/79))
+  ([#79](https://github.com/beste/laravel-firebase/pull/79))
   (thanks to [@sl0wik](https://github.com/sl0wik))
 
 ## 3.0.0 - 2020-11-01 
@@ -193,7 +193,7 @@ This is a release with breaking changes. Please review the following changes and
 ## 1.4.0 - 2020-02-22
 
 * Updated `kreait/firebase-php` to `^4.40.0`
-* A relative path to a credentials file is now resolved with `base_path()` to address issues on Windows systems [#7](https://github.com/kreait/laravel-firebase/issues/7) 
+* A relative path to a credentials file is now resolved with `base_path()` to address issues on Windows systems [#7](https://github.com/beste/laravel-firebase/issues/7) 
 
 ## 1.3.0 - 2020-01-15
 

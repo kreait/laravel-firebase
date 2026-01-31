@@ -209,7 +209,7 @@ return [
                  * a request is considered timed out
                  *
                  * The default time out can be reviewed at
-                 * https://github.com/kreait/firebase-php/blob/6.x/src/Firebase/Http/HttpClientOptions.php
+                 * https://github.com/beste/firebase-php/blob/6.x/src/Firebase/Http/HttpClientOptions.php
                  */
 
                 'timeout' => env('FIREBASE_HTTP_CLIENT_TIMEOUT'),
